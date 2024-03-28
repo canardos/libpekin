@@ -399,6 +399,27 @@ void setPeripheralClk(ApbPrescaler apb1_pscale, ApbPrescaler apb2_pscale, AdcPre
             | (Libp::enumBaseT(adc_pscale) << RCC_CFGR_ADCPRE_Pos) );
 }
 
+/// See `setUsbClk`
+enum class UsbPrescaler : uint8_t {
+    div1 = 1,
+    div1_5 = 0
+};
+
+/**
+ * TODO: test
+ *
+ * The USB clock is driven by the PLL and must be 48 MHz.
+ */
+inline
+void setUsbClk(UsbPrescaler prescaler)
+{
+    Libp::Bits::setBits(
+            RCC->CFGR,
+            RCC_CFGR_USBPRE,
+            (Libp::enumBaseT(prescaler) << RCC_CFGR_USBPRE_Pos) );
+}
+
+
 // SystemCoreClock is SYSCLK / AHB Prescale = HClock
 
 /**

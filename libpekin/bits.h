@@ -110,7 +110,7 @@ void clearMask(volatile uint16_t& reg, uint16_t mask)
     reg &= ~mask;
 }
 
-// 16-bit volatile
+// 16-bit
 
 constexpr
 inline __attribute__((always_inline))
@@ -182,7 +182,7 @@ void clearMask(volatile uint32_t& reg, uint32_t mask)
     reg &= ~mask;
 }
 
-// 32-bit volatile
+// 32-bit
 
 constexpr
 inline __attribute__((always_inline))

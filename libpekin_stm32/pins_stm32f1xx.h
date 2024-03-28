@@ -216,6 +216,7 @@ static_assert(getInputModeMask(InputMode::pullup) ==   0b1000'1000'1000'1000'100
 template <uint32_t base_addr_>
 class GpioPort {
 public:
+    // constexpr doesn't support reinterpret_cast, but GCC inlines this as a constant
     static inline GPIO_TypeDef* const port_ = reinterpret_cast<GPIO_TypeDef*>(base_addr_);
 
     template <OutputMode mode, OutputSpeed speed, uint8_t... pins>
