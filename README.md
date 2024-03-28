@@ -1,10 +1,11 @@
-# Libpekin MCU Library
+# Libpekin Embedded Library
 
 Libpekin is a collection of C/C++ code targeting light-weight embedded applications on 32-bit MCUs, primarily the STM32 platform.
 
-It is the result of attempts to reuse code in my [various embedded projects](https://www.duk.io/blog/electronics-projects/). The different parts of the library have been developed on-demand based on the requirements of those projects. Consequently, functionality is quite scattered with very limited testing. Some areas are reasonably developed, while others have only the minimum code needed to accomplish a specific task for a specific application.
+This repo is the result of attempts to reuse code from [various embedded projects](https://www.duk.io/blog/electronics-projects/). The different parts of the library have been developed on-demand based on the requirements of those projects. Consequently, functionality is quite scattered with very limited testing. Some areas are reasonably developed, while others have only the minimum code needed to accomplish a specific task for a specific application. **If you've stumbled across this repo, it's likely not what you're looking for.**
 
-**It almost certainly contains more than a few bugs. Be sure to read, understand, and test any code from here.**
+> [!WARNING]
+> The code here was written for very specific applications and only tested within the constraints of those applications. It almost certainly contains a number of bugs. Be sure to read, understand, and test any code from here.
 
 The library consists of a core, platform independent set of helper functions, classes, drivers and "interfaces" (`/libpekin`), and hardware specific implementations (e.g. `/libpekin_stm32`)
 
@@ -70,3 +71,7 @@ libpeken_stm32 [STM32 (primarily F1) platform]
 \libpekin_stm32_hal.*  : Required libpekin function implementations
                        : for STM32
 ```
+
+## License
+
+This software is available under the [MIT license](https://opensource.org/license/MIT).
