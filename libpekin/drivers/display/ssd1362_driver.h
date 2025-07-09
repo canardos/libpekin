@@ -7,12 +7,12 @@
 #include "bus/bus_concepts.h"
 #include "graphics/idrawing_surface.h"
 
-namespace Libp::Ssd1362 {
+namespace libp::ssd1362 {
 
 inline constexpr uint16_t x_res = 256;
 inline constexpr uint16_t y_res = 64;
 
-namespace Cmd {
+namespace cmd {
     static constexpr uint8_t set_col_addr        = 0x15; ///< followed by 2-bytes, see datasheet
     static constexpr uint8_t set_row_addr        = 0x75; ///< followed by 2-bytes, see datasheet
     static constexpr uint8_t set_contrast        = 0x81; ///< followed by 1-byte, see datasheet
@@ -103,7 +103,7 @@ public:
     void setPower(bool on)
     {
         cs_.clear();
-        bus_.write8(on ? Cmd::set_display_on : Cmd::set_display_off);
+        bus_.write8(on ? cmd::set_display_on : cmd::set_display_off);
         // TODO: disable internal reg if off
         cs_.set();
     }
@@ -112,9 +112,9 @@ public:
     void setBrightness(uint8_t brightness)
     {
         cs_.clear();
-        bus_.write8(Cmd::set_contrast);
+        bus_.write8(cmd::set_contrast);
         bus_.write8(brightness);
-        //bus_.write8(Cmd::set_vsegm_prechrg_lvl);
+        //bus_.write8(cmd::set_vsegm_prechrg_lvl);
         //bus_.write8(brightness < 0xc0 ? 0 : brightness - 0xc0);
         cs_.set();
     }
@@ -277,10 +277,10 @@ public:
             break;
         }
         cs_.clear();
-        //bus_.write8(Cmd::display_off);
-        bus_.write8(Cmd::set_remap);
+        //bus_.write8(cmd::display_off);
+        bus_.write8(cmd::set_remap);
         bus_.write8(remap);
-        //bus_.write8(Cmd::display_on);
+        //bus_.write8(cmd::display_on);
         cs_.set();
     }
 
@@ -288,7 +288,7 @@ public:
     void setInverted(bool inverted) override
     {
         cs_.clear();
-        bus_.write8(inverted ? Cmd::set_mode_inverse : Cmd::set_mode_normal);
+        bus_.write8(inverted ? cmd::set_mode_inverse : cmd::set_mode_normal);
         cs_.set();
     }
 
@@ -303,10 +303,10 @@ private:
     const X& data_mode_;
 
     static constexpr uint8_t init_sequence[] = {
-            Cmd::set_display_off,
-            Cmd::set_contrast,
+            cmd::set_display_off,
+            cmd::set_contrast,
             0x80,
-            Cmd::set_display_on,
+            cmd::set_display_on,
     };
 
     // Raw unchanging native width/height
@@ -319,15 +319,15 @@ private:
     inline
     void setCursor(uint16_t x, uint16_t y)
     {
-        bus_.write8(Cmd::set_col_addr);
+        bus_.write8(cmd::set_col_addr);
         bus_.write8(x);    // start addr
         bus_.write8(0x7f); // end addr
-        bus_.write8(Cmd::set_row_addr);
+        bus_.write8(cmd::set_row_addr);
         bus_.write8(y);    // start addr
         bus_.write8(0x3f); // end addr
     }
 };
 
-} // namespace Libp::Ssd1362
+} // namespace libp::ssd1362
 
 #endif /* SRC_SSD1362_DRIVER_H_ */

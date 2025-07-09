@@ -3,7 +3,7 @@
 
 #include "bus/bus_concepts.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * ReadWriteReg8bitAddr "interface" implementation for a to communicate with a
@@ -119,6 +119,6 @@ private:
     static constexpr uint32_t i2c_timeout_ms_ = 100;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_SERIAL_I2C_H_ */

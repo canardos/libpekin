@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "misc_math.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Very basic PID implementation. Customized for use in a specific reflow
@@ -123,6 +123,6 @@ private:
     uint64_t last_instant_ = 0;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_PID_PID_ALGO_H_ */

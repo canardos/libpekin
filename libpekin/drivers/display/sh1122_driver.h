@@ -7,9 +7,9 @@
 #include "bus/bus_concepts.h"
 #include "graphics/idrawing_surface.h"
 
-namespace Libp::Sh1122 {
+namespace libp::sh1122 {
 
-namespace Cmd {
+namespace cmd {
     static constexpr uint8_t set_contrast =          0x81; ///< followed by 1-byte (00 -> ff, low -> high)
     static constexpr uint8_t set_col_addr_normal =   0xa0; ///< note: will change addr counter
     static constexpr uint8_t set_col_addr_rev =      0xa1; ///< note: will change addr counter
@@ -76,33 +76,33 @@ public:
         : bus_(bus), reset_(reset), cs_(cs), a0_(a0), width_(x_res), height_(y_res) {}
 
     static constexpr uint8_t init_sequence[] = {
-            Cmd::set_display_off,
-            Cmd::set_contrast,
+            cmd::set_display_off,
+            cmd::set_contrast,
             0x80,
-            Cmd::set_col_addr_normal,
-            Cmd::set_scan_dir_normal,
+            cmd::set_col_addr_normal,
+            cmd::set_scan_dir_normal,
             0x40, // default display start line
-            Cmd::set_inverse_off,
+            cmd::set_inverse_off,
             // default
-            Cmd::set_multiplex_ratio,
+            cmd::set_multiplex_ratio,
             0x3f,
             // No internal DCDC
-            Cmd::set_dcdc_mode,
+            cmd::set_dcdc_mode,
             0x80,
             // No display offset
-            Cmd::set_disp_offs,
+            cmd::set_disp_offs,
             0x00,
             // default
-            Cmd::set_osc_and_disp_clk,
+            cmd::set_osc_and_disp_clk,
             0x50,
             // default
-            Cmd::set_pre_dis_chrg_pd,
+            cmd::set_pre_dis_chrg_pd,
             0x22,
             // default
-            Cmd::set_vcom_desel_lvl,
+            cmd::set_vcom_desel_lvl,
             0x35,
             // default
-            Cmd::set_vsegm_prechrg_lvl,
+            cmd::set_vsegm_prechrg_lvl,
             0x35,
             0x30, // default VSL discharge level
     };
@@ -120,14 +120,14 @@ public:
         bus_.write(init_sequence, sizeof(init_sequence));
 
         // Clear memory
-        bus_.write8(Cmd::read_mod_write);
+        bus_.write8(cmd::read_mod_write);
         bus_.read8(); // dummy read - why? // TODO: how is this working with writable bus concept..?
         a0_.set();
         for (uint16_t i = 0; i < 128 * 64; i++)
             bus_.write8(0x00);
         a0_.clear();
-        bus_.write8(Cmd::read_mod_write_end);
-        bus_.write8(Cmd::set_display_on);
+        bus_.write8(cmd::read_mod_write_end);
+        bus_.write8(cmd::set_display_on);
 
         cs_.set();
         delayMs(100);
@@ -136,7 +136,7 @@ public:
     void setPower(bool on)
     {
         cs_.clear();
-        bus_.write8(on ? Cmd::set_display_on : Cmd::set_display_off);
+        bus_.write8(on ? cmd::set_display_on : cmd::set_display_off);
         cs_.set();
     }
 
@@ -144,9 +144,9 @@ public:
     void setBrightness(uint8_t brightness)
     {
         cs_.clear();
-        bus_.write8(Cmd::set_contrast);
+        bus_.write8(cmd::set_contrast);
         bus_.write8(brightness);
-        bus_.write8(Cmd::set_vsegm_prechrg_lvl);
+        bus_.write8(cmd::set_vsegm_prechrg_lvl);
         bus_.write8(brightness < 0xc0 ? 0 : brightness - 0xc0);
         cs_.set();
         // equal brightness
@@ -161,11 +161,11 @@ public:
         color = color << 4 | color;
         cs_.clear();
         setCursor(x >> 1, y);
-        bus_.write8(Cmd::read_mod_write);
+        bus_.write8(cmd::read_mod_write);
         a0_.set();
         bus_.write8(color);
         a0_.clear();
-        bus_.write8(Cmd::read_mod_write_end);
+        bus_.write8(cmd::read_mod_write_end);
         cs_.set();
     }
 
@@ -183,12 +183,12 @@ public:
         color = color << 4 | color;
         cs_.clear();
         setCursor(x >> 1, y);
-        bus_.write8(Cmd::read_mod_write);
+        bus_.write8(cmd::read_mod_write);
         a0_.set();
         for (uint16_t i = 0; i < (length >> 1); i++)
             bus_.write8(color);
         a0_.clear();
-        bus_.write8(Cmd::read_mod_write_end);
+        bus_.write8(cmd::read_mod_write_end);
         cs_.set();
     }
 
@@ -205,12 +205,12 @@ public:
         cs_.clear();
         for (uint8_t y_idx = y; y_idx < y + height; y_idx++) {
             setCursor(x >> 1, y_idx);
-            bus_.write8(Cmd::read_mod_write);
+            bus_.write8(cmd::read_mod_write);
             a0_.set();
             for (uint16_t i = 0; i < (width >> 1); i++)
                 bus_.write8(color);
             a0_.clear();
-            bus_.write8(Cmd::read_mod_write_end);
+            bus_.write8(cmd::read_mod_write_end);
         }
         cs_.set();
     }
@@ -222,17 +222,17 @@ public:
         cs_.clear();
 
         //setCursor(0, 0);
-        bus_.write8(Cmd::set_row_addr);
+        bus_.write8(cmd::set_row_addr);
         bus_.write8(0);
         bus_.write8(0);
         bus_.write8(0x10);
 
-        bus_.write8(Cmd::read_mod_write);
+        bus_.write8(cmd::read_mod_write);
         a0_.set();
         for (uint16_t i = 0; i < (width_ * height_ / 2); i++)
             bus_.write8(color);
         a0_.clear();
-        bus_.write8(Cmd::read_mod_write_end);
+        bus_.write8(cmd::read_mod_write_end);
         cs_.set();
     }
 
@@ -260,7 +260,7 @@ public:
 
         if (width == width_ && x == 0) {
             setCursor(0, y);
-            bus_.write8(Cmd::read_mod_write);
+            bus_.write8(cmd::read_mod_write);
             a0_.set();
 
             //uint32_t len = width * height / 2;
@@ -269,7 +269,7 @@ public:
             const uint32_t len = width * height / 2;
             bus_.write(&data[arr_idx], len);
             a0_.clear();
-            bus_.write8(Cmd::read_mod_write_end);
+            bus_.write8(cmd::read_mod_write_end);
         }
         else {
             int16_t offscreen_bytes = ((x + width) - width_) >> 1;
@@ -284,14 +284,14 @@ public:
             uint16_t x_idx = x >> 1;
             for (uint16_t y_idx = y; y_idx < y + height; y++) {
                 setCursor(x_idx, y_idx);
-                bus_.write8(Cmd::read_mod_write);
+                bus_.write8(cmd::read_mod_write);
                 a0_.set();
                 //for (uint16_t i = width; i > 0; i-=2)
                 //    bus_.write8(data[arr_idx++]);
                 bus_.write(&data[arr_idx], width / 2);
                 arr_idx += offscreen_bytes;
                 a0_.clear();
-                bus_.write8(Cmd::read_mod_write_end);
+                bus_.write8(cmd::read_mod_write_end);
             }
         }
         cs_.set();
@@ -305,28 +305,28 @@ public:
         uint8_t col_addr_cmd, scan_dir_cmd, row_offs;
 
         if (orientation == Orientation::landscape) {
-            col_addr_cmd = Cmd::set_col_addr_normal;
-            scan_dir_cmd = Cmd::set_scan_dir_normal;
+            col_addr_cmd = cmd::set_col_addr_normal;
+            scan_dir_cmd = cmd::set_scan_dir_normal;
             row_offs = 0x40;
         }
         else {
-            col_addr_cmd = Cmd::set_col_addr_rev;
-            scan_dir_cmd = Cmd::set_scan_dir_rev;
+            col_addr_cmd = cmd::set_col_addr_rev;
+            scan_dir_cmd = cmd::set_scan_dir_rev;
             row_offs = 0x60;
         }
         cs_.clear();
-        bus_.write8(Cmd::set_display_off);
+        bus_.write8(cmd::set_display_off);
         bus_.write8(col_addr_cmd); // col flip
         bus_.write8(scan_dir_cmd); // row flip
         bus_.write8(row_offs);
-        bus_.write8(Cmd::set_display_on);
+        bus_.write8(cmd::set_display_on);
         cs_.set();
     }
 
     void setInverted(bool inverted) override
     {
         cs_.clear();
-        bus_.write8(inverted ? Cmd::set_inverse_on : Cmd::set_inverse_off);
+        bus_.write8(inverted ? cmd::set_inverse_on : cmd::set_inverse_off);
         cs_.set();
     }
 
@@ -348,13 +348,13 @@ private:
     inline
     void setCursor(uint16_t x, uint16_t y)
     {
-        bus_.write8(Cmd::set_row_addr);
+        bus_.write8(cmd::set_row_addr);
         bus_.write8(y);
         bus_.write8(15 & x);
         bus_.write8(0x10 | (x >> 4) );
     }
 };
 
-} // namespace Libp::Sh1122
+} // namespace libp::sh1122
 
 #endif /* SRC_SH1122_DRIVER_H_ */

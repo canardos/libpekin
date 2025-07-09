@@ -12,10 +12,10 @@
  *
  * void flashLed();
  *
- * using namespace LibpStm32
+ * using namespace libp_stm32
  *
- * Clk::enable<Clk::Apb1::tim2>();
- * Tim::BasicTimer<TIM2_BASE> timer;
+ * clk::enable<clk::Apb1::tim2>();
+ * tim::BasicTimer<TIM2_BASE> timer;
  *
  * timer.initBasic(72'000'000, false);
  * timer.enable();
@@ -32,10 +32,10 @@
  *
  * void flashLed();
  *
- * using namespace LibpStm32
+ * using namespace libp_stm32
  *
- * Clk::enable<Clk::Apb1::tim2>();
- * Tim::BasicTimer<TIM2_BASE> timer;
+ * clk::enable<clk::Apb1::tim2>();
+ * tim::BasicTimer<TIM2_BASE> timer;
  *
  * timer.initBasic(72'000'000, false);
  * timer.enableEvents(true, false);
@@ -56,23 +56,23 @@
  * // Basic timer, output
  * // --------------------------
  *
- * using namespace Libp
- * using namespace LibpStm32
+ * using namespace libp
+ * using namespace libp_stm32
  *
- * Clk::enable<Clk::Apb1::tim2>();
- * Tim::BasicTimer<TIM2_BASE> timer;
+ * clk::enable<clk::Apb1::tim2>();
+ * tim::BasicTimer<TIM2_BASE> timer;
  *
  * // TIM2 CH2 = Pin A1
  *
- * Clk::enable<Clk::Apb2::iopa>();
+ * clk::enable<clk::Apb2::iopa>();
  * PinA<1>::.setAsOutput(OutputMode::alt_pushpull, OutputSpeed::low);
  *
  * timer.initBasic(72'000'000, false);
  *
  * timer.setupOutputChannel(
- *     Tim::Channel::ch2,
- *     Tim::OutputCompareMode::toggle,
- *     Tim::CaptureComparePolarity::oc_active_high_ic_non_inv);
+ *     tim::Channel::ch2,
+ *     tim::OutputCompareMode::toggle,
+ *     tim::CaptureComparePolarity::oc_active_high_ic_non_inv);
  *
  * timer.enable();
  *
@@ -82,14 +82,14 @@
  * // Basic timer, PWM output
  * // --------------------------
  *
- * using namespace LibpStm32
+ * using namespace libp_stm32
  *
- * Clk::enable<Clk::Apb1::tim2>();
- * Tim::BasicTimer<TIM2_BASE> timer;
+ * clk::enable<clk::Apb1::tim2>();
+ * tim::BasicTimer<TIM2_BASE> timer;
  *
  * // TIM2 CH2 = Pin A1
  *
- * Clk::enable<Clk::Apb2::iopa>();
+ * clk::enable<clk::Apb2::iopa>();
  * PinA<1>::.setAsOutput(OutputMode::alt_pushpull, OutputSpeed::low);
  *
  * timer.initPwm(Channel::ch2, 100, 50, true);
@@ -101,11 +101,11 @@
  *     uint8_t i = 1;
  *     while (i++ < 100) {
  *         timer.setCompare(Channel::ch2, i);
- *         Libp::delayMs(5);
+ *         libp::delayMs(5);
  *     }
  *     while (i-- > 0) {
  *         timer.setCompare(Channel::ch2, i);
- *         Libp::delayMs(5);
+ *         libp::delayMs(5);
  *     }
  * }
  *
@@ -152,7 +152,7 @@
 
 static_assert(TIM1_BASE > 0, "STM32 CMSIS header must be included before this file");
 
-namespace LibpStm32::Tim {
+namespace libp_stm32::tmr {
 
 /**
  * TRGO Trigger Type
@@ -330,7 +330,7 @@ public:
     {
         tim_->CR1 = TIM_CR1_UDIS;    // disable update events
         tim_->SR = 0;                // clear events
-        tim_->CR2 = Libp::enumBaseT(TrgoMode::update);
+        tim_->CR2 = libp::enumBaseT(TrgoMode::update);
 
         setPeriod(period);
         tim_->CR1 = one_pulse << TIM_CR1_OPM_Pos;
@@ -355,9 +355,9 @@ public:
     {
         tim_->CR1 |= TIM_CR1_UDIS;    // disable updates
         tim_->SR = 0;                // clear events
-        tim_->CR2 = Libp::enumBaseT(trgo_mode);
+        tim_->CR2 = libp::enumBaseT(trgo_mode);
         // TODO: count_mode is read only when the timer is configured in Center-aligned mode or Encoder mode
-        tim_->CR1 = Libp::enumBaseT(count_mode) | Libp::enumBaseT(clock_div) | one_pulse << TIM_CR1_OPM_Pos;
+        tim_->CR1 = libp::enumBaseT(count_mode) | libp::enumBaseT(clock_div) | one_pulse << TIM_CR1_OPM_Pos;
         // Generate an update event to re-init counters
         tim_->EGR  |= TIM_EGR_UG;
         clearUpdFlag();
@@ -412,7 +412,7 @@ public:
      */
     static void enableEvents(bool irq_en, bool dma_en)
     {
-        Libp::Bits::setBits(
+        libp::bits::setBits(
                 tim_->DIER,
                 TIM_DIER_UDE_Msk | TIM_DIER_UIE_Msk,
                 (dma_en << TIM_DIER_UDE_Pos) | (irq_en << TIM_DIER_UIE_Pos));
@@ -440,16 +440,16 @@ public:
             // Channel must be disabled to modify CCxS (i.e. set output mode)
             tim_->CCER &= ~TIM_CCER_CC1E_Msk;
             tim_->CCMR1 = (tim_->CCMR1 & ~(TIM_CCMR1_OC1M_Msk | TIM_CCMR1_CC1S_Msk))
-                    | (Libp::enumBaseT(oc_mode) << TIM_CCMR1_OC1M_Pos);     // output mode
+                    | (libp::enumBaseT(oc_mode) << TIM_CCMR1_OC1M_Pos);     // output mode
             tim_->CCER  = (tim_->CCER & ~TIM_CCER_CC1P_Msk)
-                    | (Libp::enumBaseT(icoc_polarity) << TIM_CCER_CC1P_Pos) // output channel polarity
+                    | (libp::enumBaseT(icoc_polarity) << TIM_CCER_CC1P_Pos) // output channel polarity
                     | TIM_CCER_CC1E_Msk;                                // re-enable output
             break;
         case Channel::ch2:
             tim_->CCER &= ~TIM_CCER_CC2E_Msk;
-            Libp::Bits::setBits(tim_->CCMR1,
+            libp::bits::setBits(tim_->CCMR1,
                     TIM_CCMR1_OC2M_Msk | TIM_CCMR1_CC2S_Msk | TIM_CCMR1_OC2PE_Msk | TIM_CCMR1_OC2FE_Msk,
-                    Libp::enumBaseT(oc_mode) << TIM_CCMR1_OC2M_Pos |  // output mode
+                    libp::enumBaseT(oc_mode) << TIM_CCMR1_OC2M_Pos |  // output mode
                     fast_en << TIM_CCMR1_OC2FE_Pos |              // fast enable
                     preload_en << TIM_CCMR1_OC2PE_Pos );          // preload enable
 
@@ -461,25 +461,25 @@ public:
             //  Set the preload bit in CCMRx register and the ARPE bit in the CR1 regist
 
             // OC ouptut enable - set MOE bit on TIM2_BDTR
-            Libp::Bits::setBits(tim_->CCER,
+            libp::bits::setBits(tim_->CCER,
                     TIM_CCER_CC2P_Msk,
-                    (Libp::enumBaseT(icoc_polarity) << TIM_CCER_CC2P_Pos) // output channel polarity
+                    (libp::enumBaseT(icoc_polarity) << TIM_CCER_CC2P_Pos) // output channel polarity
                     | TIM_CCER_CC2E_Msk);                             // re-enable output
             break;
         case Channel::ch3:
             tim_->CCER &= ~TIM_CCER_CC3E_Msk; // Channel must be disabled to modify CCxS (i.e. set output mode)
             tim_->CCMR2 = (tim_->CCMR2 & ~(TIM_CCMR2_OC3M_Msk | TIM_CCMR2_CC3S_Msk))
-                    | (Libp::enumBaseT(oc_mode) << TIM_CCMR2_OC3M_Pos);     // output mode
+                    | (libp::enumBaseT(oc_mode) << TIM_CCMR2_OC3M_Pos);     // output mode
             tim_->CCER  = (tim_->CCER & ~TIM_CCER_CC3P_Msk)
-                    | (Libp::enumBaseT(icoc_polarity) << TIM_CCER_CC3P_Pos) // output channel polarity
+                    | (libp::enumBaseT(icoc_polarity) << TIM_CCER_CC3P_Pos) // output channel polarity
                     | TIM_CCER_CC3E_Msk;                                // re-enable output
             break;
         case Channel::ch4:
             tim_->CCER &= ~TIM_CCER_CC4E_Msk; // Channel must be disabled to modify CCxS (i.e. set output mode)
             tim_->CCMR2 = (tim_->CCMR2 & ~(TIM_CCMR2_OC4M_Msk | TIM_CCMR2_CC4S_Msk))
-                    | (Libp::enumBaseT(oc_mode) << TIM_CCMR2_OC4M_Pos);     // output mode
+                    | (libp::enumBaseT(oc_mode) << TIM_CCMR2_OC4M_Pos);     // output mode
             tim_->CCER  = (tim_->CCER & ~TIM_CCER_CC4P_Msk)
-                    | (Libp::enumBaseT(icoc_polarity) << TIM_CCER_CC4P_Pos) // output channel polarity
+                    | (libp::enumBaseT(icoc_polarity) << TIM_CCER_CC4P_Pos) // output channel polarity
                     | TIM_CCER_CC4E_Msk;                                // re-enable output
             break;
         }
@@ -495,7 +495,7 @@ public:
     inline __attribute__((always_inline))
     static uint32_t getRegCcr(Channel channel)
     {
-        const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + Libp::enumBaseT(channel);
+        const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + libp::enumBaseT(channel);
         return *reinterpret_cast<uint32_t*>(cr_reg_addr);
     }
 
@@ -508,7 +508,7 @@ public:
     inline __attribute__((always_inline))
     static void setRegCcr(Channel channel, uint32_t ccr)
     {
-        const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + Libp::enumBaseT(channel);
+        const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + libp::enumBaseT(channel);
         *reinterpret_cast<uint32_t*>(cr_reg_addr) = ccr;
     }
 
@@ -526,11 +526,11 @@ public:
         setRegCcr(channel, compare / (tim_->PSC + 1));
         // TODO: check arithmetic
 
-        /*const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + Libp::enumBaseT(channel);
+        /*const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + libp::enumBaseT(channel);
         *reinterpret_cast<uint32_t*>(cr_reg_addr) = compare / (tim_->PSC + 1);
         */
 
-        //*(&tim_->CCR1 + (Libp::enumBaseT(channel) >> 2u)) = compare;
+        //*(&tim_->CCR1 + (libp::enumBaseT(channel) >> 2u)) = compare;
     }
 
     /**
@@ -547,7 +547,7 @@ public:
     static uint32_t getCompare(Channel channel)
     {
         return getRegCcr(channel) * (tim_->PSC + 1);
-        /*const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + Libp::enumBaseT(channel);
+        /*const uint32_t cr_reg_addr = base_addr_ + offsetof(TIM_TypeDef, CCR1) + libp::enumBaseT(channel);
         const uint32_t compare = *reinterpret_cast<uint32_t*>(cr_reg_addr);
         return compare * (tim_->PSC + 1);*/
 
@@ -729,6 +729,6 @@ public:
     return std::make_tuple(prescaler, multiplier);
 }*/
 
-} // Libp::Stm32::Tim
+} // libp::Stm32::tmr
 
 #endif /* LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_ */

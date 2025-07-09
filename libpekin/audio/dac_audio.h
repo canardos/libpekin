@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 enum class AudioResolution : uint8_t {
     bits8,
@@ -22,6 +22,6 @@ struct AudioSample {
     uint16_t len;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_AUDIO_DAC_AUDIO_H_ */

@@ -3,7 +3,7 @@
 
 #include "misc_math.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Basic single producer/consumer byte ring buffer.
@@ -53,6 +53,6 @@ private:
     }
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_RING_BUFFER_H_ */

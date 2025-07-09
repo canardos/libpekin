@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Sequence of device commands in the following format:
@@ -27,9 +27,9 @@ inline constexpr uint8_t cust_cmd_delay = 0xFF;
 /**
  * Subset of the MIPI DCS V1 Command Set
  */
-namespace MipiDcs {
+namespace mipi_dcs {
 
-    namespace Cmd {
+    namespace cmd {
         inline constexpr uint8_t soft_reset = 0x01;
         inline constexpr uint8_t exit_sleep_mode = 0x11;
 
@@ -87,18 +87,19 @@ namespace MipiDcs {
         inline constexpr uint8_t set_scroll_start = 0x37;
 
         inline constexpr uint8_t pixel_format = 0x3A; // [6:4]DPI / [2:0]DBI
-    }
+    } // namespace cmd
 
-    namespace PixelFmt {
+    namespace pixel_fmt {
         inline constexpr uint8_t dcs_3bpp = 1;
         inline constexpr uint8_t dcs_8bpp = 2;
         inline constexpr uint8_t dcs_12bpp = 3;
         inline constexpr uint8_t dcs_16bpp = 5;
         inline constexpr uint8_t dcs_18bpp = 6;
         inline constexpr uint8_t dcs_24bpp = 7;
-    }
-}
+    } // namespace pixel_fmt
 
-} // namespace Libp
+} // namespace mipi_dcs
+
+} // namespace libp
 
 #endif /* SRC_TFTLIB_TFT_CMD_DEFS_H_ */

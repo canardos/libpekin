@@ -5,7 +5,7 @@
 #include "libpekin.h"
 #include "bus/bus_concepts.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Platform independent basic SPI bus operations class.
@@ -66,6 +66,6 @@ private:
     CsEnableFunc cs_set_active_;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_SERIAL_SPI_H_ */

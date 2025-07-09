@@ -35,7 +35,7 @@
 #include <cstdint>
 #include "i_touch_screen.h"
 
-namespace Libp::ResistiveTouch {
+namespace libp::resist_touch {
 
 struct CalibrationMatrix {
     // int32 is adequate for 10-bit ADC
@@ -244,6 +244,6 @@ private:
 
 };
 
-} // namespace Libp::ResistiveTouch
+} // namespace libp::resist_touch
 
 #endif /* SRC_RESISTIVE_TOUCH_H_ */

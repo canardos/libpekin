@@ -6,7 +6,7 @@
 #include "bits.h"
 #include "flash_stm32f1xx_stm.h"
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 /**
  * Functions to erase/write flash.
@@ -340,6 +340,6 @@ private:
     }
 };
 
-} // namespace LibpStm32 {
+} // namespace libp_stm32 {
 
 #endif /* LIB_LIBPEKIN_STM32_FLASH_STM32F1XX_H_ */

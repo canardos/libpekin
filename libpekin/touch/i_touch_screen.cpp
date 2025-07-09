@@ -1,7 +1,7 @@
 #include "i_touch_screen.h"
 
-namespace Libp::ResistiveTouch {
+namespace libp::resist_touch {
 
 ITouchScreen::~ITouchScreen() = default;
 
-} // namespace Libp::ResistiveTouch
+} // namespace libp::resist_touch

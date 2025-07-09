@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 enum class Orientation : uint8_t {
     portrait = 0, landscape, portrait_rev, landscape_rev
@@ -77,7 +77,7 @@ public:
 //    virtual void flush() = 0;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* IDRAWING_SURFACE_H_ */
 

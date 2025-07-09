@@ -16,7 +16,7 @@
 
 static_assert(GPIOA_BASE > 0, "STM32 CMSIS header must be included before this file");
 
-namespace LibpStm32::Clk {
+namespace libp_stm32::clk {
 
 /// APB1 peripherals (STM32F1xx)
 enum class Apb1 : uint8_t {
@@ -51,7 +51,7 @@ enum class Ahb : uint8_t {
 /**
  * Enable one or more APB1 peripheral clocks.
  *
- * e.g. Clk::enable<Clk::Apb1::tim2, Clk::Apb1::spi2>();
+ * e.g. clk::enable<clk::Apb1::tim2, clk::Apb1::spi2>();
  *
  * Note:
  * No delay is performed after enabling. Per STM errata, a delay of 1 or 2
@@ -64,13 +64,13 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->APB1ENR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1ENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 /**
  * Enable one or more APB2 peripheral clocks.
  *
- * e.g. Clk::enable<Clk::Apb2::afio, Clk::Apb2::iopa>();
+ * e.g. clk::enable<clk::Apb2::afio, clk::Apb2::iopa>();
  *
  * Note:
  * No delay is performed after enabling. Per STM errata, a delay of 1 or 2
@@ -83,13 +83,13 @@ template <Apb2... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->APB2ENR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2ENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 /**
  * Enable one or more AHB peripheral clocks.
  *
- * e.g. Clk::enable<Clk::Ahb::fsmc, Clk::Ahb::sdio>();
+ * e.g. clk::enable<clk::Ahb::fsmc, clk::Ahb::sdio>();
  *
  * Note:
  * No delay is performed after enabling. Per STM errata, a delay of 1 or 2
@@ -102,14 +102,14 @@ template <Ahb... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->AHBENR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 
 /**
  * Disable one or more APB1 peripheral clocks.
  *
- * e.g. Clk::disable<Clk::Apb1::tim2, Clk::Apb1::spi2>();
+ * e.g. clk::disable<clk::Apb1::tim2, clk::Apb1::spi2>();
  *
  * @tparam peripheral
  */
@@ -117,13 +117,13 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void disable()
 {
-    RCC->APB1ENR &= ~((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1ENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 /**
  * Disable one or more APB2 peripheral clocks.
  *
- * e.g. Clk::enable<Clk::Apb2::afio, Clk::Apb2::iopa>();
+ * e.g. clk::enable<clk::Apb2::afio, clk::Apb2::iopa>();
  *
  * @tparam peripheral
  */
@@ -131,13 +131,13 @@ template <Apb2... peripheral>
 inline
 void disable()
 {
-    RCC->APB2ENR &= ~((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2ENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 /**
  * Disable one or more AHB peripheral clocks.
  *
- * e.g. Clk::enable<Clk::Ahb::fsmc, Clk::Ahb::sdio>();
+ * e.g. clk::enable<clk::Ahb::fsmc, clk::Ahb::sdio>();
  *
  * @tparam peripheral
  */
@@ -145,13 +145,13 @@ template <Ahb... peripheral>
 inline __attribute__((always_inline))
 void disable()
 {
-    RCC->AHBENR &= ~((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
 }
 
 /**
  * Reset one or more APB1 peripherals.
  *
- * e.g. Clk::reset<Clk::Apb1::tim2, Clk::Apb1::spi2>();
+ * e.g. clk::reset<clk::Apb1::tim2, clk::Apb1::spi2>();
  *
  * @tparam peripheral
  */
@@ -159,14 +159,14 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void reset()
 {
-    RCC->APB1RSTR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1RSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
     RCC->APB1RSTR = 0;
 }
 
 /**
  * Reset one or more APB2 peripherals.
  *
- * e.g. Clk::reset<Clk::Apb2::afio, Clk::Apb2::iopa>();
+ * e.g. clk::reset<clk::Apb2::afio, clk::Apb2::iopa>();
  *
  * @tparam peripheral
  */
@@ -174,14 +174,14 @@ template <Apb2... peripheral>
 inline __attribute__((always_inline))
 void reset()
 {
-    RCC->APB2RSTR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2RSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
     RCC->APB2RSTR = 0;
 }
 
 /**
  * Reset one or more AHB peripherals.
  *
- * e.g. Clk::reset<Clk::Ahb::fsma, Clk::Ahb::sdio>();
+ * e.g. clk::reset<clk::Ahb::fsma, clk::Ahb::sdio>();
  *
  * @tparam peripheral
  */
@@ -190,7 +190,7 @@ void reset()
 inline
 void reset()
 {
-    RCC->AHBRSTR |= ((1u << Libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBRSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
     RCC->AHBRSTR = 0;
 }*/
 
@@ -260,7 +260,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
     // Adjust flash latency, set prefetch prior to clock change
     // Not clear from docs what benefit half cycle access provides when using
     // low clock speeds. Keeping disabled
-    Libp::Bits::setBits(
+    libp::bits::setBits(
             FLASH->ACR,
             FLASH_ACR_PRFTBE | FLASH_ACR_HLFCYA | FLASH_ACR_LATENCY,
             FLASH_ACR_PRFTBE | flash_latency);
@@ -269,7 +269,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
     uint32_t saved_rcc_cr_hsion_state = RCC->CR & RCC_CR_HSION;
     if ( (RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI ) {
         RCC->CR |= RCC_CR_HSION;                // Enable HSI oscillator
-        Libp::Bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_HSI);
+        libp::bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_HSI);
         while ( (RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI )
             ;                                   // Wait for SYSCLK == HSI
     }
@@ -281,7 +281,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
         RCC->CR &= ~RCC_CR_HSEON;                // Disable HSE oscillator
         RCC->CR |= RCC_CR_HSEBYP | RCC_CR_HSEON; // Enable high speed external clock bypass
         //RCC->CFGR |= RCC_CFGR_SW_HSE;            // SYSCLK = HSE
-        Libp::Bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_HSE);
+        libp::bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_HSE);
         while (!(RCC->CFGR & RCC_CFGR_SWS_HSE))
             ;                                    // Wait for SYSCLK == HSE
         break;
@@ -290,7 +290,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
         RCC->CR |= RCC_CR_HSEON;                          // Enable HSE oscillator
         while (!(RCC->CR & RCC_CR_HSERDY))
             ;                                             // Wait for HSE oscillator ready
-        Libp::Bits::setBits(
+        libp::bits::setBits(
                 RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_HSE); // SYSCLK = HSE
         while (!(RCC->CFGR & RCC_CFGR_SWS_HSE))
             ;                                             // Wait for SYSCLK == HSE
@@ -308,7 +308,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
             else
                 RCC->CFGR &= ~RCC_CFGR_PLLXTPRE; // Input = HSE
         }
-        Libp::Bits::setBits(
+        libp::bits::setBits(
                 RCC->CFGR, RCC_CFGR_PLLMULL_Msk,
                 (pll_multiplier - 2) << RCC_CFGR_PLLMULL_Pos);
 
@@ -316,7 +316,7 @@ void setSysClk(SysClkSrc source, uint8_t flash_latency, PllSrc pll_source = PllS
         while (!(RCC->CR & RCC_CR_PLLRDY))
             ;                                    // Wait for PLL ready
 
-        Libp::Bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_PLL); // SYSCLK = PLL
+        libp::bits::setBits(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_PLL); // SYSCLK = PLL
         while (!(RCC->CFGR & RCC_CFGR_SWS_PLL))
             ;                                    // Wait for SYSCLK == PLL
         break;
@@ -371,7 +371,7 @@ enum class AdcPrescaler : uint8_t {
 inline
 void setHClk(AhbPrescaler ahb_pscale)
 {
-    Libp::Bits::setBits(RCC->CFGR, RCC_CFGR_HPRE, Libp::enumBaseT(ahb_pscale) << RCC_CFGR_HPRE_Pos);
+    libp::bits::setBits(RCC->CFGR, RCC_CFGR_HPRE, libp::enumBaseT(ahb_pscale) << RCC_CFGR_HPRE_Pos);
     // Update CMSIS SystemCoreClock var
     SystemCoreClockUpdate();
 }
@@ -392,11 +392,11 @@ void setHClk(AhbPrescaler ahb_pscale)
 inline
 void setPeripheralClk(ApbPrescaler apb1_pscale, ApbPrescaler apb2_pscale, AdcPrescaler adc_pscale = AdcPrescaler::div2)
 {
-    Libp::Bits::setBits(RCC->CFGR,
+    libp::bits::setBits(RCC->CFGR,
             RCC_CFGR_PPRE1 | RCC_CFGR_PPRE2 | RCC_CFGR_ADCPRE,
-              (Libp::enumBaseT(apb1_pscale) << RCC_CFGR_PPRE1_Pos)
-            | (Libp::enumBaseT(apb2_pscale) << RCC_CFGR_PPRE2_Pos)
-            | (Libp::enumBaseT(adc_pscale) << RCC_CFGR_ADCPRE_Pos) );
+              (libp::enumBaseT(apb1_pscale) << RCC_CFGR_PPRE1_Pos)
+            | (libp::enumBaseT(apb2_pscale) << RCC_CFGR_PPRE2_Pos)
+            | (libp::enumBaseT(adc_pscale) << RCC_CFGR_ADCPRE_Pos) );
 }
 
 /// See `setUsbClk`
@@ -413,10 +413,10 @@ enum class UsbPrescaler : uint8_t {
 inline
 void setUsbClk(UsbPrescaler prescaler)
 {
-    Libp::Bits::setBits(
+    libp::bits::setBits(
             RCC->CFGR,
             RCC_CFGR_USBPRE,
-            (Libp::enumBaseT(prescaler) << RCC_CFGR_USBPRE_Pos) );
+            (libp::enumBaseT(prescaler) << RCC_CFGR_USBPRE_Pos) );
 }
 
 
@@ -465,6 +465,6 @@ uint32_t getAdcClk()
     return SystemCoreClock >> prescale;
 }
 
-} // namespace LibpStm32::Clk
+} // namespace libp_stm32::clk
 
 #endif /* LIB_LIBPEKIN_STM32_CLOCK_STM32_H_ */

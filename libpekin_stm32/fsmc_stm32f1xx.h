@@ -5,7 +5,7 @@
 #include "bits.h"
 #include "libpekin.h"
 
-namespace LibpStm32::Fsmc {
+namespace libp_stm32::fsmc {
 
 
 // AN2784 - Using the high-density STM32F10xxx FSMCperipheral to drive external memories
@@ -47,7 +47,7 @@ Bank3 NAND
 inline __attribute__((always_inline))
 void nadvDisconnected()
 {
-    Libp::Bits::setBit(AFIO->MAPR2, AFIO_MAPR2_FSMC_NADV_REMAP_Pos);
+    libp::bits::setBit(AFIO->MAPR2, AFIO_MAPR2_FSMC_NADV_REMAP_Pos);
 }
 
 /**
@@ -56,7 +56,7 @@ void nadvDisconnected()
 inline __attribute__((always_inline))
 void nadvConnected()
 {
-    Libp::Bits::clearBit(AFIO->MAPR2, AFIO_MAPR2_FSMC_NADV_REMAP_Pos);
+    libp::bits::clearBit(AFIO->MAPR2, AFIO_MAPR2_FSMC_NADV_REMAP_Pos);
 }
 
 
@@ -137,18 +137,18 @@ struct Config {
         uint32_t bcr =
                   cram_burst_en                 << FSMC_BCRx_CBURSTRW_Pos
                 | addr_data_mux                 << FSMC_BCRx_MUXEN_Pos
-                | Libp::enumBaseT(mem_type)
-                | Libp::enumBaseT(data_width)
+                | libp::enumBaseT(mem_type)
+                | libp::enumBaseT(data_width)
                 | flash_access_en               << FSMC_BCRx_FACCEN_Pos
                 | burst_en                      << FSMC_BCRx_BURSTEN_Pos
-                | Libp::enumBaseT(wait_polarity)
+                | libp::enumBaseT(wait_polarity)
                 | direct_wrap_burst_en          << FSMC_BCRx_WRAPMOD_Pos
-                | Libp::enumBaseT(sync_wait_cfg)
+                | libp::enumBaseT(sync_wait_cfg)
                 | write_en                      << FSMC_BCRx_WREN_Pos
                 | wait_en                       << FSMC_BCRx_WAITEN_Pos
                 | ext_mode_en                   << FSMC_BCRx_EXTMOD_Pos
                 | async_wait_en                 << FSMC_BCRx_ASYNCWAIT_Pos
-                | Libp::enumBaseT(cram_pg_size)
+                | libp::enumBaseT(cram_pg_size)
                 | cram_burst_en                 << FSMC_BCRx_CBURSTRW_Pos;
 
         uint32_t btr =
@@ -185,13 +185,13 @@ public:
     inline __attribute__((always_inline))
     static void disable()
     {
-        Libp::Bits::clearMask(bcr_, FSMC_BCRx_MBKEN);
+        libp::bits::clearMask(bcr_, FSMC_BCRx_MBKEN);
     }
 
     inline __attribute__((always_inline))
     static void enable()
     {
-        Libp::Bits::setMask(bcr_, FSMC_BCRx_MBKEN);
+        libp::bits::setMask(bcr_, FSMC_BCRx_MBKEN);
     }
 
     /// FSMC clock must be enabled prior to calling this function
@@ -199,7 +199,7 @@ public:
     {
         disable();
         constexpr uint32_t mask = ~(1 << 7); // bit 7 must be preserved
-        Libp::Bits::setBits(bcr_, mask, cfg.bcr);
+        libp::bits::setBits(bcr_, mask, cfg.bcr);
         btr_ = cfg.btr;
         // TODO: extended timing regs
         enable();
@@ -218,6 +218,6 @@ public:
 // When the extended mode is enabled, the FSMC_BTR register is used for read operations and the FSMC_BWR register is used for write operations.
 
 
-} // namespace LibpStm32::Fsmc
+} // namespace libp_stm32::fsmc
 
 #endif /* LIB_LIBPEKIN_STM32_FSMC_STM32F1XX_H_ */

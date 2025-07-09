@@ -7,7 +7,7 @@
 #include <cstdint>
 #include "display/tft_cmd_defs.h"
 
-namespace Libp::Ili9481 {
+namespace libp::ili9481 {
     inline constexpr uint16_t device_width = 320;
     inline constexpr uint16_t device_height = 480;
     inline constexpr uint16_t device_id = 0x9481;
@@ -15,7 +15,7 @@ namespace Libp::Ili9481 {
 /**
  * Subset of ILI9481 Native Commands
  */
-namespace Cmd {
+namespace cmd {
     /**
      * 6 bytes returned:
      * - 1 Dummy read
@@ -44,7 +44,7 @@ namespace Cmd {
     inline constexpr uint8_t power_set_partial_mode = 0xD3;
     inline constexpr uint8_t power_set_idle_mode = 0xD4;
 
- } // namespace Cmd
+ } // namespace cmd
 
 /*
  * ILI9481 application notes:
@@ -82,7 +82,7 @@ inline constexpr CmdSequence init_cmd_seq = {
         // *** Set power registers ***
 
         // Enable manufacturer commands B1->DF, E0->EF, F0->FF (PWON default)
-        Cmd::access_protect,
+        cmd::access_protect,
             1,
             0x00,
         /*
@@ -98,7 +98,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * VCIRE    = internal ref.    =  2.5V
          * VREG1OUT = 2.5V x 1.60      =  4.0V [VREG1OUT <= (DDVDH - 0.25)V.]
          */
-        Cmd::power_set,
+        cmd::power_set,
             3,
             0x07, 0x42, 0x18,
         /*
@@ -106,7 +106,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * VCOMH      = VREG1OUT * 0.720 (0.685) = 1.80V
          * VCOM ampl. = VREG1OUT * 1.020 (0.700) = 2.55V
          */
-        Cmd::vcom_ctrl,
+        cmd::vcom_ctrl,
             3,
             0x00, 0x07, 0x10,
         /*
@@ -118,7 +118,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * fDCDC2                     = Fosc/16 (Fosc/64)
          * fDCDC1                     = Fosc/4  (Fosc/4)
          */
-        Cmd::power_set_normal_mode,
+        cmd::power_set_normal_mode,
             2,
             0x01, 0x02,
         /*
@@ -130,7 +130,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * fDCDC2                     = Fosc/16 (Fosc/64)
          * fDCDC1                     = Fosc/4  (Fosc/4)
          */
-        Cmd::power_set_partial_mode,
+        cmd::power_set_partial_mode,
             2,
             0x01, 0x02,
         /*
@@ -142,13 +142,13 @@ inline constexpr CmdSequence init_cmd_seq = {
          * fDCDC2                     = Fosc/16 (Fosc/64)
          * fDCDC1                     = Fosc/4  (Fosc/4)
          */
-        Cmd::power_set_idle_mode,
+        cmd::power_set_idle_mode,
             2,
             0x01, 0x02,
         /*
          *
          */
-        MipiDcs::Cmd::exit_sleep_mode, 0,
+        mipi_dcs::cmd::exit_sleep_mode, 0,
         /*
          *
          */
@@ -164,7 +164,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * GRAM 16->18bit data fmt   = 0 used for LSB (default)
          * DFM ?                     = (default)
          */
-        Cmd::mem_access_and_iface_set,
+        cmd::mem_access_and_iface_set,
             4,
             0x02, 0x00, 0x00, 0x00,
         /*
@@ -173,7 +173,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * Display op. mode = internal system clk. (default)
          *
          */
-        Cmd::disp_mode_and_mem_write_mode_set,
+        cmd::disp_mode_and_mem_write_mode_set,
             1,
             0x00,
         /*
@@ -188,7 +188,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * - scan mode (PTG)           = 1 (default)
          * - scan cycle (ISC)          = 1 (default)
          */
-        Cmd::panel_driving_set,
+        cmd::panel_driving_set,
             5,
             0x12/* TODO: low nibble 2 is invalid */, 0x3B, 0x00, 0x02, 0x11,
         /*
@@ -200,14 +200,14 @@ inline constexpr CmdSequence init_cmd_seq = {
          * Back porch period (BP0)   = 8 (default)    = 8 lines
          */
         // TODO: why not partial/idle mode settings too?? Why set this at all given all defaults
-        Cmd::display_timing_set_normal_mode,
+        cmd::display_timing_set_normal_mode,
             3,
             0x10, 0x10, 0x88,
         /*
          *
          * Frame frequency (FRA) = 3 (default) = 72 Hz
          */
-        Cmd::frame_rate_and_inversion_control,
+        cmd::frame_rate_and_inversion_control,
             1,
             0x03,
         /*
@@ -218,7 +218,7 @@ inline constexpr CmdSequence init_cmd_seq = {
          * ENABLE pin polarity (EPL) = 1 (default) = data written on enable=1
          * PCLK pin polarity (DPL)   = 0 (default) = input on rising edge
          */
-        Cmd::iface_ctrl,
+        cmd::iface_ctrl,
             1,
             0x02,
         /*
@@ -232,26 +232,26 @@ inline constexpr CmdSequence init_cmd_seq = {
          * Gradient adjust for neg. polarity (RN0/1)     = 4/5
          * Amplitude adjust for neg. polarity (VRN0/1)   = 0xC/0
          */
-        Cmd::gamma_set,
+        cmd::gamma_set,
             12,
             0x00, 0x32, 0x36, 0x45, 0x06, 0x16, 0x37, 0x75, 0x77, 0x54, 0x0C, 0x00,
         /*
          *
          * Pixel format
          */
-        MipiDcs::Cmd::pixel_format,
+        mipi_dcs::cmd::pixel_format,
             1,
-            MipiDcs::PixelFmt::dcs_16bpp<<4 | MipiDcs::PixelFmt::dcs_16bpp,
+            mipi_dcs::pixel_fmt::dcs_16bpp<<4 | mipi_dcs::pixel_fmt::dcs_16bpp,
 
         cust_cmd_delay,
             (120 - 80 - 10),
 
-        MipiDcs::Cmd::set_display_on,
+        mipi_dcs::cmd::set_display_on,
             0,
 
 };
 
-} // namespace Libp::Ili9481
+} // namespace libp::ili9481
 
 #endif /* SRC_TFTLIB_ILI9481_CMD_DEFS_H_ */
 

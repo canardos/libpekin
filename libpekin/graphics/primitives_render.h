@@ -20,7 +20,7 @@
 #include "misc_math.h"
 #include "idrawing_surface.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Renders primitive shapes on an IDrawingSurface.
@@ -673,6 +673,6 @@ private:
     }
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* PAINTERCOLOR_H_ */

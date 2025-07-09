@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Calculate the day of week from a given Gregorian date using Tomohiko
@@ -27,6 +27,6 @@ uint8_t dayOfWeek(uint16_t y, uint8_t m, uint8_t d)
     return (y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
 }
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_DATE_H_ */

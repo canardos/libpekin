@@ -8,7 +8,7 @@
 #include <cstdint>
 #include "libpekin.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * @param millis delay in milliseconds
@@ -41,6 +41,6 @@ uint64_t getMillis();
 uint32_t getMillis();
 #endif
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_LIBPEKIN_HAL_H_ */

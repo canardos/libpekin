@@ -8,7 +8,7 @@
 #include "libpekin_stm32_hal.h"
 #include "touch/resistive_touch.h"
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 // TODO: pass pins as Pin template params
 
@@ -19,15 +19,15 @@ static constexpr uint8_t pin_xneg_no = 3;
 static constexpr uint8_t pin_xpos_no = 6;
 static constexpr uint8_t pin_yneg_no = 5;
 static constexpr uint8_t pin_ypos_no = 7;
-static constexpr Adc::Channel  xpos_adc_ch = Adc::Channel::ch6;
-static constexpr Adc::Channel  ypos_adc_ch = Adc::Channel::ch7;
+static constexpr Channel  xpos_adc_ch = Channel::ch6;
+static constexpr Channel  ypos_adc_ch = Channel::ch7;
 // ***************************
 
 /**
  * `ITouchScreen` implementation for 4-pin resistive touchscreen on stm32f1xx
  * platform.
  */
-class ResistiveTs : public Libp::ResistiveTouch::ITouchScreen {
+class ResistiveTs : public libp::resist_touch::ITouchScreen {
 
 public:
     /**
@@ -46,18 +46,18 @@ public:
     bool start(bool use_interrupt);
     void stop();
     bool isTouched();
-    bool readPos(Libp::ResistiveTouch::Point* p);
+    bool readPos(libp::resist_touch::Point* p);
 
 private:
     enum class State : uint8_t {
         touch_detect, read_x, read_y, uninitialized
     };
 
-    static const Adc::AdcDevice<adc_base_addr> adc_;
-    static const LibpStm32::Pin<pin_port_addr, pin_xneg_no> xneg_pin_;
-    static const LibpStm32::Pin<pin_port_addr, pin_xpos_no> xpos_pin_;
-    static const LibpStm32::Pin<pin_port_addr, pin_yneg_no> yneg_pin_;
-    static const LibpStm32::Pin<pin_port_addr, pin_ypos_no> ypos_pin_;
+    static const AdcDevice<adc_base_addr> adc_;
+    static const libp_stm32::Pin<pin_port_addr, pin_xneg_no> xneg_pin_;
+    static const libp_stm32::Pin<pin_port_addr, pin_xpos_no> xpos_pin_;
+    static const libp_stm32::Pin<pin_port_addr, pin_yneg_no> yneg_pin_;
+    static const libp_stm32::Pin<pin_port_addr, pin_ypos_no> ypos_pin_;
 
     // Must be low enough to avoid uint32_t overflow (SAMPLES * ADC max val)
     static constexpr uint8_t SAMPLES = 5;
@@ -72,6 +72,6 @@ private:
     void configurePinsTouchDetect();
 };
 
-} // namespace LibpStm32
+} // namespace libp_stm32
 
 #endif /* LIB_LIBPEKIN_STM32_TOUCH_RESISTIVE_TOUCH_STM32_H_ */

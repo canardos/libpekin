@@ -17,7 +17,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Covert packed 1-bit indexed image to RGB24.
@@ -96,6 +96,6 @@ void upsample4bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
  */
 void upsample6bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[64][3]);
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* BITMAP_UPSAMPLE_H_ */

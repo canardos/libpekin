@@ -11,7 +11,7 @@
 #include "bits.h"
 #include "serial/i2c.h"
 
-namespace Libp::Rv8803 {
+namespace libp::rv8803 {
 
 // Keep everything outside the class to avoid template param req.
 
@@ -28,29 +28,29 @@ struct TimeData {
 
     static void bcd2bin(TimeData& time_data)
     {
-        time_data.hundredths = Libp::bcd2bin(time_data.hundredths);
-        time_data.seconds = Libp::bcd2bin(time_data.seconds);
-        time_data.minutes = Libp::bcd2bin(time_data.minutes);
-        time_data.hours = Libp::bcd2bin(time_data.hours);
-        time_data.day_of_month = Libp::bcd2bin(time_data.day_of_month);
-        time_data.month = Libp::bcd2bin(time_data.month);
-        time_data.year = Libp::bcd2bin(time_data.year);
+        time_data.hundredths = libp::bcd2bin(time_data.hundredths);
+        time_data.seconds = libp::bcd2bin(time_data.seconds);
+        time_data.minutes = libp::bcd2bin(time_data.minutes);
+        time_data.hours = libp::bcd2bin(time_data.hours);
+        time_data.day_of_month = libp::bcd2bin(time_data.day_of_month);
+        time_data.month = libp::bcd2bin(time_data.month);
+        time_data.year = libp::bcd2bin(time_data.year);
     }
 
     /**
      * @param [in,out] time_data day_of_week not required and will be set by this
      *                           function
      */
-    static void bin2bcd(Libp::Rv8803::TimeData& time_data)
+    static void bin2bcd(libp::rv8803::TimeData& time_data)
     {
         time_data.day_of_week = 1 << dayOfWeek(time_data.year, time_data.month, time_data.day_of_month);
-        time_data.hundredths = Libp::bin2bcd(time_data.hundredths);
-        time_data.seconds = Libp::bin2bcd(time_data.seconds);
-        time_data.minutes = Libp::bin2bcd(time_data.minutes);
-        time_data.hours = Libp::bin2bcd(time_data.hours);
-        time_data.day_of_month = Libp::bin2bcd(time_data.day_of_month);
-        time_data.month = Libp::bin2bcd(time_data.month);
-        time_data.year = Libp::bin2bcd(time_data.year);
+        time_data.hundredths = libp::bin2bcd(time_data.hundredths);
+        time_data.seconds = libp::bin2bcd(time_data.seconds);
+        time_data.minutes = libp::bin2bcd(time_data.minutes);
+        time_data.hours = libp::bin2bcd(time_data.hours);
+        time_data.day_of_month = libp::bin2bcd(time_data.day_of_month);
+        time_data.month = libp::bin2bcd(time_data.month);
+        time_data.year = libp::bin2bcd(time_data.year);
     }
 };
 #pragma pack(pop)
@@ -353,6 +353,6 @@ private:
     I2cWrapper<I2cBus> device_;
 };
 
-} // namespace Libp::Rv8803
+} // namespace libp::rv8803
 
 #endif /* LIB_LIBPEKIN_DRIVERS_CLOCK_RV8803_H_ */

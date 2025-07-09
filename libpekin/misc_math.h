@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Celcius -> Farenheit conversion.
@@ -258,6 +258,6 @@ static_assert(bcd2bin(0b0000'0101) ==  5, "bcd2bin error");
 static_assert(bcd2bin(0b0001'0000) == 10, "bcd2bin error");
 static_assert(bcd2bin(0b0010'0010) == 22, "bcd2bin error");
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_MISC_MATH_H_ */

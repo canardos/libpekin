@@ -35,12 +35,12 @@
  *
  * // ** Digital output **
  *
- * using namespace LibpStm32;
+ * using namespace libp_stm32;
  *
  * PinB<11> led;
  * // or Pin<GPIOB_BASE, 11> led;
  *
- * Clk::enable<Clk::Apb2::iopb>();
+ * clk::enable<clk::Apb2::iopb>();
  * led.setAsOutput(OutputMode::pushpull, OutputSpeed::low);
  * led.set();       // high
  * led.clear();     // low
@@ -53,7 +53,7 @@
  * PinA<3> button;
  * // or Pin<GPIOA_BASE, 3> button;
  *
- * Clk::enable<Clk::Apb2::iopa>();
+ * clk::enable<clk::Apb2::iopa>();
  * button.setAsInput(InputMode::pullup);
  * bool state = button.read();
  *
@@ -63,7 +63,7 @@
  * PinA<12> buttonIt;
  * // or Pin<GPIOA_BASE, 12> buttonIt;
  *
- * Clk::enable<Clk::Apb2::iopa, Clk::Apb2::afio>();
+ * clk::enable<clk::Apb2::iopa, clk::Apb2::afio>();
  *
  * buttonIt.setAsInputIrq(InputMode::pullup, false, true); // IRQ on falling edge
  * buttonIt.setIrqPriority(0);
@@ -100,8 +100,8 @@
  * Adc<ADC1_BASE> adc;
  * PinA<7> y_pos;
  *
- * Clk::enable<Clk::Apb2::iopa, Clk::Apb2::adc1>();
- * adc.setup(Adc::Channel::ch7, Adc::SampleTime::cycles_1pt5);
+ * clk::enable<clk::Apb2::iopa, clk::Apb2::adc1>();
+ * adc.setup(Channel::ch7, SampleTime::cycles_1pt5);
  * y_pos.setAsInput(InputMode::analog);
  * uint32_t value = Adc<ADC1_BASE>::poll();
  *
@@ -124,7 +124,7 @@
 
 static_assert(GPIOA_BASE > 0, "STM32 CMSIS header must be included before this file");
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 enum class InputMode : uint8_t {
     // values are CNF & MODE bits for GPIO CR reg.
@@ -161,12 +161,12 @@ enum class OutputSpeed : uint8_t {
     return ( (n < 2) ? 0 : 1 + log2(n/2));
 }*/
 
-namespace GpioModeMask {
+namespace gpio_mode_mask {
 
 /// TODO
 constexpr uint32_t getOutputModeMask(OutputMode mode, OutputSpeed speed, uint8_t i)
 {
-    uint32_t mask = (Libp::enumBaseT(mode) << 2u | Libp::enumBaseT(speed)) << (i*4u);
+    uint32_t mask = (libp::enumBaseT(mode) << 2u | libp::enumBaseT(speed)) << (i*4u);
     return i == 0
             ? mask
             : mask | getOutputModeMask(mode, speed, --i);
@@ -203,7 +203,7 @@ constexpr uint32_t getInputModeMask(uint32_t mode, uint8_t i)
 constexpr uint32_t getInputModeMask(InputMode mode)
 {
     // remove trailing 0b1 on pullup enum value
-    return getInputModeMask(Libp::enumBaseT(mode) & 0b1100, 7);
+    return getInputModeMask(libp::enumBaseT(mode) & 0b1100, 7);
 }
 
 static_assert(getOutputModeMask(OutputMode::pushpull, OutputSpeed::low) == 0b0010'0010'0010'0010'0010'0010'0010'0010);
@@ -211,7 +211,7 @@ static_assert(getOutputModeMask(OutputMode::alt_opendrain, OutputSpeed::high) ==
 static_assert(getInputModeMask(InputMode::floating) == 0b0100'0100'0100'0100'0100'0100'0100'0100);
 static_assert(getInputModeMask(InputMode::pullup) ==   0b1000'1000'1000'1000'1000'1000'1000'1000);
 
-} // namespace GpioModeMask
+} // namespace gpio_mode_mask
 
 template <uint32_t base_addr_>
 class GpioPort {
@@ -226,8 +226,8 @@ public:
         const uint32_t mask_crl = static_cast<uint32_t>(mask_cr);
         const uint32_t mask_crh = static_cast<uint32_t>(mask_cr >> 32u);
 
-        port_->CRL = (port_->CRL & ~mask_crl) | (mask_crl & GpioModeMask::getOutputModeMask(mode, speed));
-        port_->CRH = (port_->CRH & ~mask_crh) | (mask_crh & GpioModeMask::getOutputModeMask(mode, speed));
+        port_->CRL = (port_->CRL & ~mask_crl) | (mask_crl & gpio_mode_mask::getOutputModeMask(mode, speed));
+        port_->CRH = (port_->CRH & ~mask_crh) | (mask_crh & gpio_mode_mask::getOutputModeMask(mode, speed));
     }
 
     template <InputMode mode, uint8_t... pins>
@@ -236,8 +236,8 @@ public:
         const uint64_t mask_cr = (((uint64_t)0b1111 << (pins * 4u)) | ...);
         const uint32_t mask_crl = static_cast<uint32_t>(mask_cr);
         const uint32_t mask_crh = static_cast<uint32_t>(mask_cr >> 32u);
-        port_->CRL = (port_->CRL & ~mask_crl) | (mask_crl & GpioModeMask::getInputModeMask(mode));
-        port_->CRH = (port_->CRH & ~mask_crh) | (mask_crh & GpioModeMask::getInputModeMask(mode));
+        port_->CRL = (port_->CRL & ~mask_crl) | (mask_crl & gpio_mode_mask::getInputModeMask(mode));
+        port_->CRH = (port_->CRH & ~mask_crh) | (mask_crh & gpio_mode_mask::getInputModeMask(mode));
 
         const uint32_t mask_odr = ((1 << pins) | ...);
         // TODO: use set/clear regs
@@ -370,11 +370,11 @@ public:
     {
         // 4-bits per pin [CNF1:CNF0:MODE1:MODE0]
         if constexpr (pin_ >= 8) {
-            port_->CRH = (port_->CRH & mask) | ((Libp::enumBaseT(mode) & 0b1100) << lsb_pos);
+            port_->CRH = (port_->CRH & mask) | ((libp::enumBaseT(mode) & 0b1100) << lsb_pos);
             // remove trailing 0b1 on pullup enum value ------------------^
         }
         else {
-            port_->CRL = (port_->CRL & mask) | ((Libp::enumBaseT(mode) & 0b1100) << lsb_pos);
+            port_->CRL = (port_->CRL & mask) | ((libp::enumBaseT(mode) & 0b1100) << lsb_pos);
             // remove trailing 0b1 on pullup enum value ------------------^
         }
         set(mode == InputMode::pullup);
@@ -401,7 +401,7 @@ public:
         constexpr uint32_t exti_cr = getPortExtiCrBits(base_addr_) << bit_pos;
 
         //
-        Libp::Bits::setBits(AFIO->EXTICR[pin_ / 4], exti_cr_mask, exti_cr);
+        libp::bits::setBits(AFIO->EXTICR[pin_ / 4], exti_cr_mask, exti_cr);
         // Rising trigger sel reg
         EXTI->RTSR = (EXTI->RTSR & ~(1<<pin_)) | (rising << pin_);
         // Falling trigger sel reg
@@ -423,10 +423,10 @@ public:
     {
         // 4-bits per pin [CNF1:CNF0:MODE1:MODE0]
         if constexpr (pin_ >= 8) {
-            port_->CRH = (port_->CRH & mask) | ( Libp::enumBaseT(mode) << 2 | Libp::enumBaseT(speed) ) << lsb_pos;
+            port_->CRH = (port_->CRH & mask) | ( libp::enumBaseT(mode) << 2 | libp::enumBaseT(speed) ) << lsb_pos;
         }
         else {
-            port_->CRL = (port_->CRL & mask) | ( Libp::enumBaseT(mode) << 2 | Libp::enumBaseT(speed) ) << lsb_pos;
+            port_->CRL = (port_->CRL & mask) | ( libp::enumBaseT(mode) << 2 | libp::enumBaseT(speed) ) << lsb_pos;
         }
     }
 
@@ -584,7 +584,7 @@ using PinG = Pin<GPIOG_BASE, pin>;
 /**
  *
  */
-namespace DefPin {
+namespace def_pin {
 // Valid for STM32F101xx, STM32F102xx, STM32F103xx, STM32F105xx, STM32F107xx
 #ifdef USART1_BASE
 inline constexpr PinA <9> usart1_tx;
@@ -653,8 +653,8 @@ inline constexpr PinB<11> i2c2_sda;
 inline constexpr PinB<12> i2c2_smba;
 #endif
 
-}
+} // namespace def_pin
 
-} // namespace LibpStm32
+} // namespace libp_stm32
 
 #endif /* LIB_LIBPEKIN_STM32_PINS_STM32F1XX_H_ */

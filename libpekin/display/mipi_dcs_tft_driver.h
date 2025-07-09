@@ -7,7 +7,7 @@
 #include "display/tft_cmd_defs.h"
 #include "graphics/idrawing_surface.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * IDrawingSurface implementation for devices conforming to the MIPI DCS V1
@@ -124,6 +124,6 @@ private:
 
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_ */

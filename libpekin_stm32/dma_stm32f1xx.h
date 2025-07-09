@@ -9,7 +9,7 @@
 static_assert(false, "STM32 CMSIS header must be included before this file");
 #endif
 
-namespace LibpStm32::Dma {
+namespace libp_stm32::dma {
 
 /*
  * The two DMA controllers have 12 channels in total (7 for DMA1 and 5 for DMA2
@@ -50,7 +50,7 @@ namespace LibpStm32::Dma {
  * \code
  * Usage:
  *
- * using namespace LibpStm32::Dma
+ * using namespace libp_stm32::dma
  *
  * constexpr uint32_t dma_cfg = CfgBuilder::create(Mode::periph_to_mem, IncMode::mem_only)
  *     .priority(ChPriority::high)
@@ -98,7 +98,7 @@ public:
 
     static constexpr CfgBuilder create(Mode mode, IncMode inc_mode = IncMode::none)
     {
-        uint32_t reg = Libp::enumBaseT(inc_mode);
+        uint32_t reg = libp::enumBaseT(inc_mode);
         if (mode == Mode::mem_to_mem)
             reg |= DMA_CCR_MEM2MEM;
         else if (mode == Mode::mem_to_periph)
@@ -110,30 +110,30 @@ public:
     constexpr CfgBuilder priority(ChPriority priority) const
     {
         uint32_t reg = ccr_reg;
-        Libp::Bits::setBits(reg, DMA_CCR_PL_Msk, Libp::enumBaseT(priority));
+        libp::bits::setBits(reg, DMA_CCR_PL_Msk, libp::enumBaseT(priority));
         return CfgBuilder(reg);
     }
     /// Default is 8-bit
     constexpr CfgBuilder bitWidth(MemSize mem_size, PeriphSize periph_size = PeriphSize::bits8) const
     {
         uint32_t reg = ccr_reg;
-        Libp::Bits::setBits(reg,
+        libp::bits::setBits(reg,
                 DMA_CCR_MSIZE_Msk | DMA_CCR_PSIZE_Msk,
-                Libp::enumBaseT(mem_size) | Libp::enumBaseT(periph_size));
+                libp::enumBaseT(mem_size) | libp::enumBaseT(periph_size));
         return CfgBuilder(reg);
     }
     /// Default is disabled
     constexpr CfgBuilder circularMode(bool enable) const
     {
         uint32_t reg = ccr_reg;
-        Libp::Bits::updBit(reg, DMA_CCR_CIRC_Pos, enable);
+        libp::bits::updBit(reg, DMA_CCR_CIRC_Pos, enable);
         return CfgBuilder(reg);
     }
     /// Default is all disabled
     constexpr CfgBuilder enableInts(bool error, bool half_transfer, bool transfer_complete) const
     {
         uint32_t reg = ccr_reg;
-        Libp::Bits::setBits(reg,
+        libp::bits::setBits(reg,
                 DMA_CCR_TEIE_Msk | DMA_CCR_HTIE_Msk | DMA_CCR_TCIE_Msk,
                 (error << DMA_CCR_TEIE_Pos) | (half_transfer << DMA_CCR_HTIE_Pos) | (transfer_complete << DMA_CCR_TCIE_Pos) );
         return CfgBuilder(reg);
@@ -245,7 +245,7 @@ public:
     static void enableInts(bool error, bool half_transfer, bool transfer_complete)
     {
         constexpr uint32_t mask = DMA_CCR_TEIE | DMA_CCR_HTIE | DMA_CCR_TCIE;
-        Libp::Bits::setBits(ch_->CCR, mask,
+        libp::bits::setBits(ch_->CCR, mask,
                   (error << DMA_CCR_TEIE_Pos)
                 | (half_transfer << DMA_CCR_HTIE_Pos)
                 | (transfer_complete << DMA_CCR_TCIE_Pos) );
@@ -272,6 +272,6 @@ public:
     }
 };
 
-} // namespace LibpStm32::Dma
+} // namespace libp_stm32::dma
 
 #endif /* LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_ */

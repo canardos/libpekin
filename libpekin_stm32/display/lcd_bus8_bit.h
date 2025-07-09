@@ -46,7 +46,7 @@
  *
  * See IBasicBus16 for member function documentation.
  */
-class LcdBus8Bit : public Libp::IBasicBus16 {
+class LcdBus8Bit : public libp::IBasicBus16 {
 public:
     LcdBus8Bit();
     virtual ~LcdBus8Bit();

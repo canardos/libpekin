@@ -17,7 +17,7 @@
 
 // Outer namespace to encapsulate while avoiding use of template
 // params when referencing below enums/calling decodeTemp etc.
-namespace Libp::Max31856 {
+namespace libp::max31856 {
 
 enum class Mode : uint8_t {
     one_shot   = 0, // default
@@ -471,7 +471,7 @@ static constexpr int16_t decodeTemp(uint32_t read_temp)
     return temp;
 }
 
-namespace ConversionTests { // hide tests
+namespace conversion_tests { // hide tests
 
 struct Sample {
     float temp;
@@ -505,7 +505,7 @@ constexpr bool validateSamples()
 }
 static_assert(validateSamples());
 
-} // namespace ConversionTests
-} // namespace Libp::Max31856
+} // namespace conversion_tests
+} // namespace libp::max31856
 
 #endif /* SRC_DEVICES_MAX_31856_H_ */

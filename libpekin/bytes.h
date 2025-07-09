@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Return the most significant 8-bits of a 16-bit value.
@@ -41,6 +41,6 @@ constexpr uint8_t lowByte(uint16_t val) { return static_cast<uint8_t>(val & 0xff
 inline __attribute__((always_inline))
 constexpr uint8_t lowByte(uint32_t val) { return static_cast<uint8_t>(val & 0xff); }
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_BYTES_H_ */

@@ -4,7 +4,7 @@
 #include "core_cm3.h"
 
 static volatile uint32_t ticks_ms_ = 0;
-static Libp::SysTickHandler client_systick_handler_ = nullptr;
+static libp::SysTickHandler client_systick_handler_ = nullptr;
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,7 +20,7 @@ void SysTick_Handler(void)
 }
 #endif
 
-namespace Libp {
+namespace libp {
 
 static uint16_t ticks_per_us;
 static uint16_t ns_per_tick;
@@ -140,4 +140,4 @@ void getDeviceId(uint32_t (&id)[3])
   id[2] = *reinterpret_cast<uint32_t*>(UID_BASE + 8U);
 }
 
-} // namespace Libp
+} // namespace libp

@@ -1,8 +1,8 @@
 #include "stm32_resistive_ts.h"
 #include "adc_stm32f1xx.h"
 
-using namespace Libp;
-using namespace LibpStm32;
+using namespace libp;
+using namespace libp_stm32;
 
 bool ResistiveTs::start(bool use_interrupt)
 {
@@ -30,18 +30,18 @@ bool ResistiveTs::isTouched()
     return !yneg_pin_.read();
 }
 
-bool ResistiveTs::readPos(Libp::ResistiveTouch::Point* p)
+bool ResistiveTs::readPos(libp::resist_touch::Point* p)
 {
     configurePinsReadX();
     uint32_t x = 0;
     for (uint8_t i = 0; i < SAMPLES; i++)
-        x += Adc::AdcDevice<ADC1_BASE>::poll();
+        x += AdcDevice<ADC1_BASE>::poll();
     p->x = x / SAMPLES;
 
     configurePinsReadY();
     uint32_t y = 0;
     for (uint8_t i = 0; i < SAMPLES; i++)
-        y += Adc::AdcDevice<ADC1_BASE>::poll();
+        y += AdcDevice<ADC1_BASE>::poll();
     p->y = y / SAMPLES;
 
     return isTouched();
@@ -56,7 +56,7 @@ void ResistiveTs::configurePinsReadX()
     xneg_pin_.setAsOutput(OutputMode::pushpull, OutputSpeed::low);
     xpos_pin_.setAsOutput(OutputMode::pushpull, OutputSpeed::low);
     yneg_pin_.setAsInput(InputMode::floating);
-    adc_.setup(ypos_adc_ch, Adc::SampleTime::cycles_1pt5);
+    adc_.setup(ypos_adc_ch, SampleTime::cycles_1pt5);
     ypos_pin_.setAsInput(InputMode::analog);
 
     xneg_pin_.set();
@@ -77,7 +77,7 @@ void ResistiveTs::configurePinsReadY()
     yneg_pin_.setAsOutput(OutputMode::pushpull, OutputSpeed::low);
     ypos_pin_.setAsOutput(OutputMode::pushpull, OutputSpeed::low);
     xneg_pin_.setAsInput(InputMode::floating);
-    adc_.setup(xpos_adc_ch, Adc::SampleTime::cycles_1pt5);
+    adc_.setup(xpos_adc_ch, SampleTime::cycles_1pt5);
     xpos_pin_.setAsInput(InputMode::analog);
 
     ypos_pin_.set();

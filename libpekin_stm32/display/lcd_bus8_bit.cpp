@@ -53,7 +53,7 @@ uint8_t LcdBus8Bit::rawRead8() {
     // TODO: this is supposed to be a generic bus - add timing params
 
     // wait for module (ILI9481 read access time max = 340ns)
-    Libp::delayMs(1);
+    libp::delayMs(1);
     // Lower 8-bits
     uint8_t temp = (DATA_GPIO_PORT->IDR & 0x00ff);
     SET_RD_IDLE;

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp::ResistiveTouch {
+namespace libp::resist_touch {
 
 struct Point {
     uint16_t x;
@@ -23,7 +23,7 @@ public:
     virtual bool readPos(Point* p) = 0;
 };
 
-} // namespace Libp::ResistiveTouch
+} // namespace libp::resist_touch
 
 
 #endif /* LIB_LIBPEKIN_TOUCH_I_TOUCH_SCREEN_H_ */

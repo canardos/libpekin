@@ -6,7 +6,7 @@
 /**
  * RGB565 HTML colors
  */
-namespace Libp::Rgb565Colors {
+namespace libp::rgb565_clr {
     inline constexpr uint16_t white    = 0xFFFF;
     inline constexpr uint16_t silver   = 0xBDF7;
     inline constexpr uint16_t gray     = 0x7BEF;

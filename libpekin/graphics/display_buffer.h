@@ -11,7 +11,7 @@
 #include <cstring>
 #include "idrawing_surface.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  *
@@ -306,6 +306,6 @@ private:
     uint8_t buffer_[height][width * 3 / 4];
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* DISPLAY_BUFFER_H_ */

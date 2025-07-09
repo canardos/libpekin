@@ -7,7 +7,7 @@
 //#define USE_64_BIT_TIMERS
 #include "libpekin_hal.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Statically casts a C++11 strongly typed enum to its underlying type.
@@ -20,6 +20,6 @@ constexpr auto enumBaseT(T enum_val)
     return static_cast<typename std::underlying_type<T>::type>(enum_val);
 }
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIBPEKIN_H_ */

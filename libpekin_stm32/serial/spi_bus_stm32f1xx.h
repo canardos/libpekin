@@ -10,7 +10,7 @@
 #include "libpekin_stm32_hal.h"
 #include "bus/bus_concepts.h"
 
-namespace LibpStm32::Spi {
+namespace libp_stm32::spi {
 
 enum class CpolCpha : uint8_t {
     /// MSBit capture strobe = SCK first edge (rising)
@@ -85,11 +85,11 @@ public:
     {
         port_->CR1 &= ~SPI_CR1_SPE; // some settings can't be changed while enabled
 
-        port_->CR1 = Libp::enumBaseT(master)  | // master or slave
-                     Libp::enumBaseT(clock)   | // clock polarity and phase
-                     Libp::enumBaseT(baud)    | // baud rate
-                     Libp::enumBaseT(data_ff) | // 8 or 16-bit
-                     Libp::enumBaseT(endian)  | // lsb or msb first
+        port_->CR1 = libp::enumBaseT(master)  | // master or slave
+                     libp::enumBaseT(clock)   | // clock polarity and phase
+                     libp::enumBaseT(baud)    | // baud rate
+                     libp::enumBaseT(data_ff) | // 8 or 16-bit
+                     libp::enumBaseT(endian)  | // lsb or msb first
                      SPI_CR1_SSM          | // Use external GPIOs for slave select
                      SPI_CR1_SSI;           // Use external GPIOs for slave select
 
@@ -190,6 +190,6 @@ public:
     }
 };
 
-} // namespace LibpStm32::Spi
+} // namespace libp_stm32::spi
 
 #endif /* LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_ */

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * "Interface" for a basic serial comms device.
@@ -95,6 +95,6 @@ public:
     virtual void write(const char* msg, uint16_t len) const = 0;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_I_SERIAL_IO_H_ */

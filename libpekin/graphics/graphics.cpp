@@ -1,7 +1,7 @@
 #include <cstdint>
 #include "graphics.h"
 
-namespace Libp {
+namespace libp {
 
 void adjustPoint(int16_t& x, int16_t& y, Rect16& dimensions, Align align)
 {
@@ -39,4 +39,4 @@ void adjustPoint(int16_t& x, int16_t& y, Rect16& dimensions, Align align)
     }
 }
 
-} // namespace Libp
+} // namespace libp

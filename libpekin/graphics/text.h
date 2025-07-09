@@ -7,7 +7,7 @@
 #include <concepts>
 #endif
 
-namespace Libp {
+namespace libp {
 
 /// Metadata (position, size etc.) for a single bitmap character in a font
 /// bitmap image.
@@ -37,6 +37,6 @@ concept RasterFontConcept = requires (T font, uint8_t ch) {
 
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_GRAPHICS_TEXT_H_ */

@@ -15,7 +15,7 @@
 #include "clock_stm32f1xx.h"
 #include "serial/i_serial_io.h"
 
-namespace LibpStm32::Uart {
+namespace libp_stm32::uart {
 
 enum class Parity : uint32_t {
     none = 0b00 << USART_CR1_PS_Pos,
@@ -57,7 +57,7 @@ inline constexpr uint32_t cr1_irq_events_mask =
 /**
  * ISerialIo implementation for STM32f10xx USART.
  *
- * Read functions rely on Libpekin `Libp::getMillis` function. Libpekin timers must
+ * Read functions rely on Libpekin `libp::getMillis` function. Libpekin timers must
  * be initialized before calling if a timeout is used.
  *
  * The class may be used in direct polling mode or in interrupt mode. Write
@@ -71,9 +71,9 @@ inline constexpr uint32_t cr1_irq_events_mask =
  * `read` functions read the hardware directly with no buffering.
  *
  * \code
- * using namespace LibpStm32;
+ * using namespace libp_stm32;
  *
- * Uart::UartIo<USART1_BASE> my_uart;
+ * uart::UartIo<USART1_BASE> my_uart;
  * \endcode
  *
  * --------------
@@ -84,10 +84,10 @@ inline constexpr uint32_t cr1_irq_events_mask =
  * written to by calling `serviceIrq` from the UART ISR on each RXNE interrupt.
  *
  * \code
- * using namespace LibpStm32;
+ * using namespace libp_stm32;
  *
- * Uart::UartIo<USART1_BASE, Uart::IrqMode::interrupt, 256> my_uart;
- * my_uart.configIrq<Stm32::Uart::IrqType::rx_data_ready>();
+ * uart::UartIo<USART1_BASE, uart::IrqMode::interrupt, 256> my_uart;
+ * my_uart.configIrq<Stm32::uart::IrqType::rx_data_ready>();
  * my_uart.enableIrq();
  *
  * void USART1_IRQHandler(void)
@@ -109,7 +109,7 @@ enum class IrqMode : uint8_t {
 };
 
 template <uint32_t base_addr_, IrqMode mode_ = IrqMode::polling, uint32_t buffer_size_ = 0>
-class UartIo : public Libp::ISerialIo {
+class UartIo : public libp::ISerialIo {
     static_assert(
                (mode_ == IrqMode::polling && buffer_size_ == 0)
             || (mode_ == IrqMode::interrupt && buffer_size_ > 0),
@@ -137,7 +137,7 @@ class UartIo : public Libp::ISerialIo {
     // Conditionally include buffer member at compile
     // time if interrupt mode is specified
     struct empty { };
-    using ring_buffer_t = std::conditional_t<mode_ == IrqMode::polling, empty, Libp::ByteRingBuffer<buffer_size_>>;
+    using ring_buffer_t = std::conditional_t<mode_ == IrqMode::polling, empty, libp::ByteRingBuffer<buffer_size_>>;
     [[no_unique_address]] ring_buffer_t rec_buffer_;
 
 public:
@@ -181,11 +181,11 @@ public:
     {
         // TODO: move baud to first param
         const uint32_t clk = base_addr_ == USART1_BASE
-                ? Clk::getPClk2()
-                : Clk::getPClk1();
+                ? clk::getPClk2()
+                : clk::getPClk1();
         port_->BRR = clk / baud; // TODO: do we need to round?
-        port_->CR1 = Libp::enumBaseT(mode) | Libp::enumBaseT(parity)/* | Libp::enumBaseT(IrqType::rx_data_ready)*/;
-        port_->CR2 = Libp::enumBaseT(stop_bits);
+        port_->CR1 = libp::enumBaseT(mode) | libp::enumBaseT(parity)/* | libp::enumBaseT(IrqType::rx_data_ready)*/;
+        port_->CR2 = libp::enumBaseT(stop_bits);
         port_->CR1 |= USART_CR1_UE;
     }
 
@@ -208,8 +208,8 @@ public:
     static void configIrq()
     {
         // TODO do we need to stop/start?
-        constexpr uint32_t enable_mask = (Libp::enumBaseT(it_types) | ... | 0);
-        Libp::Bits::setBits(port_->CR1, cr1_irq_events_mask, enable_mask);
+        constexpr uint32_t enable_mask = (libp::enumBaseT(it_types) | ... | 0);
+        libp::bits::setBits(port_->CR1, cr1_irq_events_mask, enable_mask);
     }
 
 
@@ -258,7 +258,7 @@ public:
         NVIC_DisableIRQ(irqn());
     }
 
-    inline Libp::ByteRingBuffer<buffer_size_>* buffer()
+    inline libp::ByteRingBuffer<buffer_size_>* buffer()
     {
         return rec_buffer_;
     }
@@ -305,7 +305,7 @@ public:
 
 
     /**
-     * Relies on Libpekin `Libp::getMillis` function. Libpekin timers must be
+     * Relies on Libpekin `libp::getMillis` function. Libpekin timers must be
      * initialized if `timeout_ms != 0`
      */
     uint16_t read(char* buf, uint16_t len, uint32_t timeout_ms) override
@@ -314,13 +314,13 @@ public:
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
         while (len-- > 0) {
-            uint32_t start_time = Libp::getMillis();
+            uint32_t start_time = libp::getMillis();
             bool timed_out = false;
 
             // ** interrupt version - read from buffer
             if constexpr (mode_ == IrqMode::interrupt) {
                 while (rec_buffer_.isEmpty() && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i++] = rec_buffer_.read();
@@ -329,7 +329,7 @@ public:
             // ** polling version - read directly from hardware
             else {
                 while ( !(port_->SR & USART_SR_RXNE) && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i++] = port_->DR; // clears RXNE bit
@@ -339,7 +339,7 @@ public:
     }
 
     /**
-     * Relies on Libpekin `Libp::getMillis` function. Libpekin timers must be
+     * Relies on Libpekin `libp::getMillis` function. Libpekin timers must be
      * initialized if `timeout_ms != 0`
      */
     uint16_t read(char* buf, char terminator, uint16_t max_len, uint32_t timeout_ms) override
@@ -348,13 +348,13 @@ public:
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
         while (max_len-- > 0) {
-            uint32_t start_time = Libp::getMillis();
+            uint32_t start_time = libp::getMillis();
             bool timed_out = false;
 
             // ** interrupt version - read from buffer
             if constexpr (mode_ == IrqMode::interrupt) {
                 while (rec_buffer_.isEmpty() && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i] = rec_buffer_.read();
@@ -363,7 +363,7 @@ public:
             // ** polling version - read directly from hardware
             else {
                 while ( !(port_->SR & USART_SR_RXNE) && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i] = port_->DR; // clears RXNE bit
@@ -377,7 +377,7 @@ public:
 
     // TODO: test
     /**
-     * Relies on Libpekin `Libp::getMillis` function. Libpekin timers must be
+     * Relies on Libpekin `libp::getMillis` function. Libpekin timers must be
      * initialized if `timeout_ms != 0`
      */
     uint16_t readln(char* buf, Eol eol_type, uint16_t max_len, uint32_t timeout_ms) override
@@ -392,13 +392,13 @@ public:
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
         while (--max_len > 0) {
-            uint32_t start_time = Libp::getMillis();
+            uint32_t start_time = libp::getMillis();
             bool timed_out = false;
 
             // ** interrupt version - read from buffer
             if constexpr (mode_ == IrqMode::interrupt) {
                 while (rec_buffer_.isEmpty() && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i] = rec_buffer_.read();
@@ -407,7 +407,7 @@ public:
             // ** polling version - read directly from hardware
             else {
                 while ( !(port_->SR & USART_SR_RXNE) && !timed_out)
-                    timed_out = (Libp::getMillis() - start_time) > timeout_ms;
+                    timed_out = (libp::getMillis() - start_time) > timeout_ms;
                 if (timed_out)
                     break;
                 buf[i] = port_->DR; // clears RXNE bit
@@ -433,6 +433,6 @@ public:
     }
 };
 
-} // namespace LibpStm32::Uart
+} // namespace libp_stm32::uart
 
 #endif /* LIB_LIBPEKIN_STM32_SERIAL_UART_STM32_H_ */

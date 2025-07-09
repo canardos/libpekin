@@ -7,7 +7,7 @@
 #include "idrawing_surface.h"
 #include "raster_font.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Renders text on an IDrawingSurface.
@@ -227,6 +227,6 @@ private:
     IDrawingSurface<T>& surface_;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* TEXT_RENDER_H_ */

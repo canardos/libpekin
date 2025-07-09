@@ -13,7 +13,7 @@
 static_assert(false, "STM32 CMSIS header must be included before this file");
 #endif
 
-namespace LibpStm32::Dac {
+namespace libp_stm32::dac {
 
 enum class Channel : uint8_t {
     ch1 = 0,
@@ -40,7 +40,7 @@ enum class Format : uint8_t {
  * \code
  * Usage:
  *
- * using namespace LibpStm32::Dac
+ * using namespace libp_stm32::dac
  *
  * constexpr Cfg cfg = {
  *     .ch1_output_buf_en = false,
@@ -112,7 +112,7 @@ struct Cfg {
     /// Calculate DAC_CR register value from configuration
     constexpr uint32_t toCrRegVal()
     {
-        using namespace Libp;
+        using namespace libp;
         return
               ((!ch1_output_buf_en) << DAC_CR_BOFF1_Pos)
             | ((!ch2_output_buf_en) << DAC_CR_BOFF2_Pos)
@@ -142,12 +142,12 @@ public:
     inline __attribute__((always_inline))
     static void disable(Channel dac_ch)
     {
-        dac_->CR &= ~(DAC_CR_EN1 << Libp::enumBaseT(dac_ch));
+        dac_->CR &= ~(DAC_CR_EN1 << libp::enumBaseT(dac_ch));
     }
     inline __attribute__((always_inline))
     static void enable(Channel dac_ch)
     {
-        dac_->CR |= (DAC_CR_EN1 << Libp::enumBaseT(dac_ch));
+        dac_->CR |= (DAC_CR_EN1 << libp::enumBaseT(dac_ch));
     }
 
     /**
@@ -167,7 +167,7 @@ public:
     static void stopDma(Channel dac_ch)
     {
         // disable DAC and DAC DMA
-        dac_->CR &= ~( (DAC_CR_DMAEN1 << Libp::enumBaseT(dac_ch)) | (DAC_CR_EN1 << Libp::enumBaseT(dac_ch)) );
+        dac_->CR &= ~( (DAC_CR_DMAEN1 << libp::enumBaseT(dac_ch)) | (DAC_CR_EN1 << libp::enumBaseT(dac_ch)) );
         //Stm32Dma<dma_base_addr, dma_channel>::abort();
     }
 
@@ -177,12 +177,12 @@ public:
     static void startDma(Channel dac_ch, uint32_t* data, uint32_t len, Format fmt)
     {
         dac_->CR |= (dac_ch == Channel::ch1 ? DAC_CR_DMAEN1 : DAC_CR_DMAEN2);
-        const uint32_t dac_addr = base_addr_ + Libp::enumBaseT(fmt) + (dac_ch == Channel::ch2 ? 12 : 0);
-        LibpStm32::Dma::DmaDevice<dma_channel, dma_base_addr>::start(dac_addr, (uint32_t)data, len);
+        const uint32_t dac_addr = base_addr_ + libp::enumBaseT(fmt) + (dac_ch == Channel::ch2 ? 12 : 0);
+        libp_stm32::dma::DmaDevice<dma_channel, dma_base_addr>::start(dac_addr, (uint32_t)data, len);
         enable(dac_ch);
     }
 };
 
-} // namespace LibpStm32::Dac
+} // namespace libp_stm32::dac
 
 #endif /* LIB_LIBPEKIN_STM32_DAC_STM32F1XX_H_ */

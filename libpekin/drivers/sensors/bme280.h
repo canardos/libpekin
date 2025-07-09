@@ -8,7 +8,7 @@
 #include "bus/bus_concepts.h"
 
 
-namespace Libp::Bme280 {
+namespace libp::bme280 {
 
 // Keep everything outside the class to avoid template param req.
 
@@ -567,6 +567,6 @@ private:
     }
 };
 
-} // namespace Libp::Bme280
+} // namespace libp::bme280
 
 #endif /* LIB_LIBPEKIN_DRIVERS_INPUT_BME280_H_ */

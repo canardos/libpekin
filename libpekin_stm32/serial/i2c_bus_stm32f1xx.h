@@ -11,7 +11,7 @@
 #include "clock_stm32f1xx.h"
 #include "bits.h"
 
-namespace LibpStm32::I2c {
+namespace libp_stm32::i2c {
 
 /*    void clearBusyBitErrata()
     {
@@ -59,9 +59,9 @@ inline bool clearSlave(const Pin<port_addr, pin1>& scl, const Pin<port_addr, pin
     timeout_ms *= 50; // ~20uS per loop
     while (!sda.read() && timeout_ms > 0) {
         scl.clear();
-        Libp::delayUs(10);
+        libp::delayUs(10);
         scl.set();
-        Libp::delayUs(10);
+        libp::delayUs(10);
         timeout_ms--;
     }
     bool success = sda.read();
@@ -172,7 +172,7 @@ public:
         // TODO: error if pclk1 too slow
         // Set timings
 
-        const uint32_t pclk1_freq = LibpStm32::Clk::getPClk1();
+        const uint32_t pclk1_freq = libp_stm32::clk::getPClk1();
         const uint8_t pclk1_freq_mhz = pclk1_freq / 1'000'000;
         constexpr bool fast_mode = i2c_freq > 100'000;
 
@@ -187,7 +187,7 @@ public:
                 ? (i2c_fmduty == FmDuty::ratio_2_to_1 ? 3 : 25)
                 : 2;
         uint32_t ccr = pclk1_freq / (i2c_freq * ccr_multiplier);
-        port_->CCR = fast_mode << I2C_CCR_FS_Pos | Libp::enumBaseT(i2c_fmduty) << I2C_CCR_DUTY_Pos | ccr;
+        port_->CCR = fast_mode << I2C_CCR_FS_Pos | libp::enumBaseT(i2c_fmduty) << I2C_CCR_DUTY_Pos | ccr;
 
         //hi2c->Instance->CR1 = (hi2c->Init.GeneralCallMode | hi2c->Init.NoStretchMode);
 
@@ -276,7 +276,7 @@ private:
     {
         bool timed_out = false;
         while (!(port_->SR1 & flag) && !timed_out)
-            timed_out = (Libp::getMillis() - start_time_ms) > timeout_duration_ms;
+            timed_out = (libp::getMillis() - start_time_ms) > timeout_duration_ms;
         return !timed_out;
     }
 
@@ -284,7 +284,7 @@ private:
     {
         bool timed_out = false;
         while ((port_->CR1 & I2C_CR1_STOP) && !timed_out)
-            timed_out = (Libp::getMillis() - start_time_ms) > timeout_duration_ms;
+            timed_out = (libp::getMillis() - start_time_ms) > timeout_duration_ms;
         return !timed_out;
     }
 
@@ -315,10 +315,10 @@ public:
         if (len == 0)
             return true;
 
-        // TODO: assumes Libp::getMillis returns uint32_t
+        // TODO: assumes libp::getMillis returns uint32_t
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
-        uint32_t start_time = Libp::getMillis();
+        uint32_t start_time = libp::getMillis();
 
         //while (port_->SR2 & I2C_SR2_BUSY)
         //    ;
@@ -355,10 +355,10 @@ public:
         if (len == 0)
             return true;
 
-        // TODO: assumes Libp::getMillis returns uint32_t
+        // TODO: assumes libp::getMillis returns uint32_t
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
-        uint32_t start_time = Libp::getMillis();
+        uint32_t start_time = libp::getMillis();
 
         //while (port_->SR2 & I2C_SR2_BUSY)
         //    ;
@@ -409,10 +409,10 @@ public:
         // of the current byte transfer. To ensure this, interrupts must be
         // disabled between ADDR clearing and ACK clearing.
 
-        // TODO: assumes Libp::getMillis returns uint32_t
+        // TODO: assumes libp::getMillis returns uint32_t
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max(); // never timeout
-        uint32_t start_time = Libp::getMillis();
+        uint32_t start_time = libp::getMillis();
 
         masterGenerateStart();
         if (!waitForSr1FlagSet(I2C_SR1_SB, start_time, timeout_ms))
@@ -551,13 +551,13 @@ public:
         if (transmit_len == 0 || rec_len == 0)
             return true;
 
-        // TODO: assumes Libp::getMillis returns uint32_t
-        // TODO: deal with 32/64 bit Libp::getMillis
-        // if Libp::getMillis returns
+        // TODO: assumes libp::getMillis returns uint32_t
+        // TODO: deal with 32/64 bit libp::getMillis
+        // if libp::getMillis returns
         if (!timeout_ms)
             timeout_ms = std::numeric_limits<uint32_t>::max();
 
-        uint32_t start_time = Libp::getMillis();
+        uint32_t start_time = libp::getMillis();
         //while (port_->SR2 & I2C_SR2_BUSY)
         //    ;
 
@@ -574,7 +574,7 @@ public:
             return false;
 
         // Should be overflow safe
-        uint32_t now = Libp::getMillis();
+        uint32_t now = libp::getMillis();
         if ( (now - start_time) >= timeout_ms )
             return false;
         timeout_ms -= (now - start_time);
@@ -583,6 +583,6 @@ public:
 
 };
 
-} // namespace LibpStm32::I2c
+} // namespace libp_stm32::i2c
 
 #endif /* LIB_LIBPEKIN_STM32_SERIAL_I2C_BUS_H_ */

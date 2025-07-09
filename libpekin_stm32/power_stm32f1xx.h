@@ -8,38 +8,38 @@
 #include "libpekin_stm32_hal.h"
 #include "bits.h"
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 inline __attribute__((always_inline))
 void sleepOnExitEnable()
 {
     // use for ISR driven app without main
-    Libp::Bits::setBit(SCB->SCR, SCB_SCR_SLEEPONEXIT_Pos);
+    libp::bits::setBit(SCB->SCR, SCB_SCR_SLEEPONEXIT_Pos);
 }
 inline __attribute__((always_inline))
 void sleepOnExitDisable()
 {
-    Libp::Bits::clearBit(SCB->SCR, SCB_SCR_SLEEPONEXIT_Pos);
+    libp::bits::clearBit(SCB->SCR, SCB_SCR_SLEEPONEXIT_Pos);
 }
 inline __attribute__((always_inline))
 void deepSleepEnable()
 {
-    Libp::Bits::setBit(SCB->SCR, SCB_SCR_SLEEPDEEP_Pos);
+    libp::bits::setBit(SCB->SCR, SCB_SCR_SLEEPDEEP_Pos);
 }
 inline __attribute__((always_inline))
 void deepSleepDisable()
 {
-    Libp::Bits::clearBit(SCB->SCR, SCB_SCR_SLEEPDEEP_Pos);
+    libp::bits::clearBit(SCB->SCR, SCB_SCR_SLEEPDEEP_Pos);
 }
 inline __attribute__((always_inline))
 void deepSleepVregOn()
 {
-    Libp::Bits::clearBit(PWR->CR, PWR_CR_LPDS_Pos);
+    libp::bits::clearBit(PWR->CR, PWR_CR_LPDS_Pos);
 }
 inline __attribute__((always_inline))
 void deepSleepVregOff()
 {
-    Libp::Bits::setBit(PWR->CR, PWR_CR_LPDS_Pos);
+    libp::bits::setBit(PWR->CR, PWR_CR_LPDS_Pos);
 }
 
 /*
@@ -97,7 +97,7 @@ void pwrCtrlStop(bool vreg_low_pwr = true/*, bool rtc = false, bool lsi = false,
     //* @param lse external 32.768 kHz oscillator enabled during stop
 
 
-    Libp::Bits::clearBit(PWR->CR, PWR_CR_PDDS_Pos); // stop mode
+    libp::bits::clearBit(PWR->CR, PWR_CR_PDDS_Pos); // stop mode
 
     deepSleepVregOff();
     deepSleepEnable();
@@ -110,21 +110,21 @@ void pwrCtrlStop(bool vreg_low_pwr = true/*, bool rtc = false, bool lsi = false,
     const uint32_t systick = SysTick->CTRL & SysTick_CTRL_TICKINT_Msk;
 
     // stop
-    Libp::Bits::clearBit(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);  // SysTick_CTRL_ENABLE_Pos
+    libp::bits::clearBit(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);  // SysTick_CTRL_ENABLE_Pos
     __WFI();
 
     // restore state
-    //Libp::Bits::setBits(RCC->CFGR, RCC_CFGR_SW, rcc_sw);
+    //libp::bits::setBits(RCC->CFGR, RCC_CFGR_SW, rcc_sw);
     // TODO: any harm writing read-only hardware status bits?
     RCC->CFGR = rcc_cfgr;
     RCC->CR = rcc_cr;
 
 
-    Libp::Bits::setBits(SysTick->CTRL, SysTick_CTRL_TICKINT_Msk, systick);  // SysTick_CTRL_ENABLE_Pos
+    libp::bits::setBits(SysTick->CTRL, SysTick_CTRL_TICKINT_Msk, systick);  // SysTick_CTRL_ENABLE_Pos
 
     // TODO: do we need to wait for clock status? (SWS)
 //    if (reenable_systick)
-  //      Libp::Bits::setBit(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);  // SysTick_CTRL_ENABLE_Pos
+  //      libp::bits::setBit(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);  // SysTick_CTRL_ENABLE_Pos
     //if (reenable_systick)
 
     deepSleepDisable();
@@ -140,6 +140,6 @@ void pwrCtrlStandby()
 
 }
 
-} // namespace LibpStm32
+} // namespace libp_stm32
 
 #endif /* LIB_LIBPEKIN_STM32_POWER_STM32F1XX_H_ */

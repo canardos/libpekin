@@ -13,7 +13,7 @@
 #include "libpekin.h"
 #include "serial/i_serial_io.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Limited driver for the Microchip RN52 Bluetooth audio module.
@@ -680,6 +680,6 @@ private:
     }
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* SRC_RN_52_H_ */

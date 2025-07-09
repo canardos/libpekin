@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "i_serial_io.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Functions to write formatted output to an @p ISerialIo device.
@@ -75,6 +75,6 @@ private:
     ISerialIo& output_dev_;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_SERIAL_WRITER_H_ */

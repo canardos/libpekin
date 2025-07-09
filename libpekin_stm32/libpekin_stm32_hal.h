@@ -33,7 +33,7 @@ STM32F107xC
 //stm32f10x_map.h
 #include "stm32f1xx.h"
 
-namespace Libp {
+namespace libp {
 
 using SysTickHandler = void(*)();
 /**
@@ -61,6 +61,6 @@ bool libpekinInitTimers(SysTickHandler handler = nullptr);
  */
 void getDeviceId(uint32_t (&id)[3]);
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_STM32_HAL_H_ */

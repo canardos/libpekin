@@ -4,7 +4,7 @@
 #include <cstring>
 #include <type_traits>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Return the string length required to hold the min/maximum value of the
@@ -62,6 +62,6 @@ void strcpy_safe(char* dest, const char* src, size_t len)
     }
 }
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_STRING_UTIL_H_ */

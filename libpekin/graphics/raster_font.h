@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "text.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * TODO
@@ -127,6 +127,6 @@ private:
 	const CharMeta (&meta_)[last_char_ - first_char_ + 1];
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* RASTERFONT_H_ */

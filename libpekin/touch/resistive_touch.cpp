@@ -1,9 +1,9 @@
 #include "touch/resistive_touch.h"
 #include "libpekin.h"
 
-namespace Libp {
+namespace libp {
 
-using namespace ResistiveTouch;
+using namespace resist_touch;
 
 Screen::Screen(ITouchScreen& ts, uint16_t x_res, uint16_t y_res) :
         ts_(ts),
@@ -104,4 +104,4 @@ bool Screen::calibratePoint(Point* p)
     return true;
 }
 
-} // namespace Libp
+} // namespace libp

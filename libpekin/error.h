@@ -3,7 +3,7 @@
 
 #include "serial/serial_writer.h"
 
-namespace Libp {
+namespace libp {
 
 /// Output only
 /// May change - do not relay on specific values
@@ -102,6 +102,6 @@ private:
     const SerialWriter<max_output_len> serial_;
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIB_LIBPEKIN_STM32_ERROR_H_ */

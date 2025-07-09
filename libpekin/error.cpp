@@ -18,7 +18,7 @@
 #include "error.h"
 #include "libpekin.h"
 
-namespace Libp {
+namespace libp {
 
 void Error::report(const char* message, ...) {
     va_list argptr;
@@ -60,4 +60,4 @@ void Error::flashCode(uint8_t code) {
     }
 }
 
-} // namespace Libp
+} // namespace libp

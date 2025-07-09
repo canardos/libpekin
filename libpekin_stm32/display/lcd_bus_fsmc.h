@@ -9,7 +9,7 @@
 // One address line is used to signal data/cmd to the display (RS)
 // Set the dat/cmd address based on the line used.
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 // TODO: migrate to a standard bus concept
 /**
@@ -28,7 +28,7 @@ namespace LibpStm32 {
  * @tparam dma_addr_
  */
 template <uint32_t fsmc_dat_addr_ , uint32_t fsmc_cmd_addr_ , uint8_t dma_ch_ = 1, uint32_t dma_addr_ = DMA1_BASE>
-class LcdBusFsmc : public Libp::IBasicBus16 {
+class LcdBusFsmc : public libp::IBasicBus16 {
 public:
 
     /**
@@ -36,7 +36,7 @@ public:
      *
      * @param dma may be null
      */
-    LcdBusFsmc(LibpStm32::Dma::DmaDevice<dma_ch_, dma_addr_>* dma = nullptr) : dma_(dma) { }
+    LcdBusFsmc(libp_stm32::dma::DmaDevice<dma_ch_, dma_addr_>* dma = nullptr) : dma_(dma) { }
     virtual ~LcdBusFsmc() { };
 
     void write8(uint8_t data);
@@ -61,7 +61,7 @@ public:
     uint16_t read16();
 
 private:
-    LibpStm32::Dma::DmaDevice<dma_ch_, dma_addr_>* const dma_;
+    libp_stm32::dma::DmaDevice<dma_ch_, dma_addr_>* const dma_;
     volatile uint16_t& fsmc_tft_dat = *reinterpret_cast<volatile uint16_t *>(fsmc_dat_addr_);
     volatile uint16_t& fsmc_tft_cmd = *reinterpret_cast<volatile uint16_t *>(fsmc_cmd_addr_);
 };
@@ -126,6 +126,6 @@ uint16_t LcdBusFsmc<fsmc_dat_addr_, fsmc_cmd_addr_, dma_ch_, dma_addr_>::read16(
 }
 
 
-} // namespace LibpStm32
+} // namespace libp_stm32
 
 #endif /* SRC_DISPLAY_LCD_BUS_FSMC_H_ */

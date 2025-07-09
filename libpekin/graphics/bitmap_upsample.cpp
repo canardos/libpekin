@@ -1,6 +1,6 @@
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 inline
 static void writeRgb(uint8_t (&color)[3], uint8_t out[])
@@ -127,4 +127,4 @@ void upsample6bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
     }
 }
 
-} // namespace Libp
+} // namespace libp

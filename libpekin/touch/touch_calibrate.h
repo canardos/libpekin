@@ -8,7 +8,7 @@
 #include "touch/resistive_touch.h"
 #include "libpekin.h"
 
-namespace Libp::ResistiveTouch {
+namespace libp::resist_touch {
 
 /**
  * Perform a 3-point calibration.
@@ -20,19 +20,19 @@ namespace Libp::ResistiveTouch {
  */
 template <typename T>
 inline
-bool calibrateTouch(Libp::IDrawingSurface<T>& display, ResistiveTouch::Screen& touchscreen) {
+bool calibrateTouch(libp::IDrawingSurface<T>& display, resist_touch::Screen& touchscreen) {
 
-    static constexpr uint16_t bg_color = Rgb565Colors::white;
+    static constexpr uint16_t bg_color = rgb565_clr::white;
     static constexpr uint8_t target_size = 4;
 
-    const ResistiveTouch::Point* screen_points = touchscreen.getCalibrationPoints();
-    ResistiveTouch::CalibrationPoints measured_points;
+    const resist_touch::Point* screen_points = touchscreen.getCalibrationPoints();
+    resist_touch::CalibrationPoints measured_points;
     display.fillScreen(bg_color);
 
-    ResistiveTouch::Point pos;
+    resist_touch::Point pos;
     uint8_t i = 0;
-    while (i < ResistiveTouch::num_calib_pts) {
-        display.fillRect(screen_points[i].x - 2, screen_points[i].y - 2, target_size, target_size, Rgb565Colors::blue);
+    while (i < resist_touch::num_calib_pts) {
+        display.fillRect(screen_points[i].x - 2, screen_points[i].y - 2, target_size, target_size, rgb565_clr::blue);
         // wait for prior release
         while (touchscreen.isTouched())
             ;
@@ -50,6 +50,6 @@ bool calibrateTouch(Libp::IDrawingSurface<T>& display, ResistiveTouch::Screen& t
     return touchscreen.updateCalibration(measured_points);
 }
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* SRC_TOUCH_CALIBRATE_H_ */

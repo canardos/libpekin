@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp::Bits {
+namespace libp::bits {
 
 // 8-bit volatile
 
@@ -221,6 +221,6 @@ void clearMask(uint32_t& reg, uint32_t mask)
     reg &= ~mask;
 }
 
-} // namespace Libp::Bits
+} // namespace libp::bits
 
 #endif /* LIB_LIBPEKIN_BITS_H_ */

@@ -111,7 +111,7 @@ FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t open_sans_condensed_bold_13_2_raw_img_dat[] = { // 3480 bytes
@@ -407,8 +407,8 @@ static inline constexpr uint8_t open_sans_condensed_bold_13_2_raw_img_dat[] = { 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t open_sans_condensed_bold_13_2_raw_img_dat_len = 3480;
-static inline constexpr Libp::Image2d open_sans_condensed_bold_13_2_img = { 696, 20, Libp::Bpp::msb_2bpp, open_sans_condensed_bold_13_2_raw_img_dat };
-static inline constexpr Libp::CharMeta open_sans_condensed_bold_13_2_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d open_sans_condensed_bold_13_2_img = { 696, 20, libp::Bpp::msb_2bpp, open_sans_condensed_bold_13_2_raw_img_dat };
+static inline constexpr libp::CharMeta open_sans_condensed_bold_13_2_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 13}, {0, 0}, {0, 19}, 4 }, // ' '
     { {0, 1}, {4, 12}, {0, 7}, 5 }, // '!'
@@ -506,7 +506,7 @@ static inline constexpr Libp::CharMeta open_sans_condensed_bold_13_2_meta_data[]
     { {680, 1}, {6, 15}, {0, 7}, 6 }, // '}'
     { {686, 5}, {7, 5}, {0, 11}, 8 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> open_sans_condensed_bold_13_2(open_sans_condensed_bold_13_2_img, open_sans_condensed_bold_13_2_meta_data);
+static inline const libp::RasterFont<32, 126> open_sans_condensed_bold_13_2(open_sans_condensed_bold_13_2_img, open_sans_condensed_bold_13_2_meta_data);
 
 
 
@@ -518,7 +518,7 @@ static inline const Libp::RasterFont<32, 126> open_sans_condensed_bold_13_2(open
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t open_sans_condensed_bold_14_2_raw_img_dat[] = { // 3800 bytes
@@ -841,8 +841,8 @@ static inline constexpr uint8_t open_sans_condensed_bold_14_2_raw_img_dat[] = { 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t open_sans_condensed_bold_14_2_raw_img_dat_len = 3800;
-static inline constexpr Libp::Image2d open_sans_condensed_bold_14_2_img = { 760, 20, Libp::Bpp::msb_2bpp, open_sans_condensed_bold_14_2_raw_img_dat };
-static inline constexpr Libp::CharMeta open_sans_condensed_bold_14_2_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d open_sans_condensed_bold_14_2_img = { 760, 20, libp::Bpp::msb_2bpp, open_sans_condensed_bold_14_2_raw_img_dat };
+static inline constexpr libp::CharMeta open_sans_condensed_bold_14_2_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 15}, {0, 0}, {0, 20}, 5 }, // ' '
     { {0, 1}, {4, 14}, {1, 6}, 5 }, // '!'
@@ -940,7 +940,7 @@ static inline constexpr Libp::CharMeta open_sans_condensed_bold_14_2_meta_data[]
     { {743, 1}, {7, 17}, {0, 6}, 7 }, // '}'
     { {750, 6}, {8, 5}, {0, 11}, 9 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> open_sans_condensed_bold_14_2(open_sans_condensed_bold_14_2_img, open_sans_condensed_bold_14_2_meta_data);
+static inline const libp::RasterFont<32, 126> open_sans_condensed_bold_14_2(open_sans_condensed_bold_14_2_img, open_sans_condensed_bold_14_2_meta_data);
 
 
 
@@ -952,7 +952,7 @@ static inline const Libp::RasterFont<32, 126> open_sans_condensed_bold_14_2(open
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 /*static inline constexpr uint8_t roboto_condensed_regular_14_2_raw_img_dat[] = { // 4392 bytes
@@ -1324,8 +1324,8 @@ static inline const Libp::RasterFont<32, 126> open_sans_condensed_bold_14_2(open
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t roboto_condensed_regular_14_2_raw_img_dat_len = 4392;
-static inline constexpr Libp::Image2d roboto_condensed_regular_14_2_img = { 732, 24, Libp::Bpp::msb_2bpp, roboto_condensed_regular_14_2_raw_img_dat };
-static inline constexpr Libp::CharMeta roboto_condensed_regular_14_2_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d roboto_condensed_regular_14_2_img = { 732, 24, libp::Bpp::msb_2bpp, roboto_condensed_regular_14_2_raw_img_dat };
+static inline constexpr libp::CharMeta roboto_condensed_regular_14_2_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 17}, {0, 0}, {0, 18}, 4 }, // ' '
     { {0, 3}, {3, 14}, {1, 4}, 5 }, // '!'
@@ -1423,7 +1423,7 @@ static inline constexpr Libp::CharMeta roboto_condensed_regular_14_2_meta_data[]
     { {713, 2}, {6, 18}, {0, 3}, 6 }, // '}'
     { {719, 9}, {10, 5}, {1, 10}, 11 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_14_2(roboto_condensed_regular_14_2_img, roboto_condensed_regular_14_2_meta_data);
+static inline const libp::RasterFont<32, 126> roboto_condensed_regular_14_2(roboto_condensed_regular_14_2_img, roboto_condensed_regular_14_2_meta_data);
 
 */
 
@@ -1435,7 +1435,7 @@ static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_14_2(robo
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t roboto_condensed_regular_12_2_raw_img_dat[] = { // 3120 bytes
@@ -1701,8 +1701,8 @@ static inline constexpr uint8_t roboto_condensed_regular_12_2_raw_img_dat[] = { 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t roboto_condensed_regular_12_2_raw_img_dat_len = 3120;
-static inline constexpr Libp::Image2d roboto_condensed_regular_12_2_img = { 624, 20, Libp::Bpp::msb_2bpp, roboto_condensed_regular_12_2_raw_img_dat };
-static inline constexpr Libp::CharMeta roboto_condensed_regular_12_2_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d roboto_condensed_regular_12_2_img = { 624, 20, libp::Bpp::msb_2bpp, roboto_condensed_regular_12_2_raw_img_dat };
+static inline constexpr libp::CharMeta roboto_condensed_regular_12_2_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 14}, {0, 0}, {0, 15}, 4 }, // ' '
     { {0, 2}, {2, 12}, {1, 3}, 4 }, // '!'
@@ -1800,7 +1800,7 @@ static inline constexpr Libp::CharMeta roboto_condensed_regular_12_2_meta_data[]
     { {608, 2}, {5, 15}, {0, 3}, 5 }, // '}'
     { {613, 7}, {9, 5}, {0, 8}, 9 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_12_2(roboto_condensed_regular_12_2_img, roboto_condensed_regular_12_2_meta_data);
+static inline const libp::RasterFont<32, 126> roboto_condensed_regular_12_2(roboto_condensed_regular_12_2_img, roboto_condensed_regular_12_2_meta_data);
 
 
 
@@ -1812,7 +1812,7 @@ static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_12_2(robo
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t roboto_condensed_regular_15_2_raw_img_dat[] = { // 4608 bytes
@@ -2202,8 +2202,8 @@ static inline constexpr uint8_t roboto_condensed_regular_15_2_raw_img_dat[] = { 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t roboto_condensed_regular_15_2_raw_img_dat_len = 4608;
-static inline constexpr Libp::Image2d roboto_condensed_regular_15_2_img = { 768, 24, Libp::Bpp::msb_2bpp, roboto_condensed_regular_15_2_raw_img_dat };
-static inline constexpr Libp::CharMeta roboto_condensed_regular_15_2_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d roboto_condensed_regular_15_2_img = { 768, 24, libp::Bpp::msb_2bpp, roboto_condensed_regular_15_2_raw_img_dat };
+static inline constexpr libp::CharMeta roboto_condensed_regular_15_2_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 17}, {0, 0}, {0, 19}, 5 }, // ' '
     { {0, 3}, {3, 14}, {1, 5}, 5 }, // '!'
@@ -2301,7 +2301,7 @@ static inline constexpr Libp::CharMeta roboto_condensed_regular_15_2_meta_data[]
     { {749, 1}, {6, 20}, {0, 3}, 6 }, // '}'
     { {755, 9}, {10, 5}, {1, 11}, 12 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_15_2(roboto_condensed_regular_15_2_img, roboto_condensed_regular_15_2_meta_data);
+static inline const libp::RasterFont<32, 126> roboto_condensed_regular_15_2(roboto_condensed_regular_15_2_img, roboto_condensed_regular_15_2_meta_data);
 
 
 //
@@ -2312,7 +2312,7 @@ static inline const Libp::RasterFont<32, 126> roboto_condensed_regular_15_2(robo
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 4
+// libp::Bpp   : 4
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t roboto_medium_24_4_raw_img_dat[] = { // 19136 bytes
@@ -3913,8 +3913,8 @@ static inline constexpr uint8_t roboto_medium_24_4_raw_img_dat[] = { // 19136 by
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t roboto_medium_24_4_raw_img_dat_len = 19136;
-static inline constexpr Libp::Image2d roboto_medium_24_4_img = { 184, 208, Libp::Bpp::msb_4bpp, roboto_medium_24_4_raw_img_dat };
-static inline constexpr Libp::CharMeta roboto_medium_24_4_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d roboto_medium_24_4_img = { 184, 208, libp::Bpp::msb_4bpp, roboto_medium_24_4_raw_img_dat };
+static inline constexpr libp::CharMeta roboto_medium_24_4_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {135, 24}, {0, 0}, {0, 30}, 8 }, // ' '
     { {139, 1}, {5, 23}, {2, 7}, 9 }, // '!'
@@ -4012,7 +4012,7 @@ static inline constexpr Libp::CharMeta roboto_medium_24_4_meta_data[] = { // 95 
     { {27, 173}, {10, 31}, {0, 5}, 11 }, // '}'
     { {57, 11}, {19, 7}, {1, 17}, 21 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> roboto_medium_24_4(roboto_medium_24_4_img, roboto_medium_24_4_meta_data);
+static inline const libp::RasterFont<32, 126> roboto_medium_24_4(roboto_medium_24_4_img, roboto_medium_24_4_meta_data);
 
 
 
@@ -4025,7 +4025,7 @@ static inline const Libp::RasterFont<32, 126> roboto_medium_24_4(roboto_medium_2
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t exo_2_semibold_12_raw_img_dat[] = { // 3740 bytes
@@ -4343,8 +4343,8 @@ static inline constexpr uint8_t exo_2_semibold_12_raw_img_dat[] = { // 3740 byte
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t exo_2_semibold_12_raw_img_dat_len = 3740;
-static inline constexpr Libp::Image2d exo_2_semibold_12_img = { 748, 20, Libp::Bpp::msb_2bpp, exo_2_semibold_12_raw_img_dat };
-static inline constexpr Libp::CharMeta exo_2_semibold_12_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d exo_2_semibold_12_img = { 748, 20, libp::Bpp::msb_2bpp, exo_2_semibold_12_raw_img_dat };
+static inline constexpr libp::CharMeta exo_2_semibold_12_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 13}, {0, 0}, {0, 16}, 4 }, // ' '
     { {0, 1}, {3, 12}, {1, 4}, 5 }, // '!'
@@ -4442,7 +4442,7 @@ static inline constexpr Libp::CharMeta exo_2_semibold_12_meta_data[] = { // 95 e
     { {735, 0}, {5, 16}, {0, 3}, 5 }, // '}'
     { {740, 7}, {8, 3}, {0, 10}, 8 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> exo_2_semibold_12(exo_2_semibold_12_img, exo_2_semibold_12_meta_data);
+static inline const libp::RasterFont<32, 126> exo_2_semibold_12(exo_2_semibold_12_img, exo_2_semibold_12_meta_data);
 
 
 
@@ -4454,7 +4454,7 @@ static inline const Libp::RasterFont<32, 126> exo_2_semibold_12(exo_2_semibold_1
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t exo_2_semibold_16_raw_img_dat[] = { // 5832 bytes
@@ -4946,8 +4946,8 @@ static inline constexpr uint8_t exo_2_semibold_16_raw_img_dat[] = { // 5832 byte
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t exo_2_semibold_16_raw_img_dat_len = 5832;
-static inline constexpr Libp::Image2d exo_2_semibold_16_img = { 972, 24, Libp::Bpp::msb_2bpp, exo_2_semibold_16_raw_img_dat };
-static inline constexpr Libp::CharMeta exo_2_semibold_16_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d exo_2_semibold_16_img = { 972, 24, libp::Bpp::msb_2bpp, exo_2_semibold_16_raw_img_dat };
+static inline constexpr libp::CharMeta exo_2_semibold_16_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 17}, {0, 0}, {0, 22}, 5 }, // ' '
     { {0, 2}, {4, 15}, {1, 7}, 6 }, // '!'
@@ -5045,7 +5045,7 @@ static inline constexpr Libp::CharMeta exo_2_semibold_16_meta_data[] = { // 95 e
     { {954, 0}, {7, 21}, {0, 5}, 7 }, // '}'
     { {961, 9}, {9, 4}, {1, 14}, 11 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> exo_2_semibold_16(exo_2_semibold_16_img, exo_2_semibold_16_meta_data);
+static inline const libp::RasterFont<32, 126> exo_2_semibold_16(exo_2_semibold_16_img, exo_2_semibold_16_meta_data);
 
 
 
@@ -5057,7 +5057,7 @@ static inline const Libp::RasterFont<32, 126> exo_2_semibold_16(exo_2_semibold_1
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t exo_2_semibold_24_raw_img_dat[] = { // 12708 bytes
@@ -6122,8 +6122,8 @@ static inline constexpr uint8_t exo_2_semibold_24_raw_img_dat[] = { // 12708 byt
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t exo_2_semibold_24_raw_img_dat_len = 12708;
-static inline constexpr Libp::Image2d exo_2_semibold_24_img = { 1412, 36, Libp::Bpp::msb_2bpp, exo_2_semibold_24_raw_img_dat };
-static inline constexpr Libp::CharMeta exo_2_semibold_24_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d exo_2_semibold_24_img = { 1412, 36, libp::Bpp::msb_2bpp, exo_2_semibold_24_raw_img_dat };
+static inline constexpr libp::CharMeta exo_2_semibold_24_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 26}, {0, 0}, {0, 32}, 7 }, // ' '
     { {0, 3}, {5, 23}, {2, 9}, 9 }, // '!'
@@ -6221,7 +6221,7 @@ static inline constexpr Libp::CharMeta exo_2_semibold_24_meta_data[] = { // 95 e
     { {1387, 1}, {9, 31}, {1, 7}, 11 }, // '}'
     { {1396, 14}, {14, 6}, {1, 20}, 17 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> exo_2_semibold_24(exo_2_semibold_24_img, exo_2_semibold_24_meta_data);
+static inline const libp::RasterFont<32, 126> exo_2_semibold_24(exo_2_semibold_24_img, exo_2_semibold_24_meta_data);
 
 
 
@@ -6233,7 +6233,7 @@ static inline const Libp::RasterFont<32, 126> exo_2_semibold_24(exo_2_semibold_2
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 32 -> 126 [ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~]
 //
 static inline constexpr uint8_t exo_2_semibold_32_raw_img_dat[] = { // 20372 bytes
@@ -7937,8 +7937,8 @@ static inline constexpr uint8_t exo_2_semibold_32_raw_img_dat[] = { // 20372 byt
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t exo_2_semibold_32_raw_img_dat_len = 20372;
-static inline constexpr Libp::Image2d exo_2_semibold_32_img = { 1852, 44, Libp::Bpp::msb_2bpp, exo_2_semibold_32_raw_img_dat };
-static inline constexpr Libp::CharMeta exo_2_semibold_32_meta_data[] = { // 95 entries
+static inline constexpr libp::Image2d exo_2_semibold_32_img = { 1852, 44, libp::Bpp::msb_2bpp, exo_2_semibold_32_raw_img_dat };
+static inline constexpr libp::CharMeta exo_2_semibold_32_meta_data[] = { // 95 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 34}, {0, 0}, {0, 43}, 9 }, // ' '
     { {0, 4}, {6, 30}, {3, 13}, 12 }, // '!'
@@ -8036,7 +8036,7 @@ static inline constexpr Libp::CharMeta exo_2_semibold_32_meta_data[] = { // 95 e
     { {1819, 0}, {12, 42}, {1, 9}, 14 }, // '}'
     { {1831, 18}, {18, 7}, {2, 27}, 22 }, // '~'
 };
-static inline const Libp::RasterFont<32, 126> exo_2_semibold_32(exo_2_semibold_32_img, exo_2_semibold_32_meta_data);
+static inline const libp::RasterFont<32, 126> exo_2_semibold_32(exo_2_semibold_32_img, exo_2_semibold_32_meta_data);
 
 
 
@@ -8048,7 +8048,7 @@ static inline const Libp::RasterFont<32, 126> exo_2_semibold_32(exo_2_semibold_3
 // bold  : 0
 // italic: 0
 // smooth: 1
-// Libp::Bpp   : 2
+// libp::Bpp   : 2
 // chars : 43 -> 58 [+,-./0123456789:]
 //
 static inline constexpr uint8_t exo_2_semibold_60_raw_img_dat[] = { // 9360 bytes
@@ -8834,8 +8834,8 @@ static inline constexpr uint8_t exo_2_semibold_60_raw_img_dat[] = { // 9360 byte
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 static inline constexpr uint32_t exo_2_semibold_60_raw_img_dat_len = 9360;
-static inline constexpr Libp::Image2d exo_2_semibold_60_img = { 520, 72, Libp::Bpp::msb_2bpp, exo_2_semibold_60_raw_img_dat };
-static inline constexpr Libp::CharMeta exo_2_semibold_60_meta_data[] = { // 16 entries
+static inline constexpr libp::Image2d exo_2_semibold_60_img = { 520, 72, libp::Bpp::msb_2bpp, exo_2_semibold_60_raw_img_dat };
+static inline constexpr libp::CharMeta exo_2_semibold_60_meta_data[] = { // 16 entries
     // x position, y position, width, height, xoffset, yoffset, xadvance
     { {0, 15}, {37, 36}, {3, 38}, 43 }, // '+'
     { {37, 46}, {11, 23}, {4, 69}, 19 }, // ','
@@ -8854,7 +8854,7 @@ static inline constexpr Libp::CharMeta exo_2_semibold_60_meta_data[] = { // 16 e
     { {470, 0}, {39, 58}, {3, 23}, 47 }, // '9'
     { {509, 21}, {11, 36}, {4, 44}, 20 }, // ':'
 };
-static inline const Libp::RasterFont<43, 58> exo_2_semibold_60(exo_2_semibold_60_img, exo_2_semibold_60_meta_data);
+static inline const libp::RasterFont<43, 58> exo_2_semibold_60(exo_2_semibold_60_img, exo_2_semibold_60_meta_data);
 
 
 #endif /* IMG_FONTS_H_ */

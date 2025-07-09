@@ -6,7 +6,7 @@
 #include "serial/i2c.h"
 #include "bus/bus_concepts.h"
 
-namespace Libp {
+namespace libp {
 
 /**
  * Basic driver for the MPR121 capacitive touch sensing IC.
@@ -286,6 +286,6 @@ private:
     }
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* SRC_MPR121_H_ */

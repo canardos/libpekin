@@ -1,7 +1,7 @@
 #include <flash/eeprom_stm32f1xx.h>
 #include "stddef.h"
 
-using namespace LibpStm32;
+using namespace libp_stm32;
 
 /// Flash must be unlocked
 /// length in 16-bit half words

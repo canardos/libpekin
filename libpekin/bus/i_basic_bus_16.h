@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Libp {
+namespace libp {
 
 /**
  * Interface functions for I/O over a 16-bit non-addressable bus.
@@ -79,6 +79,6 @@ public:
 };
 
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* SRC_I_BASIC_BUS_16_H_ */

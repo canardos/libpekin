@@ -3,7 +3,7 @@
 
 //#include <type_traits>
 
-namespace Libp {
+namespace libp {
 
 /// Bits per pixel.
 ///
@@ -110,6 +110,6 @@ struct Rect16 {
  */
 void adjustPoint(int16_t& x, int16_t& y, Rect16& dims, Align align);
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* GRAPHICS_GRAPHICS_H_ */

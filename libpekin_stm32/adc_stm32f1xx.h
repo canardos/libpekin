@@ -17,7 +17,7 @@
 
 static_assert(ADC1_BASE > 0, "STM32 CMSIS header must be included before this file");
 
-namespace LibpStm32::Adc {
+namespace libp_stm32::adc {
 
 enum class Rank : uint8_t {
     // DO NOT REORDER
@@ -66,13 +66,13 @@ class AdcDevice {
 public:
     static void setup(Channel ch, SampleTime time)
     {
-        adc_->SMPR1 = Libp::enumBaseT(time) & 0x00FFFFFF; // upper 8-bits must be kept at
+        adc_->SMPR1 = libp::enumBaseT(time) & 0x00FFFFFF; // upper 8-bits must be kept at
                                                            // reset value according to docs
-        adc_->SMPR2 = Libp::enumBaseT(time);
+        adc_->SMPR2 = libp::enumBaseT(time);
         // No sequence, single channel
         adc_->SQR1 = 0x0000;
         adc_->SQR2 = 0x0000;
-        adc_->SQR3 = 0x0000 | Libp::enumBaseT(ch);
+        adc_->SQR3 = 0x0000 | libp::enumBaseT(ch);
     }
 
     static bool isEnabled()
@@ -93,10 +93,10 @@ public:
         while(wait_loop_index != 0U)
           wait_loop_index--;
 
-        uint64_t start = Libp::getMillis();
+        uint64_t start = libp::getMillis();
         while(!isEnabled())
         {
-          if((Libp::getMillis() - start) > 2u)
+          if((libp::getMillis() - start) > 2u)
               return false;
         }
         return true;
@@ -143,6 +143,6 @@ public:
     }
 };
 
-} // namespace LibpStm32::Adc
+} // namespace libp_stm32::adc
 
 #endif /* LIB_LIBPEKIN_STM32_ADC_STM32F1XX_H_ */

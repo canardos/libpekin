@@ -1,7 +1,7 @@
 #include "display/mipi_dcs_tft_driver.h"
 #include "libpekin.h"
 
-namespace Libp {
+namespace libp {
 
 MipiDcsTftDriver::MipiDcsTftDriver(IBasicBus16& bus, uint16_t x_res, uint16_t y_res) :
         bus_(bus), panel_x_res_(x_res), panel_y_res_(y_res),
@@ -63,7 +63,7 @@ void MipiDcsTftDriver::setPixel(uint16_t x, uint16_t y, uint16_t color)
         return;
     // TODO: optimize/test
     setMemoryWindow(x, y, x, y);
-    bus_.write8Cmd(MipiDcs::Cmd::write_memory_start);
+    bus_.write8Cmd(mipi_dcs::cmd::write_memory_start);
 
 }
 
@@ -103,7 +103,7 @@ void MipiDcsTftDriver::fillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
         y1 = height_;
 
     setMemoryWindow(x, y, x1 - 1, y1 - 1);
-    bus_.write8Cmd(MipiDcs::Cmd::write_memory_start);
+    bus_.write8Cmd(mipi_dcs::cmd::write_memory_start);
     bus_.write16Repeat(color, static_cast<uint32_t>(h) * w);
 }
 
@@ -116,7 +116,7 @@ void MipiDcsTftDriver::copyRect(int16_t x, int16_t y, uint16_t w, uint16_t h, co
 {
     // TODO: negative x/y
     setMemoryWindow(x, y, x + w - 1, y + h - 1);
-    bus_.write8Cmd(MipiDcs::Cmd::write_memory_start);
+    bus_.write8Cmd(mipi_dcs::cmd::write_memory_start);
     bus_.write16Array(color, static_cast<uint32_t>(h) * w);
 }
 
@@ -128,7 +128,7 @@ void MipiDcsTftDriver::setMemoryWindow(uint16_t x0, uint16_t y0, uint16_t x1, ui
         static_cast<uint8_t>(x1 >> 8),
         static_cast<uint8_t>(x1)
     };
-    writeCmd(MipiDcs::Cmd::set_column_address, cmd_params, 4);
+    writeCmd(mipi_dcs::cmd::set_column_address, cmd_params, 4);
 
     const uint8_t cmd_params2[4] = {
         static_cast<uint8_t>(y0 >> 8),
@@ -136,7 +136,7 @@ void MipiDcsTftDriver::setMemoryWindow(uint16_t x0, uint16_t y0, uint16_t x1, ui
         static_cast<uint8_t>(y1 >> 8),
         static_cast<uint8_t>(y1)
     };
-    writeCmd(MipiDcs::Cmd::set_page_address, cmd_params2, 4);
+    writeCmd(mipi_dcs::cmd::set_page_address, cmd_params2, 4);
 }
 
 void MipiDcsTftDriver::setOrientation(Orientation orientation)
@@ -193,7 +193,7 @@ void MipiDcsTftDriver::setOrientation(Orientation orientation)
         param = landscape_rev;
         break;
     }
-    writeCmd(MipiDcs::Cmd::set_address_mode, &param, 1);
+    writeCmd(mipi_dcs::cmd::set_address_mode, &param, 1);
     // Reset memory window and disable scrolling
     setMemoryWindow(0, 0, width_ - 1, height_ - 1);
     vscroll(0, 0, 0);
@@ -207,7 +207,7 @@ void MipiDcsTftDriver::vscroll(int16_t start_line, int16_t num_lines, int16_t of
 
     if (offs_lines == 0) {
         // Disable scroll
-        writeCmd(MipiDcs::Cmd::enter_normal_mode, nullptr, 0);
+        writeCmd(mipi_dcs::cmd::enter_normal_mode, nullptr, 0);
         return;
     }
 
@@ -227,20 +227,20 @@ void MipiDcsTftDriver::vscroll(int16_t start_line, int16_t num_lines, int16_t of
             static_cast<uint8_t>(bfa >> 8),
             static_cast<uint8_t>(bfa)
     };
-    writeCmd(MipiDcs::Cmd::set_scroll_area, params, 6);
+    writeCmd(mipi_dcs::cmd::set_scroll_area, params, 6);
     // MSB first
     const uint8_t params2[2] = {
             static_cast<uint8_t>(vsp >> 8),
             static_cast<uint8_t>(vsp)
     };
-    writeCmd(MipiDcs::Cmd::set_scroll_start, params2, 2);
+    writeCmd(mipi_dcs::cmd::set_scroll_start, params2, 2);
 }
 
 void MipiDcsTftDriver::setInverted(bool inverted)
 {
     writeCmd(
-            inverted ? MipiDcs::Cmd::enter_invert_mode : MipiDcs::Cmd::exit_invert_mode,
+            inverted ? mipi_dcs::cmd::enter_invert_mode : mipi_dcs::cmd::exit_invert_mode,
             nullptr, 0);
 }
 
-} // namespace Libp
+} // namespace libp

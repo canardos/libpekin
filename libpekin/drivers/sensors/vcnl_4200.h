@@ -7,7 +7,7 @@
 #include "bytes.h"
 #include "bus/bus_concepts.h"
 
-namespace Libp::Vcnl4200 {
+namespace libp::vcnl4200 {
 
 // NOTE: enums and constants in namespace rather than class scope to avoid
 //       needing template args when referencing everything.
@@ -39,7 +39,7 @@ enum class Reg : uint8_t {
 };
 
 /// Register bit positions
-namespace Pos {
+namespace pos {
     // als_conf
     inline constexpr uint8_t als_it = 6;
     inline constexpr uint8_t als_it_switch = 5;
@@ -69,7 +69,7 @@ namespace Pos {
 }
 
 /// INT_Flag register bit positions
-namespace IntFlagPos {
+namespace int_flag_pos {
     inline constexpr uint8_t ps_upflag = 7;
     inline constexpr uint8_t ps_spflag = 6;
     inline constexpr uint8_t als_if_l = 5;
@@ -91,17 +91,17 @@ enum class AlsIntegTime : uint8_t {
 static inline constexpr uint8_t als_integ_time_mlux_per_step[] = { 24, 12, 6, 3 };
 
 enum class AlsPersistence : uint8_t {
-    x1 = 0b00 << Pos::als_pers,
-    x2 = 0b01 << Pos::als_pers,
-    x4 = 0b10 << Pos::als_pers,
-    x8 = 0b11 << Pos::als_pers
+    x1 = 0b00 << pos::als_pers,
+    x2 = 0b01 << pos::als_pers,
+    x4 = 0b10 << pos::als_pers,
+    x8 = 0b11 << pos::als_pers
 };
 
 enum class PsIntTrigger : uint8_t {
-    disabled         = 0b00 << Pos::ps_int,
-    closing          = 0b01 << Pos::ps_int,
-    away             = 0b10 << Pos::ps_int,
-    closing_and_away = 0b11 << Pos::ps_int,
+    disabled         = 0b00 << pos::ps_int,
+    closing          = 0b01 << pos::ps_int,
+    away             = 0b10 << pos::ps_int,
+    closing_and_away = 0b11 << pos::ps_int,
 };
 enum class PsSunCancelMode : uint8_t {
     // bit2 = ps_spo, bit1 = ps_sc_adv, bit0 = ps_sc_en
@@ -117,24 +117,24 @@ enum class PsMode : uint8_t {
 
 
 enum class PsLedDuration : uint8_t {
-    it_1t    = 0b000 << Pos::ps_it, ///< 30 uS
-    it_1pt5t = 0b001 << Pos::ps_it, ///< 45 uS
-    it_2t1   = 0b010 << Pos::ps_it, ///< 60 uS ??
-    it_4t    = 0b011 << Pos::ps_it, ///< 120 uS
-    it_8t    = 0b100 << Pos::ps_it, ///< 240 uS
-    it_9t    = 0b101 << Pos::ps_it, ///< 270 uS
+    it_1t    = 0b000 << pos::ps_it, ///< 30 uS
+    it_1pt5t = 0b001 << pos::ps_it, ///< 45 uS
+    it_2t1   = 0b010 << pos::ps_it, ///< 60 uS ??
+    it_4t    = 0b011 << pos::ps_it, ///< 120 uS
+    it_8t    = 0b100 << pos::ps_it, ///< 240 uS
+    it_9t    = 0b101 << pos::ps_it, ///< 270 uS
 };
 enum class PsLedDutyCycle : uint8_t {
-    ratio_1_160  = 0b00 << Pos::ps_duty,
-    ratio_1_320  = 0b01 << Pos::ps_duty,
-    ratio_1_640  = 0b10 << Pos::ps_duty,
-    ratio_1_1280 = 0b11 << Pos::ps_duty
+    ratio_1_160  = 0b00 << pos::ps_duty,
+    ratio_1_320  = 0b01 << pos::ps_duty,
+    ratio_1_640  = 0b10 << pos::ps_duty,
+    ratio_1_1280 = 0b11 << pos::ps_duty
 };
 enum class PsIntPersistence : uint8_t {
-    x1 = 0b00 << Pos::ps_pers,
-    x2 = 0b01 << Pos::ps_pers,
-    x3 = 0b10 << Pos::ps_pers,
-    x4 = 0b11 << Pos::ps_pers
+    x1 = 0b00 << pos::ps_pers,
+    x2 = 0b01 << pos::ps_pers,
+    x3 = 0b10 << pos::ps_pers,
+    x4 = 0b11 << pos::ps_pers
 };
 enum class PsLedCurrent : uint8_t {
     i_50ma = 0,
@@ -147,10 +147,10 @@ enum class PsLedCurrent : uint8_t {
     i_200ma = 7,
 };
 enum class PsLedNPulses : uint8_t {
-    x1 = 0b00 << Pos::ps_mps,
-    x2 = 0b01 << Pos::ps_mps,
-    x4 = 0b10 << Pos::ps_mps,
-    x8 = 0b11 << Pos::ps_mps
+    x1 = 0b00 << pos::ps_mps,
+    x2 = 0b01 << pos::ps_mps,
+    x4 = 0b10 << pos::ps_mps,
+    x8 = 0b11 << pos::ps_mps
 };
 
 /// Proximity sensor LED settings for use with `psEnable` function.
@@ -178,7 +178,7 @@ static constexpr LedSettings default_led_settings = {
  */
 static constexpr uint32_t alsToMilliLux(uint16_t als_reading, AlsIntegTime integ_time)
 {
-    return als_reading * als_integ_time_mlux_per_step[Libp::enumBaseT(integ_time)];
+    return als_reading * als_integ_time_mlux_per_step[libp::enumBaseT(integ_time)];
 }
 
 
@@ -210,7 +210,7 @@ public:
     bool alsDisable()
     {
         uint8_t als_conf[2] = { 0x01, 0 };
-        return device_.writeReg(Libp::enumBaseT(Reg::als_conf), als_conf, 2);
+        return device_.writeReg(libp::enumBaseT(Reg::als_conf), als_conf, 2);
     }
 
     /**
@@ -232,23 +232,23 @@ public:
             bool int_en = false, uint16_t thresh_low = 0, uint16_t thresh_high = 0,
             AlsPersistence persistence = AlsPersistence::x1)
     {
-        const uint8_t als_conf_l = Libp::enumBaseT(integration_time)  << Pos::als_it
+        const uint8_t als_conf_l = libp::enumBaseT(integration_time)  << pos::als_it
                                  // TODO: What is white channel interrupt vs ALS interrupt?
                                  //       Datasheet and app note both silent
                                  //| white_ch_int << als_it_switch
-                                 | Libp::enumBaseT(persistence)
-                                 | int_en << Pos::als_int_en
-                                 | 0 << Pos::als_sd; // enable
+                                 | libp::enumBaseT(persistence)
+                                 | int_en << pos::als_int_en
+                                 | 0 << pos::als_sd; // enable
 
         uint8_t als_conf[2] = { als_conf_l, 0 };
-        uint8_t als_thdh[2] = { Libp::lowByte(thresh_high), Libp::highByte(thresh_high) };
-        uint8_t als_thdl[2] = { Libp::lowByte(thresh_low),  Libp::highByte(thresh_low) };
+        uint8_t als_thdh[2] = { libp::lowByte(thresh_high), libp::highByte(thresh_high) };
+        uint8_t als_thdl[2] = { libp::lowByte(thresh_low),  libp::highByte(thresh_low) };
 
         //__builtin_bswap16
 
-        return device_.writeReg(Libp::enumBaseT(Reg::als_conf), als_conf, 2)
-            && device_.writeReg(Libp::enumBaseT(Reg::als_thdh), als_thdh, 2)
-            && device_.writeReg(Libp::enumBaseT(Reg::als_thdl), als_thdl, 2);
+        return device_.writeReg(libp::enumBaseT(Reg::als_conf), als_conf, 2)
+            && device_.writeReg(libp::enumBaseT(Reg::als_thdh), als_thdh, 2)
+            && device_.writeReg(libp::enumBaseT(Reg::als_thdl), als_thdl, 2);
     }
 
     /**
@@ -259,7 +259,7 @@ public:
     bool psDisable()
     {
         uint8_t ps_conf1[2] = { 0x01, 0 };
-        return device_.writeReg(Libp::enumBaseT(Reg::ps_conf1_2), ps_conf1, 2);
+        return device_.writeReg(libp::enumBaseT(Reg::ps_conf1_2), ps_conf1, 2);
     }
 
     /**
@@ -286,25 +286,25 @@ public:
             PsIntTrigger int_trigger, PsIntPersistence int_persist,
             bool smart_persist = false, bool logic_mode = false, bool hd_output = false)
     {
-        const uint8_t ps_conf1 = Libp::enumBaseT(led.duty_cycle)
-                               | Libp::enumBaseT(int_persist)
-                               | Libp::enumBaseT(led.duration)
-                               | 0 << Pos::ps_sd; // enable
+        const uint8_t ps_conf1 = libp::enumBaseT(led.duty_cycle)
+                               | libp::enumBaseT(int_persist)
+                               | libp::enumBaseT(led.duration)
+                               | 0 << pos::ps_sd; // enable
 
-        const uint8_t ps_conf2 = hd_output << Pos::ps_hd
-                               | Libp::enumBaseT(int_trigger);
+        const uint8_t ps_conf2 = hd_output << pos::ps_hd
+                               | libp::enumBaseT(int_trigger);
 
-        const uint8_t ps_conf3 = Libp::enumBaseT(led.pulses)
-                               | smart_persist << Pos::ps_smart_pers;
+        const uint8_t ps_conf3 = libp::enumBaseT(led.pulses)
+                               | smart_persist << pos::ps_smart_pers;
 
-        const uint8_t ps_ms = logic_mode << Pos::ps_ms
-                            | Libp::enumBaseT(led.current) << Pos::led_i;
+        const uint8_t ps_ms = logic_mode << pos::ps_ms
+                            | libp::enumBaseT(led.current) << pos::led_i;
 
         uint8_t ps_conf1_2[2] =  { ps_conf1, ps_conf2 };
         uint8_t ps_conf3_ms[2] = { ps_conf3, ps_ms    };
 
-        return device_.writeReg(Libp::enumBaseT(Reg::ps_conf1_2), ps_conf1_2, 2)
-            && device_.writeReg(Libp::enumBaseT(Reg::ps_conf3_ms), ps_conf3_ms, 2);
+        return device_.writeReg(libp::enumBaseT(Reg::ps_conf1_2), ps_conf1_2, 2)
+            && device_.writeReg(libp::enumBaseT(Reg::ps_conf3_ms), ps_conf3_ms, 2);
     }
 
     /**
@@ -331,10 +331,10 @@ public:
      */
     bool psSetThresholds(uint16_t low, uint16_t high)
     {
-        uint8_t ps_thdh[2] = { Libp::lowByte(high), Libp::highByte(high) };
-        uint8_t ps_thdl[2] = { Libp::lowByte(low),  Libp::highByte(low) };
-        return device_.writeReg(Libp::enumBaseT(Reg::ps_thdh), ps_thdh, 2)
-            && device_.writeReg(Libp::enumBaseT(Reg::ps_thdl), ps_thdl, 2);
+        uint8_t ps_thdh[2] = { libp::lowByte(high), libp::highByte(high) };
+        uint8_t ps_thdl[2] = { libp::lowByte(low),  libp::highByte(low) };
+        return device_.writeReg(libp::enumBaseT(Reg::ps_thdh), ps_thdh, 2)
+            && device_.writeReg(libp::enumBaseT(Reg::ps_thdl), ps_thdl, 2);
     }
 
 
@@ -351,27 +351,27 @@ public:
             PsSunCancelMode sun_cancel, bool sun_hi_out, uint16_t level)
     {
         uint8_t pos_conf3_ms[2];
-        bool success = device_.readReg(Libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2);
+        bool success = device_.readReg(libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2);
         if (!success) {
             return false;
         }
         constexpr uint8_t conf3_mask = 0b11;
         constexpr uint8_t ms_mask = 0b110000;
 
-        Libp::Bits::setBits(
+        libp::bits::setBits(
                 pos_conf3_ms[0],
                 conf3_mask,
-                (Libp::enumBaseT(sun_cancel) & 0b11) << Pos::ps_sc_en);
+                (libp::enumBaseT(sun_cancel) & 0b11) << pos::ps_sc_en);
 
-        Libp::Bits::setBits(
+        libp::bits::setBits(
                 pos_conf3_ms[1],
                 ms_mask,
-                (Libp::enumBaseT(sun_cancel) & 0b100) >> 2 << Pos::ps_sp | sun_hi_out << Pos::ps_spo);
+                (libp::enumBaseT(sun_cancel) & 0b100) >> 2 << pos::ps_sp | sun_hi_out << pos::ps_spo);
 
-        uint8_t ps_canc[2] = { Libp::lowByte(level), Libp::highByte(level) };
+        uint8_t ps_canc[2] = { libp::lowByte(level), libp::highByte(level) };
 
-        return device_.writeReg(Libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2)
-            && device_.writeReg(Libp::enumBaseT(Reg::ps_canc), ps_canc, 2);
+        return device_.writeReg(libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2)
+            && device_.writeReg(libp::enumBaseT(Reg::ps_canc), ps_canc, 2);
     }
 
     /**
@@ -381,7 +381,7 @@ public:
     int32_t alsRead()
     {
         uint8_t regs[2];
-        return device_.readReg(Libp::enumBaseT(Reg::als_data), regs, 2)
+        return device_.readReg(libp::enumBaseT(Reg::als_data), regs, 2)
                 ? (regs[1] << 8) | regs[0]
                 : -1;
     }
@@ -393,7 +393,7 @@ public:
     int32_t psRead()
     {
         uint8_t regs[2];
-        return device_.readReg(Libp::enumBaseT(Reg::ps_data), regs, 2)
+        return device_.readReg(libp::enumBaseT(Reg::ps_data), regs, 2)
                 ? (regs[1] << 8) | regs[0]
                 : -1;
     }
@@ -405,7 +405,7 @@ public:
     uint8_t intFlags()
     {
         uint8_t regs[2];
-        return device_.readReg(Libp::enumBaseT(Reg::int_flag), regs, 2)
+        return device_.readReg(libp::enumBaseT(Reg::int_flag), regs, 2)
                 ? regs[1]
                 : 0xff;
     }
@@ -444,7 +444,7 @@ private:
  * than calling individual configuration member functions.
  *
  * E.g.:
- *     using namespace Vcnl4200;
+ *     using namespace vcnl4200;
  *
  *     static constexpr Vcnl4200Cfg vcnl_cfg = []() {
  *         return Vcnl4200CfgBuilder()
@@ -557,50 +557,50 @@ public:
     }
     constexpr Vcnl4200Cfg build() const
     {
-        const uint8_t als_conf_l = Libp::enumBaseT(als_integration_time)  << Pos::als_it
+        const uint8_t als_conf_l = libp::enumBaseT(als_integration_time)  << pos::als_it
                                  // TODO: What is white channel interrupt vs ALS interrupt?
                                  //       Datasheet and app note both silent
                                  //| white_ch_int << als_it_switch
-                                 | Libp::enumBaseT(als_int_persist)
-                                 | als_interrupt_en << Pos::als_int_en
-                                 | 0 << Pos::als_sd; // enable
+                                 | libp::enumBaseT(als_int_persist)
+                                 | als_interrupt_en << pos::als_int_en
+                                 | 0 << pos::als_sd; // enable
 
-        const uint8_t ps_conf1 = Libp::enumBaseT(ps_led_duty_cycle)
-                               | Libp::enumBaseT(ps_int_persist)
-                               | Libp::enumBaseT(ps_led_duration)
-                               | (!ps_en) << Pos::ps_sd; // enable
+        const uint8_t ps_conf1 = libp::enumBaseT(ps_led_duty_cycle)
+                               | libp::enumBaseT(ps_int_persist)
+                               | libp::enumBaseT(ps_led_duration)
+                               | (!ps_en) << pos::ps_sd; // enable
 
-        const uint8_t ps_conf2 = hd_mode << Pos::ps_hd
-                               | Libp::enumBaseT(ps_int_trigger);
+        const uint8_t ps_conf2 = hd_mode << pos::ps_hd
+                               | libp::enumBaseT(ps_int_trigger);
 
-        const uint8_t ps_conf3 = Libp::enumBaseT(ps_led_pulses)
-                               | smart_persist << Pos::ps_smart_pers;
+        const uint8_t ps_conf3 = libp::enumBaseT(ps_led_pulses)
+                               | smart_persist << pos::ps_smart_pers;
 
-        const uint8_t ps_ms = logic_mode << Pos::ps_ms
-                            | Libp::enumBaseT(ps_led_current) << Pos::led_i;
+        const uint8_t ps_ms = logic_mode << pos::ps_ms
+                            | libp::enumBaseT(ps_led_current) << pos::led_i;
 
         const Vcnl4200Cfg regs = { {
                 als_conf_l,
                 0,
                 lowByte(als_thresh_high),
-                Libp::highByte(als_thresh_high),
-                Libp::lowByte(als_thresh_low),
-                Libp::highByte(als_thresh_low),
+                libp::highByte(als_thresh_high),
+                libp::lowByte(als_thresh_low),
+                libp::highByte(als_thresh_low),
                 ps_conf1,
                 ps_conf2,
                 ps_conf3,
                 ps_ms,
                 0, // TODO; sun cancel
                 0, // TODO; sun cancel
-                Libp::lowByte(ps_thresh_low),
-                Libp::highByte(ps_thresh_low),
-                Libp::lowByte(ps_thresh_high),
-                Libp::highByte(ps_thresh_high)
+                libp::lowByte(ps_thresh_low),
+                libp::highByte(ps_thresh_low),
+                libp::lowByte(ps_thresh_high),
+                libp::highByte(ps_thresh_high)
         } };
         return regs;
     }
 };
 
-} // namespace Libp::Vcnl4200
+} // namespace libp::vcnl4200
 
 #endif /* SRC_VCNL_4200_H_ */

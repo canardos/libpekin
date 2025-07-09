@@ -8,7 +8,7 @@
 #include "libpekin_stm32_hal.h"
 #include "flash_stm32f1xx.h"
 
-namespace LibpStm32 {
+namespace libp_stm32 {
 
 // TODO: Hide this class
 /**
@@ -151,6 +151,6 @@ private:
     EepromRaw eeprom = EepromRaw(base_addr, sizeof(T), signature);
 };
 
-} // namespace LibpStm32
+} // namespace libp_stm32
 
 #endif /* SRC_STM32_EEPROM_RAW_H_ */
