@@ -3,9 +3,7 @@
 
 #include "graphics.h"
 #include <cstdint>
-#if __GNUC__ >= 10
 #include <concepts>
-#endif
 
 namespace libp {
 
@@ -25,16 +23,9 @@ struct CharMeta {
 /// Raster font interface
 template<typename T>
 concept RasterFontConcept = requires (T font, uint8_t ch) {
-#if __GNUC__ >= 10
     { font.validChar(ch) } -> std::same_as<bool>;
     { font.charMeta(ch)  } -> std::same_as<const CharMeta&>;
     { font.image()       } -> std::same_as<const Image2d&>;
-#else
-    { font.validChar(ch) } -> bool;
-    { font.charMeta(ch)  } -> const CharMeta&;
-    { font.image()       } -> const Image2d&;
-#endif
-
 };
 
 } // namespace libp
