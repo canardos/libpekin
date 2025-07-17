@@ -10,17 +10,17 @@ namespace libp::bits {
 inline __attribute__((always_inline))
 void setBit(volatile uint8_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 inline __attribute__((always_inline))
 void clearBit(volatile uint8_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 inline __attribute__((always_inline))
 void updBit(volatile uint8_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 inline __attribute__((always_inline))
 void setBits(volatile uint8_t& reg, uint8_t mask, uint8_t value)
@@ -44,19 +44,19 @@ constexpr
 inline  __attribute__((always_inline))
 void setBit(uint8_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 constexpr
 inline  __attribute__((always_inline))
 void clearBit(uint8_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 constexpr
 inline __attribute__((always_inline))
 void updBit(uint8_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 constexpr
 inline  __attribute__((always_inline))
@@ -82,17 +82,17 @@ void clearMask(uint8_t& reg, uint8_t mask)
 inline __attribute__((always_inline))
 void setBit(volatile uint16_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 inline __attribute__((always_inline))
 void clearBit(volatile uint16_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 inline __attribute__((always_inline))
 void updBit(volatile uint16_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 inline __attribute__((always_inline))
 void setBits(volatile uint16_t& reg, uint16_t mask, uint16_t value)
@@ -116,19 +116,19 @@ constexpr
 inline __attribute__((always_inline))
 void setBit(uint16_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 constexpr
 inline __attribute__((always_inline))
 void clearBit(uint16_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 constexpr
 inline __attribute__((always_inline))
 void updBit(uint16_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 constexpr
 inline __attribute__((always_inline))
@@ -154,17 +154,17 @@ void clearMask(uint16_t& reg, uint16_t mask)
 inline __attribute__((always_inline))
 void setBit(volatile uint32_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 inline __attribute__((always_inline))
 void clearBit(volatile uint32_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 inline __attribute__((always_inline))
 void updBit(volatile uint32_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 inline __attribute__((always_inline))
 void setBits(volatile uint32_t& reg, uint32_t mask, uint32_t value)
@@ -188,19 +188,19 @@ constexpr
 inline __attribute__((always_inline))
 void setBit(uint32_t& reg, uint8_t bit_pos)
 {
-    reg |= 1 << bit_pos;
+    reg |= 1u << bit_pos;
 }
 constexpr
 inline __attribute__((always_inline))
 void clearBit(uint32_t& reg, uint8_t bit_pos)
 {
-    reg &= ~(1 << bit_pos);
+    reg &= ~(1u << bit_pos);
 }
 constexpr
 inline __attribute__((always_inline))
 void updBit(uint32_t& reg, uint8_t bit_pos, bool set)
 {
-    reg = (reg & ~(1 << bit_pos)) | (set << bit_pos);
+    reg = (reg & ~(1u << bit_pos)) | (set << bit_pos);
 }
 constexpr
 inline __attribute__((always_inline))
