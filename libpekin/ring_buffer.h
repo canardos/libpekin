@@ -28,11 +28,11 @@ struct ByteRingBuffer {
         read_idx = mask(read_idx + 1);
         return ch;
     }
-    bool isFull()
+    bool isFull() const
     {
         return mask(write_idx + 1) == read_idx;
     }
-    bool isEmpty()
+    bool isEmpty() const
     {
         return write_idx == read_idx;
     }
@@ -42,12 +42,12 @@ struct ByteRingBuffer {
         write_idx = 0;
         read_idx = 0;
     }*/
-    uint16_t size()
+    uint16_t size() const
     {
         return mask(write_idx - read_idx);
     }
 private:
-    constexpr uint16_t mask(uint16_t val)
+    constexpr uint16_t mask(uint16_t val) const
     {
         return val & (elements - 1);
     }
