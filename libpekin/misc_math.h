@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <bit>
 
 namespace libp {
 
@@ -228,17 +229,20 @@ int32_t randInRng(int32_t min, int32_t max)
 }
 
 
-constexpr bool isPowerOf2(int n) {
-    return (n && ((n & (n - 1)) == 0)) || (n == 0);
+template <std::unsigned_integral T>
+constexpr bool isPowerOf2(T n) {
+    return std::has_single_bit(n);
 }
 
-static_assert(isPowerOf2(0), "isPowerOf2 error");
-static_assert(isPowerOf2(1), "isPowerOf2 error");
-static_assert(isPowerOf2(2), "isPowerOf2 error");
-static_assert(!isPowerOf2(3), "isPowerOf2 error");
-static_assert(isPowerOf2(256), "isPowerOf2 error");
-static_assert(!isPowerOf2(8388606), "isPowerOf2 error");
-static_assert(isPowerOf2(8388608), "isPowerOf2 error");
+static_assert(isPowerOf2(1u), "isPowerOf2 error");
+static_assert(isPowerOf2(2u), "isPowerOf2 error");
+static_assert(isPowerOf2(256u), "isPowerOf2 error");
+
+static_assert(!isPowerOf2(0u), "isPowerOf2 error");
+static_assert(!isPowerOf2(3u), "isPowerOf2 error");
+static_assert(!isPowerOf2(8388606u), "isPowerOf2 error");
+static_assert(isPowerOf2(8388608u), "isPowerOf2 error");
+
 
 constexpr uint8_t bin2bcd(uint8_t value)
 {
