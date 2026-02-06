@@ -2,6 +2,7 @@
 #define LIB_LIBPEKIN_SERIAL_WRITER_H_
 
 #include <cstdint>
+#include <cstdio>
 #include <stdarg.h>
 #include <algorithm>
 #include "i_serial_io.h"
