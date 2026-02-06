@@ -1,15 +1,15 @@
 #ifndef LIB_LIBPEKIN_STM32_SERIAL_I2C_BUS_H_
 #define LIB_LIBPEKIN_STM32_SERIAL_I2C_BUS_H_
 
+#include <bus/lp_bus_concepts.h>
+#include <lp_bits.h>
 #include <cstdint>
 #include <limits>
 
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
-#include "bus/bus_concepts.h"
 #include "pins_stm32f1xx.h"
 #include "clock_stm32f1xx.h"
-#include "bits.h"
 
 namespace libp_stm32::i2c {
 

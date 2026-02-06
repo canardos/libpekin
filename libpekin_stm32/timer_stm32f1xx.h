@@ -144,9 +144,9 @@
 #ifndef LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_
 
+#include <lp_bits.h>
 #include <cstdint>
 #include <tuple>
-#include "bits.h"
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
 

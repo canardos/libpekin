@@ -1,9 +1,9 @@
 #ifndef LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_
 
+#include <lp_bits.h>
 #include <cstdint>
 #include "libpekin.h"
-#include "bits.h"
 
 #ifndef DMA1_BASE
 static_assert(false, "STM32 CMSIS header must be included before this file");

@@ -118,9 +118,9 @@
 #ifndef LIB_LIBPEKIN_STM32_PINS_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_PINS_STM32F1XX_H_
 
+#include <lp_bits.h>
 #include "libpekin_stm32_hal.h"
 #include "libpekin.h"
-#include "bits.h"
 
 static_assert(GPIOA_BASE > 0, "STM32 CMSIS header must be included before this file");
 

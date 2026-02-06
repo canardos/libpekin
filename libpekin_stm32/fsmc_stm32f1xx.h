@@ -1,8 +1,8 @@
 #ifndef LIB_LIBPEKIN_STM32_FSMC_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_FSMC_STM32F1XX_H_
 
+#include <lp_bits.h>
 #include <cstdint>
-#include "bits.h"
 #include "libpekin.h"
 
 namespace libp_stm32::fsmc {

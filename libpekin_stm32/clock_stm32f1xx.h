@@ -9,10 +9,10 @@
 #ifndef LIB_LIBPEKIN_STM32_CLOCK_STM32_H_
 #define LIB_LIBPEKIN_STM32_CLOCK_STM32_H_
 
+#include <lp_bits.h>
 #include <cstdint>
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
-#include "bits.h"
 
 static_assert(GPIOA_BASE > 0, "STM32 CMSIS header must be included before this file");
 

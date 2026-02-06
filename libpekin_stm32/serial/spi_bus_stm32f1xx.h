@@ -4,11 +4,11 @@
 #ifndef LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_
 
+#include <bus/lp_bus_concepts.h>
 #include <cstdint>
 
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
-#include "bus/bus_concepts.h"
 
 namespace libp_stm32::spi {
 
