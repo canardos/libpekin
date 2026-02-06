@@ -19,8 +19,8 @@ static constexpr uint8_t pin_xneg_no = 3;
 static constexpr uint8_t pin_xpos_no = 6;
 static constexpr uint8_t pin_yneg_no = 5;
 static constexpr uint8_t pin_ypos_no = 7;
-static constexpr Channel  xpos_adc_ch = Channel::ch6;
-static constexpr Channel  ypos_adc_ch = Channel::ch7;
+static constexpr adc::Channel  xpos_adc_ch = adc::Channel::ch6;
+static constexpr adc::Channel  ypos_adc_ch = adc::Channel::ch7;
 // ***************************
 
 /**
@@ -53,7 +53,7 @@ private:
         touch_detect, read_x, read_y, uninitialized
     };
 
-    static const AdcDevice<adc_base_addr> adc_;
+    static const adc::AdcDevice<adc_base_addr> adc_;
     static const libp_stm32::Pin<pin_port_addr, pin_xneg_no> xneg_pin_;
     static const libp_stm32::Pin<pin_port_addr, pin_xpos_no> xpos_pin_;
     static const libp_stm32::Pin<pin_port_addr, pin_yneg_no> yneg_pin_;

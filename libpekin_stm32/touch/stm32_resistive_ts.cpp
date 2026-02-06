@@ -3,6 +3,7 @@
 
 using namespace libp;
 using namespace libp_stm32;
+using namespace libp_stm32::adc;
 
 bool ResistiveTs::start(bool use_interrupt)
 {
