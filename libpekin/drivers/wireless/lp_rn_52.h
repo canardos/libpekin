@@ -97,7 +97,7 @@ public:
         state_low_battery,
     };
     friend constexpr uint8_t operator&(uint8_t& status1, StatusState status2) {
-        return status1 & enumBaseT(status2);
+        return status1 & enumVal(status2);
     }
 
     /// Status register values from the 'Q' command
@@ -119,10 +119,10 @@ public:
     };  // Bits 14-15 reserved
 
     friend constexpr uint16_t operator&(StatusFlags& status1, StatusFlags status2) {
-        return enumBaseT(status1) & enumBaseT(status2);
+        return enumVal(status1) & enumVal(status2);
     }
     friend constexpr uint16_t operator&(uint16_t& status1, StatusFlags status2) {
-        return status1 & enumBaseT(status2);
+        return status1 & enumVal(status2);
     }
 
     /// BT profiles
@@ -233,7 +233,7 @@ public:
     template <Feature...feature>
     bool setFeatures()
     {
-        constexpr uint16_t cfg = (enumBaseT(feature) | ... | 0);
+        constexpr uint16_t cfg = (enumVal(feature) | ... | 0);
         constexpr uint8_t max_len = sizeof("S%,ABCD\r");
         char cmd[max_len];
         snprintf(cmd, max_len, "S%%,%04x\n", cfg);
@@ -282,7 +282,7 @@ public:
     template <Profile... profiles>
     bool setDiscoveryMask()
     {
-        constexpr uint8_t mask = (enumBaseT(profiles) | ... | 0);
+        constexpr uint8_t mask = (enumVal(profiles) | ... | 0);
         constexpr uint8_t max_len = sizeof("SD,12\r");
         char cmd[max_len];
         // TODO: this should be doable at compile time.
@@ -295,7 +295,7 @@ public:
     template <Profile... profiles>
     bool setConnectionMask()
     {
-        constexpr uint8_t mask = (enumBaseT(profiles) | ... | 0);
+        constexpr uint8_t mask = (enumVal(profiles) | ... | 0);
         constexpr uint8_t max_len = sizeof("SK,12\r");
         char cmd[max_len];
         // TODO: this should be doable at compile time.
@@ -398,11 +398,8 @@ public:
         serial_.write("Q\r");
         char buf[max_line_len]; // "ffff\r\n"
         serialReadLineIgnoreMetaData(buf, max_line_len, cmd_response_timeout_ms);
-        errno = 0;
         uint16_t status = strtoul(buf, nullptr, 16);
-        return (errno == 0)
-                ? status
-                : query_status_error;
+        return status;
     }
 
     /**
