@@ -11,9 +11,9 @@
 #ifndef SRC_DEVICES_MAX_31856_H_
 #define SRC_DEVICES_MAX_31856_H_
 
-//#include <error_handler.h>
-#include <serial/lp_spi.h>
 #include <cstdint>
+#include <serial/lp_spi.h>
+#include <lp_types.h>
 
 // Outer namespace to encapsulate while avoiding use of template
 // params when referencing below enums/calling decodeTemp etc.

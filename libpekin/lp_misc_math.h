@@ -4,6 +4,7 @@
 #ifndef LIB_LIBPEKIN_MISC_MATH_H_
 #define LIB_LIBPEKIN_MISC_MATH_H_
 
+#include <concepts>
 #include <cstdint>
 #include <cstdlib>
 #include <bit>

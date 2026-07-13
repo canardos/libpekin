@@ -15,7 +15,7 @@
  * using namespace libp_stm32
  *
  * clk::enable<clk::Apb1::tim2>();
- * tim::BasicTimer<TIM2_BASE> timer;
+ * tmr::BasicTimer<TIM2_BASE> timer;
  *
  * timer.initBasic(72'000'000, false);
  * timer.enable();
@@ -35,7 +35,7 @@
  * using namespace libp_stm32
  *
  * clk::enable<clk::Apb1::tim2>();
- * tim::BasicTimer<TIM2_BASE> timer;
+ * tmr::BasicTimer<TIM2_BASE> timer;
  *
  * timer.initBasic(72'000'000, false);
  * timer.enableEvents(true, false);
@@ -60,7 +60,7 @@
  * using namespace libp_stm32
  *
  * clk::enable<clk::Apb1::tim2>();
- * tim::BasicTimer<TIM2_BASE> timer;
+ * tmr::BasicTimer<TIM2_BASE> timer;
  *
  * // TIM2 CH2 = Pin A1
  *
@@ -70,9 +70,9 @@
  * timer.initBasic(72'000'000, false);
  *
  * timer.setupOutputChannel(
- *     tim::Channel::ch2,
- *     tim::OutputCompareMode::toggle,
- *     tim::CaptureComparePolarity::oc_active_high_ic_non_inv);
+ *     tmr::Channel::ch2,
+ *     tmr::OutputCompareMode::toggle,
+ *     tmr::CaptureComparePolarity::oc_active_high_ic_non_inv);
  *
  * timer.enable();
  *
@@ -85,7 +85,7 @@
  * using namespace libp_stm32
  *
  * clk::enable<clk::Apb1::tim2>();
- * tim::BasicTimer<TIM2_BASE> timer;
+ * tmr::BasicTimer<TIM2_BASE> timer;
  *
  * // TIM2 CH2 = Pin A1
  *
@@ -147,6 +147,7 @@
 #include <lp_bits.h>
 #include <lp_types.h>
 #include <cstdint>
+#include <cstddef>
 #include <tuple>
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"

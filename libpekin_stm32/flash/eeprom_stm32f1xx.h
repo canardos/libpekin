@@ -51,15 +51,15 @@ public:
      */
     const uint16_t* get();
 
-private:
-    static constexpr uint16_t page_state_inuse = 0xffff;
-    static constexpr uint16_t page_state_full = 0x0000;
     struct Header {
         /// Used to identify that this page has previously
         /// been setup to store this type of data
         uint16_t signature_; // must be first
         uint16_t state;
     };
+private:
+    static constexpr uint16_t page_state_inuse = 0xffff;
+    static constexpr uint16_t page_state_full = 0x0000;
 
     const uint32_t addr_page0_;
     const uint32_t addr_page1_;

@@ -93,7 +93,7 @@ public:
      *
      * May be called multiple times if change of interrupt mode is required.
      *
-     * If interrupt mode is specified, the `Pins::yneg` pin is used and so an
+     * If interrupt mode is specified, the `pins::yneg` pin is used and so an
      * appropriate handler must be implemented. A typical implementation might
      * look like this:
      *
