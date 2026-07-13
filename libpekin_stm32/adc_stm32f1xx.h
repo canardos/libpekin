@@ -14,6 +14,7 @@
 #include <cstdint>
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
+#include "lp_types.h"
 
 static_assert(ADC1_BASE > 0, "STM32 CMSIS header must be included before this file");
 
@@ -66,13 +67,13 @@ class AdcDevice {
 public:
     static void setup(Channel ch, SampleTime time)
     {
-        adc_->SMPR1 = libp::enumBaseT(time) & 0x00FFFFFF; // upper 8-bits must be kept at
+        adc_->SMPR1 = libp::enumVal(time) & 0x00FFFFFF; // upper 8-bits must be kept at
                                                            // reset value according to docs
-        adc_->SMPR2 = libp::enumBaseT(time);
+        adc_->SMPR2 = libp::enumVal(time);
         // No sequence, single channel
         adc_->SQR1 = 0x0000;
         adc_->SQR2 = 0x0000;
-        adc_->SQR3 = 0x0000 | libp::enumBaseT(ch);
+        adc_->SQR3 = 0x0000 | libp::enumVal(ch);
     }
 
     static bool isEnabled()

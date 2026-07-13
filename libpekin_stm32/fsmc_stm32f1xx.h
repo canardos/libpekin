@@ -137,18 +137,18 @@ struct Config {
         uint32_t bcr =
                   cram_burst_en                 << FSMC_BCRx_CBURSTRW_Pos
                 | addr_data_mux                 << FSMC_BCRx_MUXEN_Pos
-                | libp::enumBaseT(mem_type)
-                | libp::enumBaseT(data_width)
+                | libp::enumVal(mem_type)
+                | libp::enumVal(data_width)
                 | flash_access_en               << FSMC_BCRx_FACCEN_Pos
                 | burst_en                      << FSMC_BCRx_BURSTEN_Pos
-                | libp::enumBaseT(wait_polarity)
+                | libp::enumVal(wait_polarity)
                 | direct_wrap_burst_en          << FSMC_BCRx_WRAPMOD_Pos
-                | libp::enumBaseT(sync_wait_cfg)
+                | libp::enumVal(sync_wait_cfg)
                 | write_en                      << FSMC_BCRx_WREN_Pos
                 | wait_en                       << FSMC_BCRx_WAITEN_Pos
                 | ext_mode_en                   << FSMC_BCRx_EXTMOD_Pos
                 | async_wait_en                 << FSMC_BCRx_ASYNCWAIT_Pos
-                | libp::enumBaseT(cram_pg_size)
+                | libp::enumVal(cram_pg_size)
                 | cram_burst_en                 << FSMC_BCRx_CBURSTRW_Pos;
 
         uint32_t btr =

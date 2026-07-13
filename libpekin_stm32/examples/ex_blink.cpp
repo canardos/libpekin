@@ -33,7 +33,8 @@ static void initPeripherals()
 }
 
 
-int main()
+// Rename to main
+int rename_me_to_main()
 {
     initSysClock();
     initPeripherals();

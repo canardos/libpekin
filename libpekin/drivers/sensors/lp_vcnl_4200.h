@@ -178,7 +178,7 @@ static constexpr LedSettings default_led_settings = {
  */
 static constexpr uint32_t alsToMilliLux(uint16_t als_reading, AlsIntegTime integ_time)
 {
-    return als_reading * als_integ_time_mlux_per_step[libp::enumBaseT(integ_time)];
+    return als_reading * als_integ_time_mlux_per_step[libp::enumVal(integ_time)];
 }
 
 
@@ -210,7 +210,7 @@ public:
     bool alsDisable()
     {
         uint8_t als_conf[2] = { 0x01, 0 };
-        return device_.writeReg(libp::enumBaseT(Reg::als_conf), als_conf, 2);
+        return device_.writeReg(libp::enumVal(Reg::als_conf), als_conf, 2);
     }
 
     /**
@@ -232,11 +232,11 @@ public:
             bool int_en = false, uint16_t thresh_low = 0, uint16_t thresh_high = 0,
             AlsPersistence persistence = AlsPersistence::x1)
     {
-        const uint8_t als_conf_l = libp::enumBaseT(integration_time)  << pos::als_it
+        const uint8_t als_conf_l = libp::enumVal(integration_time)  << pos::als_it
                                  // TODO: What is white channel interrupt vs ALS interrupt?
                                  //       Datasheet and app note both silent
                                  //| white_ch_int << als_it_switch
-                                 | libp::enumBaseT(persistence)
+                                 | libp::enumVal(persistence)
                                  | int_en << pos::als_int_en
                                  | 0 << pos::als_sd; // enable
 
@@ -246,9 +246,9 @@ public:
 
         //__builtin_bswap16
 
-        return device_.writeReg(libp::enumBaseT(Reg::als_conf), als_conf, 2)
-            && device_.writeReg(libp::enumBaseT(Reg::als_thdh), als_thdh, 2)
-            && device_.writeReg(libp::enumBaseT(Reg::als_thdl), als_thdl, 2);
+        return device_.writeReg(libp::enumVal(Reg::als_conf), als_conf, 2)
+            && device_.writeReg(libp::enumVal(Reg::als_thdh), als_thdh, 2)
+            && device_.writeReg(libp::enumVal(Reg::als_thdl), als_thdl, 2);
     }
 
     /**
@@ -259,7 +259,7 @@ public:
     bool psDisable()
     {
         uint8_t ps_conf1[2] = { 0x01, 0 };
-        return device_.writeReg(libp::enumBaseT(Reg::ps_conf1_2), ps_conf1, 2);
+        return device_.writeReg(libp::enumVal(Reg::ps_conf1_2), ps_conf1, 2);
     }
 
     /**
@@ -286,25 +286,25 @@ public:
             PsIntTrigger int_trigger, PsIntPersistence int_persist,
             bool smart_persist = false, bool logic_mode = false, bool hd_output = false)
     {
-        const uint8_t ps_conf1 = libp::enumBaseT(led.duty_cycle)
-                               | libp::enumBaseT(int_persist)
-                               | libp::enumBaseT(led.duration)
+        const uint8_t ps_conf1 = libp::enumVal(led.duty_cycle)
+                               | libp::enumVal(int_persist)
+                               | libp::enumVal(led.duration)
                                | 0 << pos::ps_sd; // enable
 
         const uint8_t ps_conf2 = hd_output << pos::ps_hd
-                               | libp::enumBaseT(int_trigger);
+                               | libp::enumVal(int_trigger);
 
-        const uint8_t ps_conf3 = libp::enumBaseT(led.pulses)
+        const uint8_t ps_conf3 = libp::enumVal(led.pulses)
                                | smart_persist << pos::ps_smart_pers;
 
         const uint8_t ps_ms = logic_mode << pos::ps_ms
-                            | libp::enumBaseT(led.current) << pos::led_i;
+                            | libp::enumVal(led.current) << pos::led_i;
 
         uint8_t ps_conf1_2[2] =  { ps_conf1, ps_conf2 };
         uint8_t ps_conf3_ms[2] = { ps_conf3, ps_ms    };
 
-        return device_.writeReg(libp::enumBaseT(Reg::ps_conf1_2), ps_conf1_2, 2)
-            && device_.writeReg(libp::enumBaseT(Reg::ps_conf3_ms), ps_conf3_ms, 2);
+        return device_.writeReg(libp::enumVal(Reg::ps_conf1_2), ps_conf1_2, 2)
+            && device_.writeReg(libp::enumVal(Reg::ps_conf3_ms), ps_conf3_ms, 2);
     }
 
     /**
@@ -333,8 +333,8 @@ public:
     {
         uint8_t ps_thdh[2] = { libp::lowByte(high), libp::highByte(high) };
         uint8_t ps_thdl[2] = { libp::lowByte(low),  libp::highByte(low) };
-        return device_.writeReg(libp::enumBaseT(Reg::ps_thdh), ps_thdh, 2)
-            && device_.writeReg(libp::enumBaseT(Reg::ps_thdl), ps_thdl, 2);
+        return device_.writeReg(libp::enumVal(Reg::ps_thdh), ps_thdh, 2)
+            && device_.writeReg(libp::enumVal(Reg::ps_thdl), ps_thdl, 2);
     }
 
 
@@ -351,7 +351,7 @@ public:
             PsSunCancelMode sun_cancel, bool sun_hi_out, uint16_t level)
     {
         uint8_t pos_conf3_ms[2];
-        bool success = device_.readReg(libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2);
+        bool success = device_.readReg(libp::enumVal(Reg::ps_conf3_ms), pos_conf3_ms, 2);
         if (!success) {
             return false;
         }
@@ -361,17 +361,17 @@ public:
         libp::bits::setBits(
                 pos_conf3_ms[0],
                 conf3_mask,
-                (libp::enumBaseT(sun_cancel) & 0b11) << pos::ps_sc_en);
+                (libp::enumVal(sun_cancel) & 0b11) << pos::ps_sc_en);
 
         libp::bits::setBits(
                 pos_conf3_ms[1],
                 ms_mask,
-                (libp::enumBaseT(sun_cancel) & 0b100) >> 2 << pos::ps_sp | sun_hi_out << pos::ps_spo);
+                (libp::enumVal(sun_cancel) & 0b100) >> 2 << pos::ps_sp | sun_hi_out << pos::ps_spo);
 
         uint8_t ps_canc[2] = { libp::lowByte(level), libp::highByte(level) };
 
-        return device_.writeReg(libp::enumBaseT(Reg::ps_conf3_ms), pos_conf3_ms, 2)
-            && device_.writeReg(libp::enumBaseT(Reg::ps_canc), ps_canc, 2);
+        return device_.writeReg(libp::enumVal(Reg::ps_conf3_ms), pos_conf3_ms, 2)
+            && device_.writeReg(libp::enumVal(Reg::ps_canc), ps_canc, 2);
     }
 
     /**
@@ -381,7 +381,7 @@ public:
     int32_t alsRead()
     {
         uint8_t regs[2];
-        return device_.readReg(libp::enumBaseT(Reg::als_data), regs, 2)
+        return device_.readReg(libp::enumVal(Reg::als_data), regs, 2)
                 ? (regs[1] << 8) | regs[0]
                 : -1;
     }
@@ -393,7 +393,7 @@ public:
     int32_t psRead()
     {
         uint8_t regs[2];
-        return device_.readReg(libp::enumBaseT(Reg::ps_data), regs, 2)
+        return device_.readReg(libp::enumVal(Reg::ps_data), regs, 2)
                 ? (regs[1] << 8) | regs[0]
                 : -1;
     }
@@ -405,7 +405,7 @@ public:
     uint8_t intFlags()
     {
         uint8_t regs[2];
-        return device_.readReg(libp::enumBaseT(Reg::int_flag), regs, 2)
+        return device_.readReg(libp::enumVal(Reg::int_flag), regs, 2)
                 ? regs[1]
                 : 0xff;
     }
@@ -557,27 +557,27 @@ public:
     }
     constexpr Vcnl4200Cfg build() const
     {
-        const uint8_t als_conf_l = libp::enumBaseT(als_integration_time)  << pos::als_it
+        const uint8_t als_conf_l = libp::enumVal(als_integration_time)  << pos::als_it
                                  // TODO: What is white channel interrupt vs ALS interrupt?
                                  //       Datasheet and app note both silent
                                  //| white_ch_int << als_it_switch
-                                 | libp::enumBaseT(als_int_persist)
+                                 | libp::enumVal(als_int_persist)
                                  | als_interrupt_en << pos::als_int_en
                                  | 0 << pos::als_sd; // enable
 
-        const uint8_t ps_conf1 = libp::enumBaseT(ps_led_duty_cycle)
-                               | libp::enumBaseT(ps_int_persist)
-                               | libp::enumBaseT(ps_led_duration)
+        const uint8_t ps_conf1 = libp::enumVal(ps_led_duty_cycle)
+                               | libp::enumVal(ps_int_persist)
+                               | libp::enumVal(ps_led_duration)
                                | (!ps_en) << pos::ps_sd; // enable
 
         const uint8_t ps_conf2 = hd_mode << pos::ps_hd
-                               | libp::enumBaseT(ps_int_trigger);
+                               | libp::enumVal(ps_int_trigger);
 
-        const uint8_t ps_conf3 = libp::enumBaseT(ps_led_pulses)
+        const uint8_t ps_conf3 = libp::enumVal(ps_led_pulses)
                                | smart_persist << pos::ps_smart_pers;
 
         const uint8_t ps_ms = logic_mode << pos::ps_ms
-                            | libp::enumBaseT(ps_led_current) << pos::led_i;
+                            | libp::enumVal(ps_led_current) << pos::led_i;
 
         const Vcnl4200Cfg regs = { {
                 als_conf_l,

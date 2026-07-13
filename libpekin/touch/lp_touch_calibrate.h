@@ -1,7 +1,6 @@
 #ifndef SRC_TOUCH_CALIBRATE_H_
 #define SRC_TOUCH_CALIBRATE_H_
 
-#include <error_handler.h>
 #include <graphics/lp_colors.h>
 #include <graphics/lp_idrawing_surface.h>
 #include <touch/lp_resistive_touch.h>

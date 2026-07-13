@@ -1,7 +1,7 @@
 #ifndef LIB_LIBPEKIN_PID_PID_ALGO_H_
 #define LIB_LIBPEKIN_PID_PID_ALGO_H_
 
-#include <error_handler.h>
+//#include <error_handler.h>
 #include <lp_misc_math.h>
 #include <cstdint>
 
@@ -32,8 +32,8 @@ public:
         sampling_period_ms_ = sampling_period_ms;
         integral_ = 0;
         prev_process_state_ = measured_state;
-        getErrHndlr().report("PID=%d,%d,%d\r\n",
-                (int)kp_, (int)ki_, (int)kd_);
+        /*getErrHndlr().report("PID=%d,%d,%d\r\n",
+                (int)kp_, (int)ki_, (int)kd_);*/
     }
 
     /**
@@ -74,11 +74,10 @@ public:
                 (kp_ * error + integral_ + kd_ * derivative) / output_scale,
                 min_, max_ );
 
-        // TODO: Need to remove this
-        getErrHndlr().report("tgt=%d, act=%d, err=%d (P=%d, I=%d, D=%d) out=%d(%d)\r\n",
+        /*getErrHndlr().report("tgt=%d, act=%d, err=%d (P=%d, I=%d, D=%d) out=%d(%d)\r\n",
                 (int)desired_state, (int)measured_state, (int)error,
 				(int)(kp_ * error), (int)integral_, (int)(kd_ * derivative),
-				(int)*output_var, (int)(kp_ * error + integral_ + kd_ * derivative));
+				(int)*output_var, (int)(kp_ * error + integral_ + kd_ * derivative));*/
 
         prev_process_state_ = measured_state;
         previous_error_ = error;
@@ -100,7 +99,6 @@ public:
     }
 
 private:
-    // TODO: need inline?
     inline static constexpr uint16_t default_sampling_period = 1000;
     inline static constexpr uint16_t output_scale = 1;
 

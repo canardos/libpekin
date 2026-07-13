@@ -85,11 +85,11 @@ public:
     {
         port_->CR1 &= ~SPI_CR1_SPE; // some settings can't be changed while enabled
 
-        port_->CR1 = libp::enumBaseT(master)  | // master or slave
-                     libp::enumBaseT(clock)   | // clock polarity and phase
-                     libp::enumBaseT(baud)    | // baud rate
-                     libp::enumBaseT(data_ff) | // 8 or 16-bit
-                     libp::enumBaseT(endian)  | // lsb or msb first
+        port_->CR1 = libp::enumVal(master)  | // master or slave
+                     libp::enumVal(clock)   | // clock polarity and phase
+                     libp::enumVal(baud)    | // baud rate
+                     libp::enumVal(data_ff) | // 8 or 16-bit
+                     libp::enumVal(endian)  | // lsb or msb first
                      SPI_CR1_SSM          | // Use external GPIOs for slave select
                      SPI_CR1_SSI;           // Use external GPIOs for slave select
 

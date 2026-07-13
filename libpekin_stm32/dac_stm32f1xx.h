@@ -7,6 +7,7 @@
 #include <cstdint>
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
+#include <lp_types.h>
 #include "dma_stm32f1xx.h"
 
 #ifndef DAC_BASE
@@ -120,12 +121,12 @@ struct Cfg {
             | (ch2_dma_en << DAC_CR_DMAEN2_Pos)
             | ((ch1_trigger != Trigger::none) << DAC_CR_TEN1_Pos)
             | ((ch2_trigger != Trigger::none) << DAC_CR_TEN2_Pos)
-            | ((ch1_trigger == Trigger::none) ? 0 : enumBaseT(ch1_trigger) << DAC_CR_TSEL1_Pos)
-            | ((ch2_trigger == Trigger::none) ? 0 : enumBaseT(ch2_trigger) << DAC_CR_TSEL2_Pos)
-            | (enumBaseT(ch1_wave_gen) << DAC_CR_WAVE1_Pos)
-            | (enumBaseT(ch2_wave_gen) << DAC_CR_WAVE2_Pos)
-            | (enumBaseT(ch1_wave_gen_amp) << DAC_CR_MAMP1_Pos)
-            | (enumBaseT(ch2_wave_gen_amp) << DAC_CR_MAMP2_Pos);
+            | ((ch1_trigger == Trigger::none) ? 0 : enumVal(ch1_trigger) << DAC_CR_TSEL1_Pos)
+            | ((ch2_trigger == Trigger::none) ? 0 : enumVal(ch2_trigger) << DAC_CR_TSEL2_Pos)
+            | (enumVal(ch1_wave_gen) << DAC_CR_WAVE1_Pos)
+            | (enumVal(ch2_wave_gen) << DAC_CR_WAVE2_Pos)
+            | (enumVal(ch1_wave_gen_amp) << DAC_CR_MAMP1_Pos)
+            | (enumVal(ch2_wave_gen_amp) << DAC_CR_MAMP2_Pos);
     }
 };
 
@@ -142,12 +143,12 @@ public:
     inline __attribute__((always_inline))
     static void disable(Channel dac_ch)
     {
-        dac_->CR &= ~(DAC_CR_EN1 << libp::enumBaseT(dac_ch));
+        dac_->CR &= ~(DAC_CR_EN1 << libp::enumVal(dac_ch));
     }
     inline __attribute__((always_inline))
     static void enable(Channel dac_ch)
     {
-        dac_->CR |= (DAC_CR_EN1 << libp::enumBaseT(dac_ch));
+        dac_->CR |= (DAC_CR_EN1 << libp::enumVal(dac_ch));
     }
 
     /**
@@ -167,7 +168,7 @@ public:
     static void stopDma(Channel dac_ch)
     {
         // disable DAC and DAC DMA
-        dac_->CR &= ~( (DAC_CR_DMAEN1 << libp::enumBaseT(dac_ch)) | (DAC_CR_EN1 << libp::enumBaseT(dac_ch)) );
+        dac_->CR &= ~( (DAC_CR_DMAEN1 << libp::enumVal(dac_ch)) | (DAC_CR_EN1 << libp::enumVal(dac_ch)) );
         //Stm32Dma<dma_base_addr, dma_channel>::abort();
     }
 
@@ -177,7 +178,7 @@ public:
     static void startDma(Channel dac_ch, uint32_t* data, uint32_t len, Format fmt)
     {
         dac_->CR |= (dac_ch == Channel::ch1 ? DAC_CR_DMAEN1 : DAC_CR_DMAEN2);
-        const uint32_t dac_addr = base_addr_ + libp::enumBaseT(fmt) + (dac_ch == Channel::ch2 ? 12 : 0);
+        const uint32_t dac_addr = base_addr_ + libp::enumVal(fmt) + (dac_ch == Channel::ch2 ? 12 : 0);
         libp_stm32::dma::DmaDevice<dma_channel, dma_base_addr>::start(dac_addr, (uint32_t)data, len);
         enable(dac_ch);
     }

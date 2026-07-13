@@ -187,7 +187,7 @@ public:
                 ? (i2c_fmduty == FmDuty::ratio_2_to_1 ? 3 : 25)
                 : 2;
         uint32_t ccr = pclk1_freq / (i2c_freq * ccr_multiplier);
-        port_->CCR = fast_mode << I2C_CCR_FS_Pos | libp::enumBaseT(i2c_fmduty) << I2C_CCR_DUTY_Pos | ccr;
+        port_->CCR = fast_mode << I2C_CCR_FS_Pos | libp::enumVal(i2c_fmduty) << I2C_CCR_DUTY_Pos | ccr;
 
         //hi2c->Instance->CR1 = (hi2c->Init.GeneralCallMode | hi2c->Init.NoStretchMode);
 

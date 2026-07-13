@@ -119,6 +119,7 @@
 #define LIB_LIBPEKIN_STM32_PINS_STM32F1XX_H_
 
 #include <lp_bits.h>
+#include <lp_types.h>
 #include "libpekin_stm32_hal.h"
 #include "libpekin.h"
 
@@ -166,7 +167,7 @@ namespace gpio_mode_mask {
 /// TODO
 constexpr uint32_t getOutputModeMask(OutputMode mode, OutputSpeed speed, uint8_t i)
 {
-    uint32_t mask = (libp::enumBaseT(mode) << 2u | libp::enumBaseT(speed)) << (i*4u);
+    uint32_t mask = (libp::enumVal(mode) << 2u | libp::enumVal(speed)) << (i*4u);
     return i == 0
             ? mask
             : mask | getOutputModeMask(mode, speed, --i);
@@ -203,7 +204,7 @@ constexpr uint32_t getInputModeMask(uint32_t mode, uint8_t i)
 constexpr uint32_t getInputModeMask(InputMode mode)
 {
     // remove trailing 0b1 on pullup enum value
-    return getInputModeMask(libp::enumBaseT(mode) & 0b1100, 7);
+    return getInputModeMask(libp::enumVal(mode) & 0b1100, 7);
 }
 
 static_assert(getOutputModeMask(OutputMode::pushpull, OutputSpeed::low) == 0b0010'0010'0010'0010'0010'0010'0010'0010);
@@ -370,11 +371,11 @@ public:
     {
         // 4-bits per pin [CNF1:CNF0:MODE1:MODE0]
         if constexpr (pin_ >= 8) {
-            port_->CRH = (port_->CRH & mask) | ((libp::enumBaseT(mode) & 0b1100) << lsb_pos);
+            port_->CRH = (port_->CRH & mask) | ((libp::enumVal(mode) & 0b1100) << lsb_pos);
             // remove trailing 0b1 on pullup enum value ------------------^
         }
         else {
-            port_->CRL = (port_->CRL & mask) | ((libp::enumBaseT(mode) & 0b1100) << lsb_pos);
+            port_->CRL = (port_->CRL & mask) | ((libp::enumVal(mode) & 0b1100) << lsb_pos);
             // remove trailing 0b1 on pullup enum value ------------------^
         }
         set(mode == InputMode::pullup);
@@ -423,10 +424,10 @@ public:
     {
         // 4-bits per pin [CNF1:CNF0:MODE1:MODE0]
         if constexpr (pin_ >= 8) {
-            port_->CRH = (port_->CRH & mask) | ( libp::enumBaseT(mode) << 2 | libp::enumBaseT(speed) ) << lsb_pos;
+            port_->CRH = (port_->CRH & mask) | ( libp::enumVal(mode) << 2 | libp::enumVal(speed) ) << lsb_pos;
         }
         else {
-            port_->CRL = (port_->CRL & mask) | ( libp::enumBaseT(mode) << 2 | libp::enumBaseT(speed) ) << lsb_pos;
+            port_->CRL = (port_->CRL & mask) | ( libp::enumVal(mode) << 2 | libp::enumVal(speed) ) << lsb_pos;
         }
     }
 

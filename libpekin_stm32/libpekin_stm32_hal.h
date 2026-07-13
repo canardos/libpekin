@@ -50,7 +50,7 @@ using SysTickHandler = void(*)();
  * @param handler TODO
  * @return true 0 on success, 1 on error
  */
-bool libpekinInitTimers(SysTickHandler handler = nullptr);
+bool lpInitTimers(SysTickHandler handler = nullptr);
 
 /**
  * Untested.

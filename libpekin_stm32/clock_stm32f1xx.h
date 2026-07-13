@@ -10,6 +10,7 @@
 #define LIB_LIBPEKIN_STM32_CLOCK_STM32_H_
 
 #include <lp_bits.h>
+#include "lp_types.h"
 #include <cstdint>
 #include "libpekin.h"
 #include "libpekin_stm32_hal.h"
@@ -64,7 +65,7 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->APB1ENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1ENR |= ((1u << libp::enumVal(peripheral)) | ...);
 }
 
 /**
@@ -83,7 +84,7 @@ template <Apb2... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->APB2ENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2ENR |= ((1u << libp::enumVal(peripheral)) | ...);
 }
 
 /**
@@ -102,7 +103,7 @@ template <Ahb... peripheral>
 inline __attribute__((always_inline))
 void enable()
 {
-    RCC->AHBENR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBENR |= ((1u << libp::enumVal(peripheral)) | ...);
 }
 
 
@@ -117,7 +118,7 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void disable()
 {
-    RCC->APB1ENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1ENR &= ~((1u << libp::enumVal(peripheral)) | ...);
 }
 
 /**
@@ -131,7 +132,7 @@ template <Apb2... peripheral>
 inline
 void disable()
 {
-    RCC->APB2ENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2ENR &= ~((1u << libp::enumVal(peripheral)) | ...);
 }
 
 /**
@@ -145,7 +146,7 @@ template <Ahb... peripheral>
 inline __attribute__((always_inline))
 void disable()
 {
-    RCC->AHBENR &= ~((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBENR &= ~((1u << libp::enumVal(peripheral)) | ...);
 }
 
 /**
@@ -159,7 +160,7 @@ template <Apb1... peripheral>
 inline __attribute__((always_inline))
 void reset()
 {
-    RCC->APB1RSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB1RSTR |= ((1u << libp::enumVal(peripheral)) | ...);
     RCC->APB1RSTR = 0;
 }
 
@@ -174,7 +175,7 @@ template <Apb2... peripheral>
 inline __attribute__((always_inline))
 void reset()
 {
-    RCC->APB2RSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->APB2RSTR |= ((1u << libp::enumVal(peripheral)) | ...);
     RCC->APB2RSTR = 0;
 }
 
@@ -190,7 +191,7 @@ void reset()
 inline
 void reset()
 {
-    RCC->AHBRSTR |= ((1u << libp::enumBaseT(peripheral)) | ...);
+    RCC->AHBRSTR |= ((1u << libp::enumVal(peripheral)) | ...);
     RCC->AHBRSTR = 0;
 }*/
 
@@ -371,7 +372,7 @@ enum class AdcPrescaler : uint8_t {
 inline
 void setHClk(AhbPrescaler ahb_pscale)
 {
-    libp::bits::setBits(RCC->CFGR, RCC_CFGR_HPRE, libp::enumBaseT(ahb_pscale) << RCC_CFGR_HPRE_Pos);
+    libp::bits::setBits(RCC->CFGR, RCC_CFGR_HPRE, libp::enumVal(ahb_pscale) << RCC_CFGR_HPRE_Pos);
     // Update CMSIS SystemCoreClock var
     SystemCoreClockUpdate();
 }
@@ -394,9 +395,9 @@ void setPeripheralClk(ApbPrescaler apb1_pscale, ApbPrescaler apb2_pscale, AdcPre
 {
     libp::bits::setBits(RCC->CFGR,
             RCC_CFGR_PPRE1 | RCC_CFGR_PPRE2 | RCC_CFGR_ADCPRE,
-              (libp::enumBaseT(apb1_pscale) << RCC_CFGR_PPRE1_Pos)
-            | (libp::enumBaseT(apb2_pscale) << RCC_CFGR_PPRE2_Pos)
-            | (libp::enumBaseT(adc_pscale) << RCC_CFGR_ADCPRE_Pos) );
+              (libp::enumVal(apb1_pscale) << RCC_CFGR_PPRE1_Pos)
+            | (libp::enumVal(apb2_pscale) << RCC_CFGR_PPRE2_Pos)
+            | (libp::enumVal(adc_pscale) << RCC_CFGR_ADCPRE_Pos) );
 }
 
 /// See `setUsbClk`
@@ -416,7 +417,7 @@ void setUsbClk(UsbPrescaler prescaler)
     libp::bits::setBits(
             RCC->CFGR,
             RCC_CFGR_USBPRE,
-            (libp::enumBaseT(prescaler) << RCC_CFGR_USBPRE_Pos) );
+            (libp::enumVal(prescaler) << RCC_CFGR_USBPRE_Pos) );
 }
 
 

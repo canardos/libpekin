@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_LP_GRAPHICS_H_
 #define GRAPHICS_LP_GRAPHICS_H_
 
-//#include <type_traits>
+#include <cstdint>
 
 namespace libp {
 

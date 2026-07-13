@@ -108,13 +108,13 @@ public:
     {
         // confirm struct packing hasn't messed things up
         static_assert(sizeof(TimeData) == 8);
-        if (!device_.readReg(enumBaseT(Reg::hundredths), reinterpret_cast<uint8_t*>(&time_data), 8))
+        if (!device_.readReg(enumVal(Reg::hundredths), reinterpret_cast<uint8_t*>(&time_data), 8))
             return false;
         // If we're about to tick over to a new minute, check that it didn't
         // happen while we were reading
         if (bcd2bin(time_data.seconds) == 59) {
             TimeData time_data2;
-            if (!device_.readReg(enumBaseT(Reg::hundredths), reinterpret_cast<uint8_t*>(&time_data2), 8))
+            if (!device_.readReg(enumVal(Reg::hundredths), reinterpret_cast<uint8_t*>(&time_data2), 8))
                 return false;
             if (bcd2bin(time_data2.seconds) == 0) {
                 memcpy(&time_data, &time_data2, 8);
@@ -141,7 +141,7 @@ public:
         // confirm struct packing hasn't messed things up
         static_assert(sizeof(TimeData) == 8);
         // skip 100ths reg
-        return device_.writeReg(enumBaseT(Reg::seconds), reinterpret_cast<uint8_t*>(&time_data) + 1, 7);
+        return device_.writeReg(enumVal(Reg::seconds), reinterpret_cast<uint8_t*>(&time_data) + 1, 7);
     }
 
     /// Type of alarm
@@ -182,17 +182,17 @@ public:
         // Set weekday or date alarm if required
         if (day_type != AlarmType::daily) {
             constexpr uint8_t mask = 1 << ext_wada_pos;
-            constexpr uint8_t new_val = enumBaseT(day_type) << ext_wada_pos;
-            if (device_.updateReg8(enumBaseT(Reg::extensions), mask, new_val) > 255)
+            constexpr uint8_t new_val = enumVal(day_type) << ext_wada_pos;
+            if (device_.updateReg8(enumVal(Reg::extensions), mask, new_val) > 255)
                 return false;
         }
         // Set alarm time/day
         uint8_t alarm_data[4];
-        alarm_data[0] = enumBaseT(Reg::alarm_mins);
+        alarm_data[0] = enumVal(Reg::alarm_mins);
         alarm_data[1] = use_min << 7 | min;
         alarm_data[2] = use_hour << 7 | hour;
         alarm_data[3] = (day_type == AlarmType::daily) << 7 | day;
-        return device_.writeReg8(enumBaseT(Reg::alarm_mins), alarm_data, 4);
+        return device_.writeReg8(enumVal(Reg::alarm_mins), alarm_data, 4);
     }
 
     /**
@@ -210,8 +210,8 @@ public:
     bool setPdTimeUpdInt(PdTimeUpdIntType type)
     {
         constexpr uint8_t mask = 1 << ext_usel_pos;
-        uint8_t value = enumBaseT(type) << ext_usel_pos;
-        return device_.updateReg(enumBaseT(Reg::extensions), mask, value) <= 255;
+        uint8_t value = enumVal(type) << ext_usel_pos;
+        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
     }
 
     /// CLKOUT pin frequency
@@ -231,8 +231,8 @@ public:
     bool setClkOutFreq(ClkOutFreq freq)
     {
         constexpr uint8_t mask = 0b11 << ext_fd_pos;
-        uint8_t value = enumBaseT(freq) << ext_fd_pos;
-        return device_.updateReg(enumBaseT(Reg::extensions), mask, value) <= 255;
+        uint8_t value = enumVal(freq) << ext_fd_pos;
+        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
     }
 
     /// Period countdown timer source clock
@@ -261,13 +261,13 @@ public:
      */
     bool setCountdownTmr(bool enable, uint16_t tmr_value, CntdnTmrClkFreq clk_freq)
     {
-        if (   !device_.writeReg8(enumBaseT(Reg::timer_0), static_cast<uint8_t>(tmr_value))
-            || !device_.writeReg8(enumBaseT(Reg::timer_1), static_cast<uint8_t>(tmr_value >> 8)) ) {
+        if (   !device_.writeReg8(enumVal(Reg::timer_0), static_cast<uint8_t>(tmr_value))
+            || !device_.writeReg8(enumVal(Reg::timer_1), static_cast<uint8_t>(tmr_value >> 8)) ) {
             return false;
         }
         constexpr uint8_t mask = (1 << ext_te_pos) | (0b11 << ext_td_pos);
-        uint8_t value = (enable << ext_te_pos) | (enumBaseT(clk_freq) << ext_td_pos);
-        return device_.updateReg(enumBaseT(Reg::extensions), mask, value) <= 255;
+        uint8_t value = (enable << ext_te_pos) | (enumVal(clk_freq) << ext_td_pos);
+        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
     }
 
     /// CLKOUT pin frequency
@@ -297,10 +297,10 @@ public:
     bool setEventCapture(bool enable, EventEdge edge, EventFilter filter, bool reset_on_evt)
     {
         uint8_t reg_val = enable << event_ctrl_ecp_pos
-                        | enumBaseT(edge) <<event_ctrl_ehl_pos
-                        | enumBaseT(filter) << event_ctrl_et_pos
+                        | enumVal(edge) <<event_ctrl_ehl_pos
+                        | enumVal(filter) << event_ctrl_et_pos
                         | reset_on_evt << event_ctrl_erst_pos;
-        return device_.writeReg(enumBaseT(Reg::event_ctrl), reg_val);
+        return device_.writeReg(enumVal(Reg::event_ctrl), reg_val);
     }
 
     /**
@@ -319,7 +319,7 @@ public:
                         | cnt_dn_tmr << ctrl_tie_pos
                         | alarm << ctrl_aie_pos
                         | ext_event << ctrl_eie_pos;
-        return device_.writeReg(enumBaseT(Reg::control), reg_val);
+        return device_.writeReg(enumVal(Reg::control), reg_val);
     }
 
 private:

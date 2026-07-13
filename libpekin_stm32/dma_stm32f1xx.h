@@ -2,6 +2,7 @@
 #define LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_
 
 #include <lp_bits.h>
+#include <lp_types.h>
 #include <cstdint>
 #include "libpekin.h"
 
@@ -98,7 +99,7 @@ public:
 
     static constexpr CfgBuilder create(Mode mode, IncMode inc_mode = IncMode::none)
     {
-        uint32_t reg = libp::enumBaseT(inc_mode);
+        uint32_t reg = libp::enumVal(inc_mode);
         if (mode == Mode::mem_to_mem)
             reg |= DMA_CCR_MEM2MEM;
         else if (mode == Mode::mem_to_periph)
@@ -110,7 +111,7 @@ public:
     constexpr CfgBuilder priority(ChPriority priority) const
     {
         uint32_t reg = ccr_reg;
-        libp::bits::setBits(reg, DMA_CCR_PL_Msk, libp::enumBaseT(priority));
+        libp::bits::setBits(reg, DMA_CCR_PL_Msk, libp::enumVal(priority));
         return CfgBuilder(reg);
     }
     /// Default is 8-bit
@@ -119,7 +120,7 @@ public:
         uint32_t reg = ccr_reg;
         libp::bits::setBits(reg,
                 DMA_CCR_MSIZE_Msk | DMA_CCR_PSIZE_Msk,
-                libp::enumBaseT(mem_size) | libp::enumBaseT(periph_size));
+                libp::enumVal(mem_size) | libp::enumVal(periph_size));
         return CfgBuilder(reg);
     }
     /// Default is disabled

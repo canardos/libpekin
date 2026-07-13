@@ -277,12 +277,12 @@ private:
 
     uint16_t readReg(Reg reg)
     {
-        return device_.readReg(enumBaseT(reg));
+        return device_.readReg(enumVal(reg));
     }
 
     bool setReg(Reg reg, uint8_t value)
     {
-        return device_.writeReg(enumBaseT(reg), value);
+        return device_.writeReg(enumVal(reg), value);
     }
 };
 

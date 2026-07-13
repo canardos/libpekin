@@ -344,17 +344,17 @@ public:
         const bool use_interrupt_mode = false;
 
         uint8_t config0 =
-                enumBaseT(c_mode)   << RegBitPos::Config0::cmode |
-                enumBaseT(oc_fault) << RegBitPos::Config0::oc_fault |
+                enumVal(c_mode)   << RegBitPos::Config0::cmode |
+                enumVal(oc_fault) << RegBitPos::Config0::oc_fault |
                 cj_sensor_disabled    << RegBitPos::Config0::cj_sensor_disable |
                 use_interrupt_mode    << RegBitPos::Config0::fault_mode |
                 fault_status_clear    << RegBitPos::Config0::fault_status_clear |
                 // TODO: change notch freq in one-shot mode only
-                enumBaseT(filter) << RegBitPos::Config0::noise_filter_freq;
+                enumVal(filter) << RegBitPos::Config0::noise_filter_freq;
 
         uint8_t config1 =
-                enumBaseT(c_mode)  << RegBitPos::Config1::conversion_mode |
-                enumBaseT(tc_type) << RegBitPos::Config1::thermocouple_type;
+                enumVal(c_mode)  << RegBitPos::Config1::conversion_mode |
+                enumVal(tc_type) << RegBitPos::Config1::thermocouple_type;
 
         // Unclear why, but first write fails sporadically so double up
         spi_.write(RegAddr::getWriteAddr(RegAddr::config_0), config0);

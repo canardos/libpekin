@@ -159,7 +159,7 @@ public:
     bool reset()
     {
         const uint8_t reset_cmd = 0xb6;
-        if (!device_.writeReg(enumBaseT(Reg::sreset), &reset_cmd, 1))
+        if (!device_.writeReg(enumVal(Reg::sreset), &reset_cmd, 1))
             return false;
         // Wait for reboot to complete
         const uint8_t timeout_ms = 50;
@@ -167,7 +167,7 @@ public:
         uint8_t status;
         while (waited_ms < timeout_ms) {
             delayMs(2);
-            if (device_.readReg(enumBaseT(Reg::status), &status, 1)) {
+            if (device_.readReg(enumVal(Reg::status), &status, 1)) {
                 if ( !(status & (1 << reg_status_im_update_pos)) )
                     break;
             }
@@ -244,7 +244,7 @@ public:
 
         // If in forced mode, wait for return to sleep
         const uint8_t mask = 0b11 << reg_ctrl_meas_mode_pos;
-        while ( (ctrl_meas & mask) == enumBaseT(Mode::forced)) {
+        while ( (ctrl_meas & mask) == enumVal(Mode::forced)) {
             //if (mode == Mode::forced)
             //    return true;
             delayUs(250);
@@ -253,10 +253,10 @@ public:
                 return false;
         }
         // Nothing to do if current mode == requested mode
-        if ((ctrl_meas & mask) == enumBaseT(mode))
+        if ((ctrl_meas & mask) == enumVal(mode))
             return true;
         // Update mode
-        ctrl_meas = (ctrl_meas & ~mask) | enumBaseT(mode);
+        ctrl_meas = (ctrl_meas & ~mask) | enumVal(mode);
         return writeReg(Reg::ctrl_meas, ctrl_meas);
     }
 
@@ -277,23 +277,23 @@ public:
             OSample os_hum, OSample os_pres, OSample os_temp,
             TStandby t_standby, Filter filter, bool en_3wire)
     {
-        const uint8_t ctrl_hum = enumBaseT(os_hum);
+        const uint8_t ctrl_hum = enumVal(os_hum);
         const uint8_t ctrl_meas_cfg[2] = {
                 static_cast<uint8_t>(
-                    enumBaseT(os_temp) << reg_ctrl_meas_osrs_t_pos
-                  | enumBaseT(os_pres) << reg_ctrl_meas_osrs_p_pos
-                  | enumBaseT(mode) << reg_ctrl_meas_mode_pos
+                    enumVal(os_temp) << reg_ctrl_meas_osrs_t_pos
+                  | enumVal(os_pres) << reg_ctrl_meas_osrs_p_pos
+                  | enumVal(mode) << reg_ctrl_meas_mode_pos
                 ),
                 static_cast<uint8_t>(
-                    enumBaseT(t_standby) << reg_cfg_t_sb_pos
-                  | enumBaseT(filter) << reg_cfg_filter_pos
+                    enumVal(t_standby) << reg_cfg_t_sb_pos
+                  | enumVal(filter) << reg_cfg_filter_pos
                   | en_3wire << reg_cfg_spi3w_en_pos
                 )
         };
         // ctrl_hum write must be followed by write
         // to ctrl_meas to become effective.
         return writeReg(Reg::ctrl_hum, ctrl_hum)
-            && device_.writeReg(enumBaseT(Reg::ctrl_meas), ctrl_meas_cfg, 2);
+            && device_.writeReg(enumVal(Reg::ctrl_meas), ctrl_meas_cfg, 2);
     }
 
 
@@ -309,7 +309,7 @@ public:
         // TODO: allow individual measurements
         constexpr uint8_t thp_reg_len = 8;
         uint8_t measurements[thp_reg_len];
-        if (!device_.readReg(enumBaseT(Reg::press_msb), measurements, thp_reg_len))
+        if (!device_.readReg(enumVal(Reg::press_msb), measurements, thp_reg_len))
             return false;
 
         RawData raw;
@@ -344,10 +344,10 @@ private:
         constexpr uint8_t max_len = std::max(calib_temp_pr_len, calib_hum_len);
         uint8_t buffer[max_len];
 
-        if (!device_.readReg(enumBaseT(Reg::calib_temp_pr), buffer, calib_temp_pr_len))
+        if (!device_.readReg(enumVal(Reg::calib_temp_pr), buffer, calib_temp_pr_len))
             return false;
         updateCalibTempPres(buffer);
-        if (!device_.readReg(enumBaseT(Reg::calib_hum), buffer, calib_hum_len))
+        if (!device_.readReg(enumVal(Reg::calib_hum), buffer, calib_hum_len))
             return false;
         updateCalibHum(buffer);
         return true;
@@ -355,15 +355,15 @@ private:
 
     uint16_t readReg(Reg reg)
     {
-        return device_.readReg(enumBaseT(reg));
+        return device_.readReg(enumVal(reg));
     }
     bool writeReg(Reg reg, uint8_t value)
     {
-        return device_.writeReg(enumBaseT(reg), &value, 1);
+        return device_.writeReg(enumVal(reg), &value, 1);
     }
     /*bool updateReg(Reg reg, uint8_t mask, uint8_t value)
     {
-        uint16_t old_value = device_.updateReg(enumBaseT(reg), mask, value);
+        uint16_t old_value = device_.updateReg(enumVal(reg), mask, value);
         return old_value <= 255;
     }*/
 

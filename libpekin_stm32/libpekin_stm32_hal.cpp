@@ -41,7 +41,7 @@ static constexpr uint32_t systick_irq_priority = 0;
  *
  * @return
  */
-bool libpekinInitTimers(SysTickHandler handler)
+bool lpInitTimers(SysTickHandler handler)
 {
     // ** ms **
     client_systick_handler_ = handler;

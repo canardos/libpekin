@@ -7,6 +7,7 @@
 #define LIB_LIBPEKIN_STM32_SERIAL_UART_STM32_H_
 
 #include <lp_bits.h>
+#include <lp_types.h>
 #include <lp_ring_buffer.h>
 #include <serial/lp_i_serial_io.h>
 #include <cstdint>
@@ -184,8 +185,8 @@ public:
                 ? clk::getPClk2()
                 : clk::getPClk1();
         port_->BRR = clk / baud; // TODO: do we need to round?
-        port_->CR1 = libp::enumBaseT(mode) | libp::enumBaseT(parity)/* | libp::enumBaseT(IrqType::rx_data_ready)*/;
-        port_->CR2 = libp::enumBaseT(stop_bits);
+        port_->CR1 = libp::enumVal(mode) | libp::enumVal(parity)/* | libp::enumVal(IrqType::rx_data_ready)*/;
+        port_->CR2 = libp::enumVal(stop_bits);
         port_->CR1 |= USART_CR1_UE;
     }
 
@@ -208,7 +209,7 @@ public:
     static void configIrq()
     {
         // TODO do we need to stop/start?
-        constexpr uint32_t enable_mask = (libp::enumBaseT(it_types) | ... | 0);
+        constexpr uint32_t enable_mask = (libp::enumVal(it_types) | ... | 0);
         libp::bits::setBits(port_->CR1, cr1_irq_events_mask, enable_mask);
     }
 

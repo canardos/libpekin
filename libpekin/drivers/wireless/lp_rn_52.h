@@ -10,7 +10,6 @@
 #include <cstdint>
 
 #include <strlcpy.h>
-//#include <error_handler.h>
 #include "libpekin.h"
 
 namespace libp {
