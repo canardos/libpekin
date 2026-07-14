@@ -1,7 +1,7 @@
 #ifndef LIB_LIBPEKIN_STM32_ERROR_H_
 #define LIB_LIBPEKIN_STM32_ERROR_H_
 
-#include <serial/lp_serial_writer.h>
+#include "serial/lp_serial_writer.h"
 
 namespace libp {
 

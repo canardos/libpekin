@@ -7,7 +7,7 @@
 #ifndef DISPLAY_BUFFER_H_
 #define DISPLAY_BUFFER_H_
 
-#include <graphics/lp_idrawing_surface.h>
+#include "graphics/lp_idrawing_surface.h"
 #include <cstdint>
 #include <cstring>
 

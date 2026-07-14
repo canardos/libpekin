@@ -1,11 +1,11 @@
 #ifndef LIB_LIBPEKIN_STM32_LP_DMA_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_LP_DMA_STM32F1XX_H_
 
-#include <cstdint>
-#include <lp_bits.h>
-#include <lp_types.h>
+#include "lp_bits.h"
+#include "lp_types.h"
 #include "libpekin.h"
 #include "lp_libpekin_stm32_hal.h"
+#include <cstdint>
 
 #ifndef DMA1_BASE
 #error "STM32 CMSIS header must be included before this file"

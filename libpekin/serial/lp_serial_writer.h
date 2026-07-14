@@ -1,7 +1,7 @@
 #ifndef LIB_LIBPEKIN_SERIAL_WRITER_H_
 #define LIB_LIBPEKIN_SERIAL_WRITER_H_
 
-#include <serial/lp_i_serial_io.h>
+#include "serial/lp_i_serial_io.h"
 #include <cstdint>
 #include <cstdio>
 #include <stdarg.h>

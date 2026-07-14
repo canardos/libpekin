@@ -1,8 +1,8 @@
 #ifndef TEXT_RENDER_H_
 #define TEXT_RENDER_H_
 
-#include <graphics/lp_idrawing_surface.h>
-#include <graphics/lp_raster_font.h>
+#include "graphics/lp_idrawing_surface.h"
+#include "graphics/lp_raster_font.h"
 #include <cstdio>
 #include <cstring>
 #include <algorithm>

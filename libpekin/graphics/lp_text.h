@@ -1,7 +1,7 @@
 #ifndef LIB_LIBPEKIN_GRAPHICS_TEXT_H_
 #define LIB_LIBPEKIN_GRAPHICS_TEXT_H_
 
-#include <graphics/lp_graphics.h>
+#include "graphics/lp_graphics.h"
 #include <cstdint>
 #include <concepts>
 

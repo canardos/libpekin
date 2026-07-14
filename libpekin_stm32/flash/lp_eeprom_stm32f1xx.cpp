@@ -1,6 +1,6 @@
 #include "lp_eeprom_stm32f1xx.h"
 
-#include "stddef.h"
+#include <cstddef>
 
 using namespace libp_stm32;
 

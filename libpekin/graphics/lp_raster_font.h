@@ -1,7 +1,7 @@
 #ifndef RASTERFONT_H_
 #define RASTERFONT_H_
 
-#include <graphics/lp_text.h>
+#include "graphics/lp_text.h"
 #include <stdint.h>
 
 namespace libp {

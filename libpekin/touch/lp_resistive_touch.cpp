@@ -1,4 +1,4 @@
-#include <touch/lp_resistive_touch.h>
+#include "touch/lp_resistive_touch.h"
 #include "libpekin.h"
 
 namespace libp {

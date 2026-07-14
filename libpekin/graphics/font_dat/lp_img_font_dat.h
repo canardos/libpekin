@@ -98,7 +98,7 @@ FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 #ifndef IMG_FONTS_H_
 #define IMG_FONTS_H_
 
-#include <graphics/lp_raster_font.h>
+#include "graphics/lp_raster_font.h"
 #include <cstdint>
 #include <array>
 

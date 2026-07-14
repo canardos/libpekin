@@ -18,7 +18,6 @@ concept Bus8BitWritable = requires (const T bus, uint8_t byte, const uint8_t* da
     { bus.write(data, len) } -> std::same_as<bool>;
 };
 
-
 /// HAL interface for a basic readable 8-bit bus (no addressing/IRQ/DMA)
 template<typename T>
 concept Bus8BitReadable = requires (const T bus, uint8_t* data, uint32_t len) {

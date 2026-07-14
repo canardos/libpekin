@@ -1,10 +1,10 @@
 #ifndef SRC_MPR121_H_
 #define SRC_MPR121_H_
 
-#include <bus/lp_bus_concepts.h>
-#include <serial/lp_i2c.h>
-#include <cstdint>
+#include "bus/lp_bus_concepts.h"
+#include "serial/lp_i2c.h"
 #include "libpekin.h"
+#include <cstdint>
 
 namespace libp {
 

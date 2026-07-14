@@ -1,7 +1,8 @@
 #ifndef SRC_RN_52_H_
 #define SRC_RN_52_H_
 
-#include <serial/lp_i_serial_io.h>
+#include "serial/lp_i_serial_io.h"
+#include "libpekin.h"
 #include <cstdint>
 #include <algorithm>
 #include <cstdio>
@@ -10,7 +11,6 @@
 #include <cstdint>
 
 #include <strlcpy.h>
-#include "libpekin.h"
 
 namespace libp {
 

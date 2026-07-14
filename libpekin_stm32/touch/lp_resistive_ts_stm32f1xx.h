@@ -1,12 +1,11 @@
 #ifndef LIB_LIBPEKIN_STM32_TOUCH_RESISTIVE_TOUCH_STM32_H_
 #define LIB_LIBPEKIN_STM32_TOUCH_RESISTIVE_TOUCH_STM32_H_
 
-#include <touch/lp_resistive_touch.h>
+#include "touch/lp_resistive_touch.h"
+#include "lp_adc_stm32f1xx.h"
+#include "lp_libpekin_stm32_hal.h"
+#include "lp_pins_stm32f1xx.h"
 #include <cstdint>
-
-#include "../lp_adc_stm32f1xx.h"
-#include "../lp_libpekin_stm32_hal.h"
-#include "../lp_pins_stm32f1xx.h"
 
 namespace libp_stm32 {
 

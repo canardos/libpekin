@@ -144,13 +144,13 @@
 #ifndef LIB_LIBPEKIN_STM32_LP_TIMER_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_LP_TIMER_STM32F1XX_H_
 
-#include <lp_bits.h>
-#include <lp_types.h>
+#include "lp_bits.h"
+#include "lp_types.h"
+#include "libpekin.h"
+#include "lp_libpekin_stm32_hal.h"
 #include <cstdint>
 #include <cstddef>
 #include <tuple>
-#include "libpekin.h"
-#include "lp_libpekin_stm32_hal.h"
 
 #ifndef TIM1_BASE
 #error "STM32 CMSIS header must be included before this file"

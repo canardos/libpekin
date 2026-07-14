@@ -12,9 +12,9 @@
 #ifndef PAINTERCOLOR_H_
 #define PAINTERCOLOR_H_
 
-#include <graphics/lp_graphics.h>
-#include <graphics/lp_idrawing_surface.h>
-#include <lp_misc_math.h>
+#include "graphics/lp_graphics.h"
+#include "graphics/lp_idrawing_surface.h"
+#include "lp_misc_math.h"
 #include <cstdio>
 #include <algorithm>
 #include <cstdlib>

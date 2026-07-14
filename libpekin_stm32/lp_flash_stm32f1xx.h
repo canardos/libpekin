@@ -1,10 +1,10 @@
 #ifndef LIB_LIBPEKIN_STM32_LP_FLASH_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_LP_FLASH_STM32F1XX_H_
 
-#include <lp_bits.h>
-#include <cstdint>
+#include "lp_bits.h"
 #include "libpekin.h"
 #include "lp_flash_stm32f1xx_stm.h"
+#include <cstdint>
 
 namespace libp_stm32 {
 

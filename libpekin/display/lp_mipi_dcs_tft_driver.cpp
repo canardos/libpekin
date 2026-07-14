@@ -1,4 +1,4 @@
-#include <display/lp_mipi_dcs_tft_driver.h>
+#include "display/lp_mipi_dcs_tft_driver.h"
 #include "libpekin.h"
 
 namespace libp {

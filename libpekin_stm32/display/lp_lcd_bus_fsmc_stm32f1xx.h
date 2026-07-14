@@ -1,10 +1,10 @@
 #ifndef SRC_DISPLAY_LCD_BUS_FSMC_H_
 #define SRC_DISPLAY_LCD_BUS_FSMC_H_
 
-#include <bus/lp_i_basic_bus_16.h>
+#include "bus/lp_i_basic_bus_16.h"
+#include "lp_dma_stm32f1xx.h"
+#include "lp_libpekin_stm32_hal.h"
 #include <cstdint>
-#include "../lp_dma_stm32f1xx.h"
-#include "../lp_libpekin_stm32_hal.h"
 
 // One address line is used to signal data/cmd to the display (RS)
 // Set the dat/cmd address based on the line used.

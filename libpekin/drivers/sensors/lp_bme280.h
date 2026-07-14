@@ -1,11 +1,11 @@
 #ifndef LIB_LIBPEKIN_DRIVERS_INPUT_BME280_H_
 #define LIB_LIBPEKIN_DRIVERS_INPUT_BME280_H_
 
-#include <bus/lp_bus_concepts.h>
+#include "bus/lp_bus_concepts.h"
+#include "libpekin.h"
 #include <stddef.h>
 #include <cstdint>
 #include <algorithm>
-#include "libpekin.h"
 
 
 namespace libp::bme280 {

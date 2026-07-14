@@ -1,7 +1,7 @@
 #ifndef LIB_LIBPEKIN_RING_BUFFER_H_
 #define LIB_LIBPEKIN_RING_BUFFER_H_
 
-#include <lp_misc_math.h>
+#include "lp_misc_math.h"
 
 namespace libp {
 

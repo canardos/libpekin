@@ -5,7 +5,7 @@
 #ifndef LIB_LIBPEKIN_STM32_LP_POWER_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_LP_POWER_STM32F1XX_H_
 
-#include <lp_bits.h>
+#include "lp_bits.h"
 #include "lp_libpekin_stm32_hal.h"
 
 namespace libp_stm32 {

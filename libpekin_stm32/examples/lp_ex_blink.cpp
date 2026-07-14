@@ -1,8 +1,8 @@
 #include <cstdint>
 
-#include "../lp_clock_stm32f1xx.h"
-#include "../lp_libpekin_stm32_hal.h"
-#include "../lp_pins_stm32f1xx.h"
+#include "lp_clock_stm32f1xx.h"
+#include "lp_libpekin_stm32_hal.h"
+#include "lp_pins_stm32f1xx.h"
 #include "libpekin.h"
 
 

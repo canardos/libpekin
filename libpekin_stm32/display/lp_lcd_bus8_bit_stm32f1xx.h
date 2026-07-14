@@ -1,10 +1,10 @@
 #ifndef SRC_DISPLAY_LCD_BUS8_BIT_H_
 #define SRC_DISPLAY_LCD_BUS8_BIT_H_
 
-#include <bus/lp_i_basic_bus_16.h>
+#include "bus/lp_i_basic_bus_16.h"
+#include "lp_libpekin_stm32_hal.h"
 #include <cstdint>
 
-#include "../lp_libpekin_stm32_hal.h"
 
 //TODO: Migrate to use GpioPort
 

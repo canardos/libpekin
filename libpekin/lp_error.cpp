@@ -14,9 +14,9 @@
  * COPYRIGHT
  */
 
-#include <lp_error.h>
-#include <stdarg.h>
+#include "lp_error.h"
 #include "libpekin.h"
+#include <cstdarg>
 
 namespace libp {
 

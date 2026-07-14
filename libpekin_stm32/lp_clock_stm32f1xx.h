@@ -9,11 +9,11 @@
 #ifndef LIB_LIBPEKIN_STM32_CLOCK_STM32_H_
 #define LIB_LIBPEKIN_STM32_CLOCK_STM32_H_
 
-#include <lp_bits.h>
+#include "lp_bits.h"
 #include "lp_types.h"
-#include <cstdint>
 #include "libpekin.h"
 #include "lp_libpekin_stm32_hal.h"
+#include <cstdint>
 
 #ifndef GPIOA_BASE
 #error "STM32 CMSIS header must be included before this file"

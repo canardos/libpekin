@@ -1,8 +1,7 @@
 #include "lp_libpekin_stm32_hal.h"
-
-#include <cstdint>
 #include "libpekin_hal.h"
 #include "core_cm3.h"
+#include <cstdint>
 
 static volatile uint32_t ticks_ms_ = 0;
 static libp::SysTickHandler client_systick_handler_ = nullptr;

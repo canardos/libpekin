@@ -4,7 +4,7 @@
 #ifndef SRC_TFTLIB_ILI9481_CMD_DEFS_H_
 #define SRC_TFTLIB_ILI9481_CMD_DEFS_H_
 
-#include <display/lp_tft_cmd_defs.h>
+#include "display/lp_tft_cmd_defs.h"
 #include <cstdint>
 
 namespace libp::ili9481 {

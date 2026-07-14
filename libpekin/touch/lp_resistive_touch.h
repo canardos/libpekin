@@ -32,7 +32,7 @@
 #ifndef SRC_RESISTIVE_TOUCH_H_
 #define SRC_RESISTIVE_TOUCH_H_
 
-#include <touch/lp_i_touch_screen.h>
+#include "touch/lp_i_touch_screen.h"
 #include <cstdint>
 
 namespace libp::resist_touch {

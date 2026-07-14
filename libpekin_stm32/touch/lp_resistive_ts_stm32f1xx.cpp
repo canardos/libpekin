@@ -1,4 +1,4 @@
-#include "../lp_adc_stm32f1xx.h"
+#include "lp_adc_stm32f1xx.h"
 #include "lp_resistive_ts_stm32f1xx.h"
 
 using namespace libp;

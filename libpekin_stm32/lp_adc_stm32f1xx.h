@@ -11,10 +11,10 @@
 #ifndef LIB_LIBPEKIN_STM32_LP_ADC_STM32F1XX_H_
 #define LIB_LIBPEKIN_STM32_LP_ADC_STM32F1XX_H_
 
-#include <cstdint>
 #include "libpekin.h"
 #include "lp_libpekin_stm32_hal.h"
 #include "lp_types.h"
+#include <cstdint>
 
 #ifndef ADC1_BASE
 #error "STM32 CMSIS header must be included before this file"

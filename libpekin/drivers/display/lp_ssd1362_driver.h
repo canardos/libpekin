@@ -1,11 +1,11 @@
 #ifndef SRC_SSD1362_DRIVER_H_
 #define SRC_SSD1362_DRIVER_H_
 
-#include <bus/lp_bus_concepts.h>
-#include <graphics/lp_idrawing_surface.h>
+#include "bus/lp_bus_concepts.h"
+#include "graphics/lp_idrawing_surface.h"
+#include "libpekin.h"
 #include <cstdint>
 #include <algorithm>
-#include "libpekin.h"
 
 namespace libp::ssd1362 {
 

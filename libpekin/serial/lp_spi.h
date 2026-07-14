@@ -1,9 +1,9 @@
 #ifndef LIB_LIBPEKIN_SERIAL_SPI_H_
 #define LIB_LIBPEKIN_SERIAL_SPI_H_
 
-#include <bus/lp_bus_concepts.h>
-#include <cstdint>
+#include "bus/lp_bus_concepts.h"
 #include "libpekin.h"
+#include <cstdint>
 
 namespace libp {
 

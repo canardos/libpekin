@@ -1,7 +1,8 @@
 #ifndef LIB_LIBPEKIN_SERIAL_I2C_H_
 #define LIB_LIBPEKIN_SERIAL_I2C_H_
 
-#include <bus/lp_bus_concepts.h>
+#include "bus/lp_bus_concepts.h"
+#include <cstdint>
 
 namespace libp {
 

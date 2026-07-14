@@ -6,15 +6,15 @@
 #ifndef LIB_LIBPEKIN_STM32_SERIAL_UART_STM32_H_
 #define LIB_LIBPEKIN_STM32_SERIAL_UART_STM32_H_
 
-#include <lp_bits.h>
-#include <lp_types.h>
-#include <lp_ring_buffer.h>
-#include <serial/lp_i_serial_io.h>
+#include "lp_bits.h"
+#include "lp_types.h"
+#include "lp_ring_buffer.h"
+#include "serial/lp_i_serial_io.h"
+#include "lp_clock_stm32f1xx.h"
+#include "libpekin.h"
 #include <cstdint>
 #include <limits>
 
-#include "../lp_clock_stm32f1xx.h"
-#include "libpekin.h"
 
 namespace libp_stm32::uart {
 

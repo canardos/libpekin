@@ -5,8 +5,8 @@
 #ifndef LIB_LIBPEKIN_LIBPEKIN_HAL_H_
 #define LIB_LIBPEKIN_LIBPEKIN_HAL_H_
 
-#include <cstdint>
 #include "libpekin.h"
+#include <cstdint>
 
 namespace libp {
 

@@ -1,11 +1,11 @@
 #ifndef SRC_VCNL_4200_H_
 #define SRC_VCNL_4200_H_
 
-#include <bus/lp_bus_concepts.h>
-#include <lp_bits.h>
-#include <lp_bytes.h>
-#include <cstdint>
+#include "bus/lp_bus_concepts.h"
+#include "lp_bits.h"
+#include "lp_bytes.h"
 #include "libpekin.h"
+#include <cstdint>
 
 namespace libp::vcnl4200 {
 

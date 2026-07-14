@@ -1,9 +1,9 @@
 #ifndef SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
 #define SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
 
-#include <bus/lp_i_basic_bus_16.h>
-#include <display/lp_tft_cmd_defs.h>
-#include <graphics/lp_idrawing_surface.h>
+#include "bus/lp_i_basic_bus_16.h"
+#include "display/lp_tft_cmd_defs.h"
+#include "graphics/lp_idrawing_surface.h"
 #include <cstdint>
 
 
