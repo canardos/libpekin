@@ -1,5 +1,5 @@
-#ifndef LIB_LIBPEKIN_STM32_FLASH_STM32F1XX_STM_H_
-#define LIB_LIBPEKIN_STM32_FLASH_STM32F1XX_STM_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_FLASH_STM32F1XX_STM_H_
+#define LIB_LIBPEKIN_STM32_LP_FLASH_STM32F1XX_STM_H_
 
 /******************************************************************************
  *
@@ -22,6 +22,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
+
+#include "lp_libpekin_stm32_hal.h"
+
+#ifndef FLASH_BASE
+#error "STM32 CMSIS header must be included before this file"
+#endif
 
 #define FLASH_SIZE_DATA_REGISTER     0x1FFFF7E0U
 
@@ -120,4 +126,4 @@
 #endif /* STM32F105xC || STM32F107xC */
     }
 
-#endif /* LIB_LIBPEKIN_STM32_FLASH_STM32F1XX_STM_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_FLASH_STM32F1XX_STM_H_ */

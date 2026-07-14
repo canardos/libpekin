@@ -3,7 +3,8 @@
 
 #include <bus/lp_i_basic_bus_16.h>
 #include <cstdint>
-#include <libpekin_stm32_hal.h>
+
+#include "../lp_libpekin_stm32_hal.h"
 
 //TODO: Migrate to use GpioPort
 

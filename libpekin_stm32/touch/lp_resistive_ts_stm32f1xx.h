@@ -4,9 +4,9 @@
 #include <touch/lp_resistive_touch.h>
 #include <cstdint>
 
-#include "../adc_stm32f1xx.h"
-#include "../pins_stm32f1xx.h"
-#include "libpekin_stm32_hal.h"
+#include "../lp_adc_stm32f1xx.h"
+#include "../lp_libpekin_stm32_hal.h"
+#include "../lp_pins_stm32f1xx.h"
 
 namespace libp_stm32 {
 

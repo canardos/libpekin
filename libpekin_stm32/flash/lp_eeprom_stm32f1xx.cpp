@@ -1,4 +1,5 @@
-#include <flash/eeprom_stm32f1xx.h>
+#include "lp_eeprom_stm32f1xx.h"
+
 #include "stddef.h"
 
 using namespace libp_stm32;

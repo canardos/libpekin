@@ -1,5 +1,5 @@
-#include <touch/resistive_ts_stm32f1xx.h>
-#include "adc_stm32f1xx.h"
+#include "../lp_adc_stm32f1xx.h"
+#include "lp_resistive_ts_stm32f1xx.h"
 
 using namespace libp;
 using namespace libp_stm32;

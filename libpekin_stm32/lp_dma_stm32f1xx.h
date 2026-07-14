@@ -1,13 +1,14 @@
-#ifndef LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_DMA_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_LP_DMA_STM32F1XX_H_
 
+#include <cstdint>
 #include <lp_bits.h>
 #include <lp_types.h>
-#include <cstdint>
 #include "libpekin.h"
+#include "lp_libpekin_stm32_hal.h"
 
 #ifndef DMA1_BASE
-static_assert(false, "STM32 CMSIS header must be included before this file");
+#error "STM32 CMSIS header must be included before this file"
 #endif
 
 namespace libp_stm32::dma {
@@ -275,4 +276,4 @@ public:
 
 } // namespace libp_stm32::dma
 
-#endif /* LIB_LIBPEKIN_STM32_DMA_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_DMA_STM32F1XX_H_ */

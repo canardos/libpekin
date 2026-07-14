@@ -8,15 +8,17 @@
  * Macro for the MCU in use (as used in the ST CMSIS headers) must be defined.
  * e.g. STM32F101xB, STM32F103xG, STM32F105xC etc.
  */
-#ifndef LIB_LIBPEKIN_STM32_ADC_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_ADC_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_ADC_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_LP_ADC_STM32F1XX_H_
 
 #include <cstdint>
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
+#include "lp_libpekin_stm32_hal.h"
 #include "lp_types.h"
 
-static_assert(ADC1_BASE > 0, "STM32 CMSIS header must be included before this file");
+#ifndef ADC1_BASE
+#error "STM32 CMSIS header must be included before this file"
+#endif
 
 namespace libp_stm32::adc {
 
@@ -146,4 +148,4 @@ public:
 
 } // namespace libp_stm32::adc
 
-#endif /* LIB_LIBPEKIN_STM32_ADC_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_ADC_STM32F1XX_H_ */

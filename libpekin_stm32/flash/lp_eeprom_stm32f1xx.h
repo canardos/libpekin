@@ -5,8 +5,9 @@
 #define SRC_STM32_EEPROM_RAW_H_
 
 #include <cstdint>
-#include "libpekin_stm32_hal.h"
-#include "flash_stm32f1xx.h"
+
+#include "../lp_flash_stm32f1xx.h"
+#include "../lp_libpekin_stm32_hal.h"
 
 namespace libp_stm32 {
 

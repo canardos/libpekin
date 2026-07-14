@@ -6,10 +6,10 @@
 #include <cstdint>
 #include <limits>
 
+#include "../lp_clock_stm32f1xx.h"
+#include "../lp_libpekin_stm32_hal.h"
+#include "../lp_pins_stm32f1xx.h"
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
-#include "pins_stm32f1xx.h"
-#include "clock_stm32f1xx.h"
 
 namespace libp_stm32::i2c {
 

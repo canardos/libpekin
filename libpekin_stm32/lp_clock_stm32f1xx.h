@@ -13,9 +13,11 @@
 #include "lp_types.h"
 #include <cstdint>
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
+#include "lp_libpekin_stm32_hal.h"
 
-static_assert(GPIOA_BASE > 0, "STM32 CMSIS header must be included before this file");
+#ifndef GPIOA_BASE
+#error "STM32 CMSIS header must be included before this file"
+#endif
 
 namespace libp_stm32::clk {
 

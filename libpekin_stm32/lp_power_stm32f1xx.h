@@ -2,11 +2,11 @@
  * Sleep, stop, standby operation functionality for STM32f1xx MCUs.
  *
  */
-#ifndef LIB_LIBPEKIN_STM32_POWER_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_POWER_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_POWER_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_LP_POWER_STM32F1XX_H_
 
 #include <lp_bits.h>
-#include "libpekin_stm32_hal.h"
+#include "lp_libpekin_stm32_hal.h"
 
 namespace libp_stm32 {
 
@@ -142,4 +142,4 @@ void pwrCtrlStandby()
 
 } // namespace libp_stm32
 
-#endif /* LIB_LIBPEKIN_STM32_POWER_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_POWER_STM32F1XX_H_ */

@@ -1,17 +1,17 @@
 /**
  * Not even close to ready for use
  */
-#ifndef LIB_LIBPEKIN_STM32_DAC_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_DAC_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_DAC_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_LP_DAC_STM32F1XX_H_
 
 #include <cstdint>
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
 #include <lp_types.h>
-#include "dma_stm32f1xx.h"
+#include "lp_dma_stm32f1xx.h"
+#include "lp_libpekin_stm32_hal.h"
 
 #ifndef DAC_BASE
-static_assert(false, "STM32 CMSIS header must be included before this file");
+#error "STM32 CMSIS header must be included before this file"
 #endif
 
 namespace libp_stm32::dac {
@@ -186,4 +186,4 @@ public:
 
 } // namespace libp_stm32::dac
 
-#endif /* LIB_LIBPEKIN_STM32_DAC_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_DAC_STM32F1XX_H_ */

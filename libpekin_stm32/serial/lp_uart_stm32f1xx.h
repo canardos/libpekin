@@ -13,8 +13,8 @@
 #include <cstdint>
 #include <limits>
 
+#include "../lp_clock_stm32f1xx.h"
 #include "libpekin.h"
-#include "clock_stm32f1xx.h"
 
 namespace libp_stm32::uart {
 

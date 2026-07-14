@@ -1,10 +1,10 @@
 #include <cstdint>
 
+#include "../lp_clock_stm32f1xx.h"
+#include "../lp_libpekin_stm32_hal.h"
+#include "../lp_pins_stm32f1xx.h"
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
 
-#include "clock_stm32f1xx.h"
-#include "pins_stm32f1xx.h"
 
 // Change port and pin here for your device
 // Don't forget to enable the correct GPIO clock below

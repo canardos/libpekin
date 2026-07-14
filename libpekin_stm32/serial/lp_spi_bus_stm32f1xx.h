@@ -1,15 +1,15 @@
 /**
  *
  */
-#ifndef LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_SERIAL_LP_SPI_BUS_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_SERIAL_LP_SPI_BUS_STM32F1XX_H_
 
 #include <cstdint>
 #include <bus/lp_bus_concepts.h>
 #include <lp_types.h>
+#include "../lp_libpekin_stm32_hal.h"
 
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
 
 namespace libp_stm32::spi {
 
@@ -86,16 +86,16 @@ public:
     {
         port_->CR1 &= ~SPI_CR1_SPE; // some settings can't be changed while enabled
 
-        port_->CR1 = libp::enumVal(master)  | // master or slave
-                     libp::enumVal(clock)   | // clock polarity and phase
-                     libp::enumVal(baud)    | // baud rate
-                     libp::enumVal(data_ff) | // 8 or 16-bit
-                     libp::enumVal(endian)  | // lsb or msb first
-                     SPI_CR1_SSM          | // Use external GPIOs for slave select
-                     SPI_CR1_SSI;           // Use external GPIOs for slave select
+        port_->CR1 = libp::enumVal(master)  |  // master or slave
+                     libp::enumVal(clock)   |  // clock polarity and phase
+                     libp::enumVal(baud)    |  // baud rate
+                     libp::enumVal(data_ff) |  // 8 or 16-bit
+                     libp::enumVal(endian)  |  // lsb or msb first
+                     SPI_CR1_SSM            |  // Use external GPIOs for slave select
+                     SPI_CR1_SSI;              // Use external GPIOs for slave select
 
         port_->CR2 = 0;                        // no interrupts
-        port_->I2SCFGR &= ~SPI_I2SCFGR_I2SMOD, // SPI mode, not I2S
+        port_->I2SCFGR &= ~SPI_I2SCFGR_I2SMOD; // SPI mode, not I2S
         port_->CR1 |= SPI_CR1_SPE;
     }
 
@@ -193,4 +193,4 @@ public:
 
 } // namespace libp_stm32::spi
 
-#endif /* LIB_LIBPEKIN_STM32_SERIAL_SPI_BUS_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_SERIAL_LP_SPI_BUS_STM32F1XX_H_ */

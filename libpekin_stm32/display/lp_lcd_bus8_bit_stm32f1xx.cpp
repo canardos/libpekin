@@ -1,4 +1,5 @@
-#include <display/lcd_bus8_bit_stm32f1xx.h>
+#include "lp_lcd_bus8_bit_stm32f1xx.h"
+
 #include <display/lp_ili9481_cmd_defs.h>
 #include <cstdint>
 #include <libpekin.h>

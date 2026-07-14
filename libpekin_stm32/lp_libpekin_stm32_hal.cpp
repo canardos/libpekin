@@ -1,6 +1,7 @@
+#include "lp_libpekin_stm32_hal.h"
+
 #include <cstdint>
 #include "libpekin_hal.h"
-#include "libpekin_stm32_hal.h"
 #include "core_cm3.h"
 
 static volatile uint32_t ticks_ms_ = 0;
@@ -12,7 +13,7 @@ void SysTick_Handler(void)
 {
     // This is not atomic, but the read/store
     // is and this is the only write operation.
-    ticks_ms_++;
+    ticks_ms_ = ticks_ms_ + 1;
     if (client_systick_handler_)
         client_systick_handler_();
 }

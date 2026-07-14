@@ -141,8 +141,8 @@
  * Update_event = TIM_CLK/((PSC + 1)*(ARR + 1)*(RCR + 1))
  *
  */
-#ifndef LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_
-#define LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_
+#ifndef LIB_LIBPEKIN_STM32_LP_TIMER_STM32F1XX_H_
+#define LIB_LIBPEKIN_STM32_LP_TIMER_STM32F1XX_H_
 
 #include <lp_bits.h>
 #include <lp_types.h>
@@ -150,9 +150,12 @@
 #include <cstddef>
 #include <tuple>
 #include "libpekin.h"
-#include "libpekin_stm32_hal.h"
+#include "lp_libpekin_stm32_hal.h"
 
-static_assert(TIM1_BASE > 0, "STM32 CMSIS header must be included before this file");
+#ifndef TIM1_BASE
+#error "STM32 CMSIS header must be included before this file"
+#endif
+
 
 namespace libp_stm32::tmr {
 
@@ -733,4 +736,4 @@ public:
 
 } // libp::Stm32::tmr
 
-#endif /* LIB_LIBPEKIN_STM32_TIMER_STM32F1XX_H_ */
+#endif /* LIB_LIBPEKIN_STM32_LP_TIMER_STM32F1XX_H_ */
