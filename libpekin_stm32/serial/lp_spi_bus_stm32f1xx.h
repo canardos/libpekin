@@ -132,6 +132,16 @@ public:
         return true;
     }
 
+    bool write(uint8_t data, uint32_t len) const
+    {
+        while(len--) {
+            while(!(port_->SR & SPI_SR_TXE))
+                ;
+            port_->DR = data;
+        }
+        return true;
+    }
+
     uint16_t readwrite16(uint16_t data) const
     {
         while(!(port_->SR & SPI_SR_TXE))

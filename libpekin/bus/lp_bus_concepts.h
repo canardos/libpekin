@@ -14,6 +14,7 @@
 template<typename T>
 concept Bus8BitWritable = requires (const T bus, uint8_t byte, const uint8_t* data, uint32_t len) {
     { bus.write8(byte)     } -> std::same_as<bool>;
+    { bus.write(byte, len) } -> std::same_as<bool>;
     { bus.write(data, len) } -> std::same_as<bool>;
 };
 
