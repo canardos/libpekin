@@ -138,7 +138,7 @@ class UartIo : public libp::ISerialIo {
     // Conditionally include buffer member at compile
     // time if interrupt mode is specified
     struct empty { };
-    using ring_buffer_t = std::conditional_t<mode_ == IrqMode::polling, empty, libp::ByteRingBuffer<buffer_size_>>;
+    using ring_buffer_t = std::conditional_t<mode_ == IrqMode::polling, empty, libp::RingBuffer<uint8_t, buffer_size_>>;
     [[no_unique_address]] ring_buffer_t rec_buffer_;
 
 public:
@@ -259,9 +259,18 @@ public:
         NVIC_DisableIRQ(irqn());
     }
 
-    inline libp::ByteRingBuffer<buffer_size_>* buffer()
+    /**
+     *
+     * @return nullptr if mode_ == IrqMode::polling
+     */
+    inline libp::RingBuffer<uint8_t, buffer_size_>* buffer()
     {
-        return rec_buffer_;
+        if constexpr (mode_ == IrqMode::interrupt) {
+            return &rec_buffer_;
+        }
+        else {
+            return nullptr;
+        }
     }
 
     /**
