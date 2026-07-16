@@ -7,8 +7,8 @@
 namespace libp {
 
 /**
- * ReadWriteReg8bitAddr "interface" implementation for a to communicate with a
- * slave device connected over an I2C bus.
+ * ReadWriteReg8bitAddr "interface" implementation for a master to communicate
+ * with a slave device connected over an I2C bus.
  *
  * @tparam I2c
  */
