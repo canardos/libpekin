@@ -91,9 +91,25 @@ struct Rect16 {
     uint16_t height;
 };
 
+enum class LineStyle: uint8_t {
+	// IMPORTANT: do not reorder
+	solid,
+	dashed,
+	dotted,
+	dotted_sparse
+};
+constexpr uint8_t line_styles[][4] = {
+        {1, 1, 1, 1}, ///< solid
+        {1, 1, 1, 0}, ///< dashed
+        {1, 0, 1, 0}, ///< dotted
+        {1, 0, 0, 0}  ///< dotted_sparse
+    };
+
 /**
- * Adjusts the top-left coordinate of a rectangular area to account for various
- * alignments.
+ * Calculates the top-left coordinate of a rectangular area from a given point
+ * and alignment.
+ *
+ * The coordinates passed are modified.
  *
  * e.g.
  *

@@ -37,12 +37,12 @@ public:
 
     // TODO: document out of bounds behaviour and enforce in implementations
     /**
-     * Copy an array of color values to the screen.
+     * Copy an array of color values (i.e. sprite) to the screen.
      *
-     * @param x top-left corner x-coordinate. May be off screen
-     * @param y top- right corner x-coordinate. May be off screen
-     * @param w width.
-     * @param h height.
+     * @param x destination top-left corner x-coordinate. May be off screen
+     * @param y destination top-right corner x-coordinate. May be off screen
+     * @param w source width.
+     * @param h source height.
      * @param color array of color values to copy to the screen.
      */
     virtual void copyRect(int16_t x, int16_t y, uint16_t w, uint16_t h, const T* color) = 0;

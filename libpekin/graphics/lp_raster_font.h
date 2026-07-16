@@ -7,18 +7,20 @@
 namespace libp {
 
 /**
- * TODO
+ * Wrapper for data needed to draw a character range of a specific font.
  *
- * @tparam first_char_
- * @tparam last_char_
+ * @tparam first_char_ ASCII code for first char (inclusive)
+ * @tparam last_char_ ASCII code for last char (inclusive)
  */
 template <uint8_t first_char_, uint8_t last_char_>
 class RasterFont {
 public:
 	/// references to image & char_meta will be retained
 	/// valid bpp = 1/2/4/8
-	constexpr RasterFont(const Image2d& image, const CharMeta (&char_meta)[last_char_ - first_char_ + 1])
-			: image_(image), meta_(char_meta)
+	constexpr RasterFont(
+			const Image2d& image,
+			const CharMeta (&char_meta)[last_char_ - first_char_ + 1])
+					: image_(image), meta_(char_meta)
 	{
 	    static_assert(last_char_ >= first_char_);
         // Confirm that interface is correctly implemented

@@ -15,6 +15,7 @@
 #include "graphics/lp_graphics.h"
 #include "graphics/lp_idrawing_surface.h"
 #include "lp_misc_math.h"
+#include "lp_types.h"
 #include <cstdio>
 #include <algorithm>
 #include <cstdlib>
@@ -24,6 +25,11 @@ namespace libp {
 
 /**
  * Renders primitive shapes on an IDrawingSurface.
+ *
+ * Coordinates assume XXXX
+ *
+ * NO bounds checking
+ *
  *
  * Warning:
  * -------
@@ -342,7 +348,6 @@ public:
 
     void drawRectSolid(uint16_t x, uint16_t y, uint16_t width, uint16_t height, T color)
     {
-    	// TODO bounds check
     	if (width == 0 || height == 0)
     		return;
     	surface_.fillRect(x, y, width, height, color);
@@ -382,8 +387,16 @@ public:
         }
     }
 
-    /** Draw a one pixel horizontal line */
-    void drawLineHoriz(int16_t x, int16_t y, int16_t length, T color)
+
+    /**
+     * Draw a one pixel horizontal line.
+     *
+     * Dashed/dotted line gaps are transparent.
+     *
+     * @param x x-coord for left, starting point
+     * @param y y-coord for left, starting point
+     */
+    void drawLineHoriz(int16_t x, int16_t y, int16_t length, T color, LineStyle style = LineStyle::solid)
     {
         if (y < 0 || y >= height_)
             return;
@@ -398,11 +411,28 @@ public:
                 return;
             x = 0;
         }
-    	surface_.fillLine(x, y, length, color);
+        if (style == LineStyle::solid) {
+        	surface_.fillLine(x, y, length, color);
+        }
+        else {
+        	const uint8_t* line_style_pattern = line_styles[libp::enumVal(style)];
+			for (int16_t col = x; col < x + length; col++) {
+				if (line_style_pattern[col & 3])
+					surface_.setPixel(col, y, color);
+			}
+        }
     }
 
-    /** Draw a one pixel vertical line */
-    void drawLineVert(int16_t x, int16_t y, int16_t length, T color)
+
+    /**
+      * Draw a one pixel vertical line.
+      *
+      * Dashed/dotted line gaps are transparent.
+      *
+      * @param x x-coord for top starting point
+      * @param y y-coord for top starting point
+      */
+    void drawLineVert(int16_t x, int16_t y, int16_t length, T color, LineStyle style = LineStyle::solid)
     {
         if (x < 0 || x >= width_)
             return;
@@ -417,8 +447,11 @@ public:
                 return;
             y = 0;
         }
-    	for (int16_t row = y + length - 1; row >= y; row--)
-    		surface_.setPixel(x, row, color);
+        const uint8_t* line_style_pattern = line_styles[libp::enumVal(style)];
+        for (int16_t row = y + length - 1; row >= y; row--) {
+        	if (line_style_pattern[row & 3])
+			surface_.setPixel(x, row, color);
+		}
     }
 
     /**
@@ -454,6 +487,9 @@ public:
     		uint16_t temp = y0;
     		y0 = y1;
     		y1 = temp;
+    		temp = x0;
+    		x0 = x1;
+    		x1 = temp;
     	}
     	if (x0 == x1) { // vertical line
     		uint16_t half_thickness = thickness / 2;
