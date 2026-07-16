@@ -1,12 +1,19 @@
 /**
  * This file contains platform-dependent functions that must be implemented
- * on a per platform basis.
+ * implemented on a per platform basis (some may be omitted depending on which
+ * lib functions are used.
  */
-#ifndef LIB_LIBPEKIN_LIBPEKIN_HAL_H_
-#define LIB_LIBPEKIN_LIBPEKIN_HAL_H_
+#ifndef LIBPEKIN_LIBPEKIN_HAL_H_
+#define LIBPEKIN_LIBPEKIN_HAL_H_
 
 #include "libpekin.h"
 #include <cstdint>
+
+#ifndef LP_ASSERT
+#pragma message("You may want to define LP_ASSERT here to defer to your platform specific assert macro/function")
+#include <cassert>
+#define LP_ASSERT(condition) assert(condition)
+#endif
 
 namespace libp {
 
@@ -43,4 +50,4 @@ uint32_t getMillis();
 
 } // namespace libp
 
-#endif /* LIB_LIBPEKIN_LIBPEKIN_HAL_H_ */
+#endif /* LIBPEKIN_LIBPEKIN_HAL_H_ */
