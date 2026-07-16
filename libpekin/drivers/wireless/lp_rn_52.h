@@ -1,5 +1,5 @@
-#ifndef SRC_RN_52_H_
-#define SRC_RN_52_H_
+#ifndef LIBPEKIN_DRIVERS_WIRELESS_RN_52_H_
+#define LIBPEKIN_DRIVERS_WIRELESS_RN_52_H_
 
 #include "serial/lp_i_serial_io.h"
 #include "libpekin.h"
@@ -678,4 +678,4 @@ private:
 
 } // namespace libp
 
-#endif /* SRC_RN_52_H_ */
+#endif /* LIBPEKIN_DRIVERS_WIRELESS_RN_52_H_ */

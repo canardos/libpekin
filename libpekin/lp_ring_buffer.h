@@ -1,5 +1,5 @@
-#ifndef LIB_LIBPEKIN_RING_BUFFER_GEN_H_
-#define LIB_LIBPEKIN_RING_BUFFER_GEN_H_
+#ifndef LIBPEKIN_RING_BUFFER_H_
+#define LIBPEKIN_RING_BUFFER_H_
 
 #include "lp_misc_math.h"
 #include <cstdint>
@@ -36,7 +36,7 @@ struct RingBuffer {
         data[write_idx] = std::move(element);
         write_idx = mask(write_idx + 1);
     }
-    
+
     T read()
     {
         T element = std::move(data[read_idx]);
@@ -78,7 +78,7 @@ struct RingBuffer {
     {
         return mask(write_idx + 1) == read_idx;
     }
-    
+
     [[nodiscard]] bool isEmpty() const
     {
         return size() == 0;
@@ -89,17 +89,17 @@ struct RingBuffer {
         write_idx = 0;
         read_idx = 0;
     }
-    
+
     [[nodiscard]] uint16_t size() const
     {
         return mask(write_idx - read_idx);
     }
-    
+
 private:
     volatile uint16_t write_idx = 0;
     volatile uint16_t read_idx = 0;
     T data[num_elements];
-    
+
     constexpr uint16_t mask(uint16_t val) const
     {
         return val & (num_elements - 1);
@@ -108,4 +108,4 @@ private:
 
 } // namespace Libp
 
-#endif /* LIB_LIBPEKIN_RING_BUFFER_GEN_H_ */
+#endif /* LIBPEKIN_RING_BUFFER_H_ */

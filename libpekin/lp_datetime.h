@@ -1,5 +1,5 @@
-#ifndef LIB_LIBPEKIN_DATE_H_
-#define LIB_LIBPEKIN_DATE_H_
+#ifndef LIBPEKIN_DATE_H_
+#define LIBPEKIN_DATE_H_
 
 #include <cstdint>
 
@@ -29,4 +29,4 @@ uint8_t dayOfWeek(uint16_t y, uint8_t m, uint8_t d)
 
 } // namespace libp
 
-#endif /* LIB_LIBPEKIN_DATE_H_ */
+#endif /* LIBPEKIN_DATE_H_ */

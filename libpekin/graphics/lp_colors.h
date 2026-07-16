@@ -1,5 +1,5 @@
-#ifndef SRC_GRAPHICS_COLORS_H_
-#define SRC_GRAPHICS_COLORS_H_
+#ifndef LIBPEKIN_LP_COLORS_H_
+#define LIBPEKIN_LP_COLORS_H_
 
 #include <cstdint>
 
@@ -25,4 +25,4 @@ namespace libp::rgb565_clr {
     inline constexpr uint16_t purple   = 0x780F;
 }
 
-#endif /* SRC_GRAPHICS_COLORS_H_ */
+#endif /* LIBPEKIN_LP_COLORS_H_ */

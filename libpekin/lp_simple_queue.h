@@ -1,7 +1,7 @@
-#ifndef UTIL_LP_SIMPLE_QUEUE_H_
-#define UTIL_LP_SIMPLE_QUEUE_H_
+#ifndef LIBPEKIN_SIMPLE_QUEUE_H_
+#define LIBPEKIN_SIMPLE_QUEUE_H_
 
-#include <lp_ring_buffer.h>
+#include "lp_ring_buffer.h"
 #include <cstdint>
 
 namespace libp {
@@ -124,4 +124,4 @@ private:
 
 } // namespace libp
 
-#endif /* UTIL_LP_SIMPLE_QUEUE_H_ */
+#endif /* LIBPEKIN_SIMPLE_QUEUE_H_ */

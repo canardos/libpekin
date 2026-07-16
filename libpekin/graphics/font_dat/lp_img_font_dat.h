@@ -95,8 +95,8 @@ INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR
 FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 */
-#ifndef IMG_FONTS_H_
-#define IMG_FONTS_H_
+#ifndef LIBPEKIN_GRAPHICS_LP_IMG_FONT_DAT_H_
+#define LIBPEKIN_GRAPHICS_LP_IMG_FONT_DAT_H_
 
 #include "graphics/lp_raster_font.h"
 #include <cstdint>
@@ -8857,4 +8857,4 @@ static inline constexpr libp::CharMeta exo_2_semibold_60_meta_data[] = { // 16 e
 static inline const libp::RasterFont<43, 58> exo_2_semibold_60(exo_2_semibold_60_img, exo_2_semibold_60_meta_data);
 
 
-#endif /* IMG_FONTS_H_ */
+#endif /* LIBPEKIN_GRAPHICS_LP_IMG_FONT_DAT_H_ */

@@ -6,8 +6,8 @@
  *
  * Not optimized. Intended for testing of embedded rendering code on PCs.
  */
-#ifndef DISPLAY_BUFFER_H_
-#define DISPLAY_BUFFER_H_
+#ifndef LIBPEKIN_DISPLAY_BUFFER_H_
+#define LIBPEKIN_DISPLAY_BUFFER_H_
 
 #include "graphics/lp_idrawing_surface.h"
 #include <cstdint>
@@ -586,4 +586,4 @@ private:
 
 } // namespace libp
 
-#endif /* DISPLAY_BUFFER_H_ */
+#endif /* LIBPEKIN_DISPLAY_BUFFER_H_ */

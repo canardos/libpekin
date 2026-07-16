@@ -1,5 +1,5 @@
-#ifndef TEXT_RENDER_H_
-#define TEXT_RENDER_H_
+#ifndef LIBPEKIN_TEXT_RENDER_H_
+#define LIBPEKIN_TEXT_RENDER_H_
 
 #include "graphics/lp_idrawing_surface.h"
 #include "graphics/lp_raster_font.h"
@@ -229,4 +229,4 @@ private:
 
 } // namespace libp
 
-#endif /* TEXT_RENDER_H_ */
+#endif /* LIBPEKIN_TEXT_RENDER_H_ */

@@ -8,8 +8,8 @@
  *
  * Datasheet: https://www.maximintegrated.com/en/products/sensors/MAX31856.html
  */
-#ifndef SRC_DEVICES_MAX_31856_H_
-#define SRC_DEVICES_MAX_31856_H_
+#ifndef LIBPEKIN_DEVICES_MAX_31856_H_
+#define LIBPEKIN_DEVICES_MAX_31856_H_
 
 #include "serial/lp_spi.h"
 #include "lp_types.h"
@@ -508,4 +508,4 @@ static_assert(validateSamples());
 } // namespace conversion_tests
 } // namespace libp::max31856
 
-#endif /* SRC_DEVICES_MAX_31856_H_ */
+#endif /* LIBPEKIN_DEVICES_MAX_31856_H_ */

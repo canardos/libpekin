@@ -1,5 +1,5 @@
-#ifndef SRC_MPR121_H_
-#define SRC_MPR121_H_
+#ifndef LIBPEKIN_DRIVERS_MPR121_H_
+#define LIBPEKIN_DRIVERS_MPR121_H_
 
 #include "bus/lp_bus_concepts.h"
 #include "serial/lp_i2c.h"
@@ -288,4 +288,4 @@ private:
 
 } // namespace libp
 
-#endif /* SRC_MPR121_H_ */
+#endif /* LIBPEKIN_DRIVERS_MPR121_H_ */

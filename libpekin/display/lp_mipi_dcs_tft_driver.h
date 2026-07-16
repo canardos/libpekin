@@ -1,5 +1,5 @@
-#ifndef SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
-#define SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
+#ifndef LIBPEKIN_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
+#define LIBPEKIN_TFTLIB_MIPI_DCS_TFT_DRIVER_H_
 
 #include "bus/lp_i_basic_bus_16.h"
 #include "display/lp_tft_cmd_defs.h"
@@ -126,4 +126,4 @@ private:
 
 } // namespace libp
 
-#endif /* SRC_TFTLIB_MIPI_DCS_TFT_DRIVER_H_ */
+#endif /* LIBPEKIN_TFTLIB_MIPI_DCS_TFT_DRIVER_H_ */

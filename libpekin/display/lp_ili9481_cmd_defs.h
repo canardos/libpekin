@@ -1,8 +1,8 @@
 /**
  * ILI9481 display controller commands and initialization sequence.
  */
-#ifndef SRC_TFTLIB_ILI9481_CMD_DEFS_H_
-#define SRC_TFTLIB_ILI9481_CMD_DEFS_H_
+#ifndef LIBPEKIN_TFTLIB_ILI9481_CMD_DEFS_H_
+#define LIBPEKIN_TFTLIB_ILI9481_CMD_DEFS_H_
 
 #include "display/lp_tft_cmd_defs.h"
 #include <cstdint>
@@ -253,5 +253,5 @@ inline constexpr CmdSequence init_cmd_seq = {
 
 } // namespace libp::ili9481
 
-#endif /* SRC_TFTLIB_ILI9481_CMD_DEFS_H_ */
+#endif /* LIBPEKIN_TFTLIB_ILI9481_CMD_DEFS_H_ */
 

@@ -1,5 +1,5 @@
-#ifndef SRC_VCNL_4200_H_
-#define SRC_VCNL_4200_H_
+#ifndef LIBPEKIN_DRIVERS_VCNL_4200_H_
+#define LIBPEKIN_DRIVERS_VCNL_4200_H_
 
 #include "bus/lp_bus_concepts.h"
 #include "lp_bits.h"
@@ -603,4 +603,4 @@ public:
 
 } // namespace libp::vcnl4200
 
-#endif /* SRC_VCNL_4200_H_ */
+#endif /* LIBPEKIN_DRIVERS_VCNL_4200_H_ */

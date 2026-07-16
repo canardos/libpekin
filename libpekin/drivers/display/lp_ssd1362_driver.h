@@ -1,5 +1,5 @@
-#ifndef SRC_SSD1362_DRIVER_H_
-#define SRC_SSD1362_DRIVER_H_
+#ifndef LIBPEKIN_SSD1362_DRIVER_H_
+#define LIBPEKIN_SSD1362_DRIVER_H_
 
 #include "bus/lp_bus_concepts.h"
 #include "graphics/lp_idrawing_surface.h"
@@ -330,4 +330,4 @@ private:
 
 } // namespace libp::ssd1362
 
-#endif /* SRC_SSD1362_DRIVER_H_ */
+#endif /* LIBPEKIN_SSD1362_DRIVER_H_ */

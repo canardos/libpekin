@@ -1,5 +1,5 @@
-#ifndef LIB_LIBPEKIN_STRING_UTIL_H_
-#define LIB_LIBPEKIN_STRING_UTIL_H_
+#ifndef LIBPEKIN_STRING_H_
+#define LIBPEKIN_STRING_H_
 
 #include <cstring>
 #include <type_traits>
@@ -8,6 +8,28 @@
 #include <cstdint>
 
 namespace libp {
+
+/**
+ * Convert a single decimal or hexadecimal ASCII character digit to its
+ * corresponding integer value.
+ *
+ * @param c 0-9 or a-f or A-F
+ */
+constexpr uint8_t atoh (uint8_t c)
+{
+    if (c > '9') {
+        c += 9;
+    }
+    return c & 0x0F;
+}
+static_assert(atoh('0') == 0);
+static_assert(atoh('1') == 1);
+static_assert(atoh('9') == 9);
+static_assert(atoh('a') == 10);
+static_assert(atoh('A') == 10);
+static_assert(atoh('f') == 15);
+static_assert(atoh('F') == 15);
+
 
 /**
  * Return the string length required to hold the min/maximum value of the
@@ -61,4 +83,4 @@ void strcpy_safe(char* dest, const char* src, size_t len)
 
 } // namespace libp
 
-#endif /* LIB_LIBPEKIN_STRING_UTIL_H_ */
+#endif /* LIBPEKIN_STRING_H_ */

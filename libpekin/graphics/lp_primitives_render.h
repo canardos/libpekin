@@ -9,8 +9,8 @@
  * be tested carefully in any application you choose to use it in.
  *
  */
-#ifndef PAINTERCOLOR_H_
-#define PAINTERCOLOR_H_
+#ifndef LIBPEKIN_LP_PRIMATIVES_RENDER_H_
+#define LIBPEKIN_LP_PRIMATIVES_RENDER_H_
 
 #include "graphics/lp_graphics.h"
 #include "graphics/lp_idrawing_surface.h"
@@ -711,4 +711,4 @@ private:
 
 } // namespace libp
 
-#endif /* PAINTERCOLOR_H_ */
+#endif /* LIBPEKIN_LP_PRIMATIVES_RENDER_H_ */

@@ -1,5 +1,5 @@
-#ifndef SRC_TFTLIB_TFT_CMD_DEFS_H_
-#define SRC_TFTLIB_TFT_CMD_DEFS_H_
+#ifndef LIBPEKIN_TFTLIB_TFT_CMD_DEFS_H_
+#define LIBPEKIN_TFTLIB_TFT_CMD_DEFS_H_
 
 #include <cstdint>
 
@@ -102,4 +102,4 @@ namespace mipi_dcs {
 
 } // namespace libp
 
-#endif /* SRC_TFTLIB_TFT_CMD_DEFS_H_ */
+#endif /* LIBPEKIN_TFTLIB_TFT_CMD_DEFS_H_ */

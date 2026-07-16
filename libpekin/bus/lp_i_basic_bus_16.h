@@ -1,5 +1,5 @@
-#ifndef SRC_I_BASIC_BUS_16_H_
-#define SRC_I_BASIC_BUS_16_H_
+#ifndef LIBPEKIN_I_BASIC_BUS_16_H_
+#define LIBPEKIN_I_BASIC_BUS_16_H_
 
 #include <cstdint>
 
@@ -81,4 +81,4 @@ public:
 
 } // namespace libp
 
-#endif /* SRC_I_BASIC_BUS_16_H_ */
+#endif /* LIBPEKIN_I_BASIC_BUS_16_H_ */

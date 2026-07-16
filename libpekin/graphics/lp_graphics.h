@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_LP_GRAPHICS_H_
-#define GRAPHICS_LP_GRAPHICS_H_
+#ifndef LIBPEKIN_GRAPHICS_LP_GRAPHICS_H_
+#define LIBPEKIN_GRAPHICS_LP_GRAPHICS_H_
 
 #include <cstdint>
 
@@ -128,4 +128,4 @@ void adjustPoint(int16_t& x, int16_t& y, Rect16& dims, Align align);
 
 } // namespace libp
 
-#endif /* GRAPHICS_LP_GRAPHICS_H_ */
+#endif /* LIBPEKIN_GRAPHICS_LP_GRAPHICS_H_ */

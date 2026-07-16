@@ -1,5 +1,5 @@
-#ifndef SRC_TOUCH_CALIBRATE_H_
-#define SRC_TOUCH_CALIBRATE_H_
+#ifndef LIBPEKIN_TOUCH_TOUCH_CALIBRATE_H_
+#define LIBPEKIN_TOUCH_TOUCH_CALIBRATE_H_
 
 #include "graphics/lp_colors.h"
 #include "graphics/lp_idrawing_surface.h"
@@ -51,4 +51,4 @@ bool calibrateTouch(libp::IDrawingSurface<T>& display, resist_touch::Screen& tou
 
 } // namespace libp
 
-#endif /* SRC_TOUCH_CALIBRATE_H_ */
+#endif /* LIBPEKIN_TOUCH_TOUCH_CALIBRATE_H_ */

@@ -1,5 +1,5 @@
-#ifndef IDRAWING_SURFACE_H_
-#define IDRAWING_SURFACE_H_
+#ifndef LIBPEKIN_IDRAWING_SURFACE_H_
+#define LIBPEKIN_IDRAWING_SURFACE_H_
 
 #include <cstdint>
 
@@ -79,6 +79,6 @@ public:
 
 } // namespace libp
 
-#endif /* IDRAWING_SURFACE_H_ */
+#endif /* LIBPEKIN_IDRAWING_SURFACE_H_ */
 
 

@@ -1,5 +1,5 @@
-#ifndef RASTERFONT_H_
-#define RASTERFONT_H_
+#ifndef LIBPEKIN_RASTERFONT_H_
+#define LIBPEKIN_RASTERFONT_H_
 
 #include "graphics/lp_text.h"
 #include <stdint.h>
@@ -131,4 +131,4 @@ private:
 
 } // namespace libp
 
-#endif /* RASTERFONT_H_ */
+#endif /* LIBPEKIN_RASTERFONT_H_ */

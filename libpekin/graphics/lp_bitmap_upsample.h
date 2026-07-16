@@ -12,8 +12,8 @@
  *     // out = { 0xff,0x00,0x00 , 0xff,0x00,0x00 , 0xff,0x00,0x00 , 0xff,0x00,0x00
  *     //         0x00,0x00,0x00 , 0x00,0x00,0x00 , 0x00,0x00,0x00 , 0x00,0x00,0x00 }
  */
-#ifndef BITMAP_UPSAMPLE_H_
-#define BITMAP_UPSAMPLE_H_
+#ifndef LIBPEKIN_BITMAP_UPSAMPLE_H_
+#define LIBPEKIN_BITMAP_UPSAMPLE_H_
 
 #include <cstdint>
 
@@ -130,4 +130,4 @@ void upsample6bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16
 
 } // namespace libp
 
-#endif /* BITMAP_UPSAMPLE_H_ */
+#endif /* LIBPEKIN_BITMAP_UPSAMPLE_H_ */

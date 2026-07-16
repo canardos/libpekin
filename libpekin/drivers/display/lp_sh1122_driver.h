@@ -1,5 +1,5 @@
-#ifndef SRC_SH1122_DRIVER_H_
-#define SRC_SH1122_DRIVER_H_
+#ifndef LIBPEKIN_SH1122_DRIVER_H_
+#define LIBPEKIN_SH1122_DRIVER_H_
 
 #include "bus/lp_bus_concepts.h"
 #include "graphics/lp_idrawing_surface.h"
@@ -357,4 +357,4 @@ private:
 
 } // namespace libp::sh1122
 
-#endif /* SRC_SH1122_DRIVER_H_ */
+#endif /* LIBPEKIN_SH1122_DRIVER_H_ */

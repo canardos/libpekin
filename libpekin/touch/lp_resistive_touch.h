@@ -29,8 +29,8 @@
  * and that you do not charge any royalties or licenses for
  * its use.
  */
-#ifndef SRC_RESISTIVE_TOUCH_H_
-#define SRC_RESISTIVE_TOUCH_H_
+#ifndef LIBPEKIN_TOUCH_RESISTIVE_TOUCH_H_
+#define LIBPEKIN_TOUCH_RESISTIVE_TOUCH_H_
 
 #include "touch/lp_i_touch_screen.h"
 #include <cstdint>
@@ -246,4 +246,4 @@ private:
 
 } // namespace libp::resist_touch
 
-#endif /* SRC_RESISTIVE_TOUCH_H_ */
+#endif /* LIBPEKIN_TOUCH_RESISTIVE_TOUCH_H_ */
