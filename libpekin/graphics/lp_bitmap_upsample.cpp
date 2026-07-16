@@ -3,15 +3,50 @@
 namespace libp {
 
 inline
-static void writeRgb(uint8_t (&color)[3], uint8_t out[])
+static void writeRgb(const uint8_t (&color)[3], uint8_t out[])
 {
     out[0] = color[0];
     out[1] = color[1];
     out[2] = color[2];
 }
 
+inline
+static void writeRgba(const uint8_t (&color)[4], uint8_t out[])
+{
+	// TODO: memcpy?
+    out[0] = color[0];
+    out[1] = color[1];
+    out[2] = color[2];
+    out[3] = color[3];
+}
+
 /// MSB first
-void upsample1bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[2][3])
+void upsample1bppIndexedRGBA(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, const uint8_t (&colors)[2][4])
+{
+    uint32_t src_len = width * height / 8;
+    uint32_t src_idx = 0;
+    uint32_t dst_idx = 0;
+    while (src_idx < src_len) {
+        uint8_t val = in[src_idx++];
+        uint8_t color_idx[8];
+        color_idx[0] =  val >> 7;
+        color_idx[1] = (val & 0b01000000) >> 6;
+        color_idx[2] = (val & 0b00100000) >> 5;
+        color_idx[3] = (val & 0b00010000) >> 4;
+        color_idx[4] = (val & 0b00001000) >> 3;
+        color_idx[5] = (val & 0b00000100) >> 2;
+        color_idx[6] = (val & 0b00000010) >> 1;
+        color_idx[7] =  val & 0b00000001;
+
+        for (uint8_t i = 0; i < 8; i++) {
+            writeRgba(colors[color_idx[i]], &out[dst_idx]);
+            dst_idx += 4;
+        }
+    }
+}
+
+/// MSB first
+void upsample1bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[2][3])
 {
     uint32_t src_len = width * height / 8;
     uint32_t src_idx = 0;
@@ -36,7 +71,28 @@ void upsample1bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
 }
 
 /// MSB first
-void upsample2bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[4][3])
+void upsample2bppIndexedRGBA(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, const uint8_t (&colors)[4][4])
+{
+    uint32_t src_len = width * height / 4;
+    uint32_t src_idx = 0;
+    uint32_t dst_idx = 0;
+    while (src_idx < src_len) {
+        uint8_t val = in[src_idx++];
+        uint8_t color_idx[4];
+        color_idx[0] =  val >> 6;
+        color_idx[1] = (val & 0b00110000) >> 4;
+        color_idx[2] = (val & 0b00001100) >> 2;
+        color_idx[3] =  val & 0b00000011;
+
+        for (uint8_t i = 0; i < 4; i++) {
+            writeRgba(colors[color_idx[i]], &out[dst_idx]);
+            dst_idx += 4;
+        }
+    }
+}
+
+/// MSB first
+void upsample2bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[4][3])
 {
     uint32_t src_len = width * height / 4;
     uint32_t src_idx = 0;
@@ -57,7 +113,7 @@ void upsample2bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
 }
 
 /// MSB first
-void upsample3bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[8][3])
+void upsample3bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[8][3])
 {
     uint32_t src_len = width * height * 3 / 8;
     uint32_t src_idx = 0;
@@ -85,7 +141,7 @@ void upsample3bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
 }
 
 /// MSB first
-void upsample4bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[16][3])
+void upsample4bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[16][3])
 {
     uint32_t src_len = width * height / 2; // document
     uint32_t src_idx = 0;
@@ -104,7 +160,7 @@ void upsample4bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
 }
 
 /// MSB first
-void upsample6bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[64][3])
+void upsample6bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[64][3])
 {
     uint32_t src_len = width * height * 3 / 4;
     uint32_t src_idx = 0;

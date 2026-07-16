@@ -20,6 +20,21 @@
 namespace libp {
 
 /**
+ * Covert packed 1-bit indexed image to RGBA
+ *
+ * MSB first (i.e. byte 0, bit 7 = first pixel)
+ *
+ * `(width * height) % 8 == 0`
+ *
+ * @param in
+ * @param out
+ * @param width
+ * @param height
+ * @param colors array of 2 32-bit RGBA color values
+ */
+void upsample1bppIndexedRGBA(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, const uint8_t (&colors)[2][4]);
+
+/**
  * Covert packed 1-bit indexed image to RGB24.
  *
  * MSB first (i.e. byte 0, bit 7 = first pixel)
@@ -32,7 +47,24 @@ namespace libp {
  * @param height
  * @param colors array of 2 24-bit RGB color values
  */
-void upsample1bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[2][3]);
+void upsample1bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[2][3]);
+
+
+/**
+ * Covert packed 2-bit indexed image to RGBA
+ *
+ * MSB first (i.e. byte 0, bits 7,6 = first pixel)
+ *
+ * `(width * height) % 4 == 0`
+ *
+ * @param in
+ * @param out
+ * @param width
+ * @param height
+ * @param colors array of 4 32-bit RGBA color values
+ */
+void upsample2bppIndexedRGBA(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, const uint8_t (&colors)[4][4]);
+
 
 /**
  * Covert packed 2-bit indexed image to RGB24
@@ -47,7 +79,7 @@ void upsample1bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
  * @param height
  * @param colors array of 4 24-bit RGB color values
  */
-void upsample2bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[4][3]);
+void upsample2bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[4][3]);
 
 
 /**
@@ -63,7 +95,7 @@ void upsample2bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
  * @param height
  * @param colors array of 8 24-bit RGB color values
  */
-void upsample3bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[8][3]);
+void upsample3bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[8][3]);
 
 
 /**
@@ -79,7 +111,7 @@ void upsample3bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
  * @param height
  * @param colors array of 16 24-bit RGB color values
  */
-void upsample4bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[16][3]);
+void upsample4bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[16][3]);
 
 /**
  * Covert packed 6-bit indexed image to RGB24
@@ -94,7 +126,7 @@ void upsample4bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t hei
  * @param height
  * @param colors array of 64 24-bit RGB color values
  */
-void upsample6bppIndexed(uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[64][3]);
+void upsample6bppIndexed(const uint8_t* in, uint8_t* out, uint16_t width, uint16_t height, uint8_t (&colors)[64][3]);
 
 } // namespace libp
 
