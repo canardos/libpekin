@@ -144,7 +144,11 @@ public:
     /**
      * Construct a BtnStateMachine for a single button.
      *
-     * @param menus no copy taken, must remain allocated
+     * @param btn_idx
+     * @param btn_cfg reference retained. Live changes permitted
+     * @param btn_evts reference retained. Live changes permitted
+     * @param btn_evts copy taken
+     * @param menus reference retained, must remain allocated
      */
     constexpr BtnStateMachine(
             uint8_t btn_idx,
@@ -443,7 +447,8 @@ private:
     const BtnInstanceCfg& btn_cfg_;
     const BtnCfg& btn_cfg_global_;
 
-    const BtnEvents<EventType>& btn_evts_;
+    // Take copy to allow for passing temporary on construction
+    const BtnEvents<EventType> btn_evts_;
 
     const BtnMenuEntry<EventType>* menus_;
     const uint8_t num_menus_;
