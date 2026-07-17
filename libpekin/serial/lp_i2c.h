@@ -30,15 +30,18 @@ public:
      *
      * S -> slave_addr W -> write 8-bit reg_addr -> SR -> slave_addr R -> read 8-bit data -> P
      *
+     * NOTE: No error condition detection. Use readReg(uint8_t reg_addr, uint8_t* buffer, size_t len)
+     * if error detection is required.
+     *
      * @param reg_addr register address
      *
-     * @return 8-bit register value or >255 on error (timeout)
+     * @return 8-bit register value.
      */
-    uint16_t readReg(uint8_t reg_addr) const
+    uint8_t readReg(uint8_t reg_addr) const
     {
-        uint8_t data;
-        bool success = i2c_.masterTransmitReceive(slave_addr_, &reg_addr, 1, &data, 1, i2c_timeout_ms_);
-        return success ? data : 256;
+        uint8_t data = 0;
+        i2c_.masterTransmitReceive(slave_addr_, &reg_addr, 1, &data, 1, i2c_timeout_ms_);
+        data;
     }
 
     /**
@@ -89,7 +92,7 @@ public:
     }
 
     /**
-     * Update select bits in an 8-bit value in aregister using an 8-bit
+     * Update select bits in an 8-bit value in a register using an 8-bit
      * address.
      *
      * S -> slave_addr W -> write 8-bit reg_addr -> SR -> slave_addr R -> read 8-bit data -> P
@@ -99,18 +102,16 @@ public:
      * @param reg_mask mask of bits to clear
      * @param reg_value value of bits to apply
      *
-     * @return the prior 8-bit register value or >255 on error (timeout)
+     * @return true on success
      */
-    uint16_t updateReg(uint8_t reg_addr, uint8_t mask, uint8_t value) const
+    bool updateReg(uint8_t reg_addr, uint8_t mask, uint8_t value) const
     {
         uint8_t data[] = { reg_addr, 0 };
         uint8_t cur_value;
         if (!i2c_.masterTransmitReceive(slave_addr_, data, 1, &cur_value, 1, i2c_timeout_ms_))
-            return 256;
+            return false;
         data[1] = (cur_value & ~mask) | value;
-        if (!i2c_.masterTransmit(slave_addr_, data, 2, i2c_timeout_ms_))
-            return 256;
-        return cur_value;
+        return i2c_.masterTransmit(slave_addr_, data, 2, i2c_timeout_ms_);
     }
 
 

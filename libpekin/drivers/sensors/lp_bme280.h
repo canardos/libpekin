@@ -184,9 +184,9 @@ public:
      */
     bool initialize()
     {
-        static constexpr uint8_t chip_id = 0x60;
-        uint16_t id = readReg(Reg::id);
-        if (id != chip_id) {
+        static constexpr uint8_t expected_chip_id = 0x60;
+        uint8_t id = readReg(Reg::id);
+        if (id != expected_chip_id) {
             return false;
         }
         return updateCalibration();
@@ -201,7 +201,7 @@ public:
      */
     bool getMode(Mode& mode)
     {
-        uint16_t ctrl_meas = readReg(Reg::ctrl_meas);
+        uint8_t ctrl_meas = readReg(Reg::ctrl_meas);
         if (ctrl_meas > 255)
             return false;
         const uint8_t mask = 0b11 << reg_ctrl_meas_mode_pos;
@@ -238,7 +238,7 @@ public:
         //
         // TODO: test
 
-        uint16_t ctrl_meas = readReg(Reg::ctrl_meas);
+        uint8_t ctrl_meas = readReg(Reg::ctrl_meas);
         if (ctrl_meas > 255)
             return false;
 
@@ -353,7 +353,7 @@ private:
         return true;
     }
 
-    uint16_t readReg(Reg reg)
+    uint8_t readReg(Reg reg)
     {
         return device_.readReg(enumVal(reg));
     }
@@ -361,11 +361,6 @@ private:
     {
         return device_.writeReg(enumVal(reg), &value, 1);
     }
-    /*bool updateReg(Reg reg, uint8_t mask, uint8_t value)
-    {
-        uint16_t old_value = device_.updateReg(enumVal(reg), mask, value);
-        return old_value <= 255;
-    }*/
 
     void updateCalibTempPres(uint8_t* regs)
     {

@@ -11,7 +11,7 @@
 #ifndef LIBPEKIN_DEVICES_MAX_31856_H_
 #define LIBPEKIN_DEVICES_MAX_31856_H_
 
-#include "serial/lp_spi.h"
+#include "bus/lp_bus_concepts.h"
 #include "lp_types.h"
 #include <cstdint>
 
@@ -66,12 +66,18 @@ enum class OcFaultMode : uint8_t {
  * This class handles configuration and temperature reading via SPI.
  * Reading of the FAULT or DDRY GPIO signals should be done externally.
  *
- * Communication with the IC is via an @p SpiRegisterOps object provided at
- * construction.
+ * @tparam Spi Required SPI spec:
+ *            - 8-bit
+ *            - MSB first
+ *            - 5 MHz max
+ *            - CPHA bit = 1
+ *            - any clock polarity (CPOL)
+ *            - Tcwh: (CSinactive) min = 400ns
+ *            - Tcc: (CSactive to SCLK) min = 100ns
  *
  * Datasheet: https://www.maximintegrated.com/en/products/sensors/MAX31856.html
  */
-template <typename T>
+template <ReadWriteReg8bitAddr auto& Spi>
 class Max31856 {
 public:
     /**
@@ -326,7 +332,8 @@ public:
      *            - Tcwh: (CSinactive) min = 400ns
      *            - Tcc: (CSactive to SCLK) min = 100ns
      */
-    Max31856(SpiRegisterOps<T>& spi) : spi_(spi) {}
+    //Max31856(SpiRegisterOps<T>& spi) : Spi(spi) {}
+    Max31856() {}
 
     /**
      * Set the device configuration.
@@ -357,11 +364,11 @@ public:
                 enumVal(tc_type) << RegBitPos::Config1::thermocouple_type;
 
         // Unclear why, but first write fails sporadically so double up
-        spi_.write(RegAddr::getWriteAddr(RegAddr::config_0), config0);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::config_0), config0);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::config_1), config1);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::config_0), config0);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::config_0), config0);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::config_1), config1);
 
-        //return spi_.read(RegAddr::config_0) == config0 && spi_.read(RegAddr::config_1) == config1;
+        //return Spi.read(RegAddr::config_0) == config0 && Spi.read(RegAddr::config_1) == config1;
     }
 
     /**
@@ -371,7 +378,7 @@ public:
     void setCjOffset(int8_t offset)
     {
         //10 = 0.6/7
-        spi_.write(RegAddr::getWriteAddr(RegAddr::cj_offset), offset);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::cj_offset), offset);
     }
 
     /**
@@ -389,12 +396,12 @@ public:
         // TODO: can we safely assume always 2's compliment?
         // TC reg uses most significant 12bits for integer portion
         // Least significant 4 bits are fractional portion and are unused here
-        spi_.write(RegAddr::getWriteAddr(RegAddr::tc_temp_high_thresh_msb), tc_high >> 4);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::tc_temp_high_thresh_lsb), tc_high << 4);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::tc_temp_low_thresh_msb),  tc_low  >> 4);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::tc_temp_low_thresh_lsb),  tc_low  << 4);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::cj_temp_high_threshold),  cj_high);
-        spi_.write(RegAddr::getWriteAddr(RegAddr::cj_temp_low_threshold),   cj_low);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::tc_temp_high_thresh_msb), tc_high >> 4);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::tc_temp_high_thresh_lsb), tc_high << 4);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::tc_temp_low_thresh_msb),  tc_low  >> 4);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::tc_temp_low_thresh_lsb),  tc_low  << 4);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::cj_temp_high_threshold),  cj_high);
+        Spi.writeReg(RegAddr::getWriteAddr(RegAddr::cj_temp_low_threshold),   cj_low);
     }
 
     /**
@@ -406,7 +413,7 @@ public:
      */
     void setFaultMask(uint8_t mask)
     {
-        spi_.write(RegAddr::fault_mask, mask);
+        Spi.writeReg(RegAddr::fault_mask, mask);
     }
 
     /**
@@ -417,7 +424,7 @@ public:
      */
     uint8_t readFaultStatus()
     {
-        return spi_.read(RegAddr::fault_status);
+        return Spi.readReg(RegAddr::fault_status);
     }
 
     /**
@@ -432,7 +439,7 @@ public:
     uint32_t readTemp()
     {
         uint8_t buf[3];
-        spi_.read(RegAddr::tc_temp_hi_byte, buf, 3);
+        Spi.readReg(RegAddr::tc_temp_hi_byte, buf, 3);
         return buf[0] << 11 | buf[1] << 3 | buf[2] >> 5;
     }
 
@@ -446,12 +453,12 @@ public:
     uint16_t readCjTemp()
     {
         uint8_t buf[2];
-        spi_.read(RegAddr::cj_temp_hi_byte, buf, 2);
+        Spi.readReg(RegAddr::cj_temp_hi_byte, buf, 2);
         return buf[0] << 6 | buf[1] >> 2;
     }
 
-private:
-    SpiRegisterOps<T>& spi_;
+//private:
+//    SpiRegisterOps<T>& Spi;
 };
 
 /**

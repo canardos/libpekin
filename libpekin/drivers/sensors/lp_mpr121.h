@@ -250,18 +250,15 @@ public:
      * @return content of touch status registers 0 and 1 as a 16-bit word.
      *         Bits 11..0 = touch status of the 12 electrodes.
      *         Bit 12 = touch status of proximity sensor.
-     *         Bit 14 = i2c timeout.
      *         Bit 15 = over current flag.
      *         See MPR121 datasheet for more details.
      */
     uint16_t isTouched()
     {
-        uint16_t lsb, msb;
+        uint8_t lsb, msb;
         lsb = readReg(Reg::touched_status_0_7);
         msb = readReg(Reg::touched_status_8_12);
-        return (lsb > 255 || msb > 255)
-                ? 1 << 14
-                : msb << 8 | lsb;
+        return msb << 8 | lsb;
     }
 
 private:
@@ -275,7 +272,7 @@ private:
     };
     static constexpr SetupType setup_type = SetupType::an600;
 
-    uint16_t readReg(Reg reg)
+    uint8_t readReg(Reg reg)
     {
         return device_.readReg(enumVal(reg));
     }

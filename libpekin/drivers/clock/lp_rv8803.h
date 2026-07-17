@@ -183,7 +183,7 @@ public:
         if (day_type != AlarmType::daily) {
             constexpr uint8_t mask = 1 << ext_wada_pos;
             constexpr uint8_t new_val = enumVal(day_type) << ext_wada_pos;
-            if (device_.updateReg8(enumVal(Reg::extensions), mask, new_val) > 255)
+            if (!device_.updateReg8(enumVal(Reg::extensions), mask, new_val))
                 return false;
         }
         // Set alarm time/day
@@ -211,7 +211,7 @@ public:
     {
         constexpr uint8_t mask = 1 << ext_usel_pos;
         uint8_t value = enumVal(type) << ext_usel_pos;
-        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
+        return device_.updateReg(enumVal(Reg::extensions), mask, value);
     }
 
     /// CLKOUT pin frequency
@@ -232,7 +232,7 @@ public:
     {
         constexpr uint8_t mask = 0b11 << ext_fd_pos;
         uint8_t value = enumVal(freq) << ext_fd_pos;
-        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
+        return device_.updateReg(enumVal(Reg::extensions), mask, value);
     }
 
     /// Period countdown timer source clock
@@ -267,7 +267,7 @@ public:
         }
         constexpr uint8_t mask = (1 << ext_te_pos) | (0b11 << ext_td_pos);
         uint8_t value = (enable << ext_te_pos) | (enumVal(clk_freq) << ext_td_pos);
-        return device_.updateReg(enumVal(Reg::extensions), mask, value) <= 255;
+        return device_.updateReg(enumVal(Reg::extensions), mask, value);
     }
 
     /// CLKOUT pin frequency
