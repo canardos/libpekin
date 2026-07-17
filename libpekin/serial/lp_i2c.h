@@ -41,7 +41,7 @@ public:
     {
         uint8_t data = 0;
         i2c_.masterTransmitReceive(slave_addr_, &reg_addr, 1, &data, 1, i2c_timeout_ms_);
-        data;
+        return data;
     }
 
     /**
