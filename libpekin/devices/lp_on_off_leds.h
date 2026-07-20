@@ -354,13 +354,13 @@ private:
                     LP_LOG_DEBUG_IF(EN_LOG_ONOFFLED, DBG_PREFIX"LED %d is still blinking", i);
                     still_blinking = true;
                     if (blink_on_) {
-                        LP_LOG_RAW_IF(EN_LOG_ONOFFLED, Log::Level::DEBUG, "- Turning on ");
+                        LP_LOG_DEBUG_NONL_IF(EN_LOG_ONOFFLED, "- Turning on ");
                         ledOn(i);
                     }
                     else {
                         // Need to move this outside the loop
                         //remain_cycles_per_period_--;
-                        LP_LOG_RAW_IF(EN_LOG_ONOFFLED, Log::Level::DEBUG, "- Turning off ");
+                        LP_LOG_DEBUG_NONL_IF(EN_LOG_ONOFFLED, "- Turning off ");
                         ledOff(i);
                     }
                 }
@@ -375,7 +375,7 @@ private:
             if (!blink_on_) {
                 remain_cycles_per_period_--;
             }
-            LP_LOG_RAW_IF(EN_LOG_ONOFFLED, Log::Level::DEBUG,
+            LP_LOG_DEBUG_RAW_IF(EN_LOG_ONOFFLED,
                     "for %d ms\r\n"
                     "- blink_on = %u\r\n"
                     "- remain_cycles_per_period = %u\r\n"
