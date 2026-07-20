@@ -1,5 +1,4 @@
 #include "lp_libpekin_stm32_hal.h"
-#include "libpekin_hal.h"
 #include "core_cm3.h"
 #include <cstdint>
 
@@ -131,13 +130,6 @@ void delayNs(uint32_t nanos)
     // will still work on overflow
     while ( (DWT->CYCCNT - clk_cycle_start) < clk_cycle_delay)
         ;
-}
-
-void getDeviceId(uint32_t (&id)[3])
-{
-  id[0] = *reinterpret_cast<uint32_t*>(UID_BASE);
-  id[1] = *reinterpret_cast<uint32_t*>(UID_BASE + 4U);
-  id[2] = *reinterpret_cast<uint32_t*>(UID_BASE + 8U);
 }
 
 } // namespace libp

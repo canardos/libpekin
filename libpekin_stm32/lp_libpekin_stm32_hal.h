@@ -52,14 +52,6 @@ using SysTickHandler = void(*)();
  */
 bool lpInitTimers(SysTickHandler handler = nullptr);
 
-/**
- * Untested.
- *
- * Return the unique 96-bit device ID.
- *
- * @param id
- */
-void getDeviceId(uint32_t (&id)[3]);
 
 } // namespace libp
 
