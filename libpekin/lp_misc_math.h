@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <bit>
+#include <utility>
 
 namespace libp {
 
@@ -73,28 +74,36 @@ constexpr double linearInterp(double x0, double y0, double x1, double y1, double
 }
 
 
-// TODO: reference and test
-template <class T>
-const T& constrain(const T& value, const T& min, const T& max)
+// std::cmp_greater/cmp_less requires a real integer type and disallows these
+template <typename T>
+concept CmpSafeInt = std::is_integral_v<T> &&
+                      !std::is_same_v<T, bool> &&
+                      !std::is_same_v<T, char> &&
+                      !std::is_same_v<T, wchar_t> &&
+                      !std::is_same_v<T, char8_t> &&
+                      !std::is_same_v<T, char16_t> &&
+                      !std::is_same_v<T, char32_t>;
+
+template <typename Out, typename In>
+[[nodiscard]] constexpr Out constrain(const In& value, const Out& min, const Out& max)
 {
-    if (value > max)
-        return max;
-    else if (value < min)
-        return min;
-    else
-        return value;
+    if constexpr (CmpSafeInt<In> && CmpSafeInt<Out>) {
+        if (std::cmp_greater(value, max))
+            return max;
+        else if (std::cmp_less(value, min))
+            return min;
+        // else value is def representable by Out
+    }
+    else {
+        if (value > max)
+            return max;
+        if (value < min)
+            return min;
+    }
+    // Could avoid cast if In==Out and qualify for move...?
+    return static_cast<Out>(value);
 }
 
-template <class T, class U>
-constexpr T constrain(const T value, const U min, const U max)
-{
-    if (value > max)
-        return max;
-    else if (value < min)
-        return min;
-    else
-        return value;
-}
 
 inline
 static bool deg_test_norm(uint16_t deg, uint16_t start, uint16_t end) {

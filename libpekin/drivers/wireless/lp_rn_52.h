@@ -3,6 +3,7 @@
 
 #include "serial/lp_i_serial_io.h"
 #include "libpekin.h"
+#include "3rd_party/todd_miller/strlcpy.h"
 #include <cstdint>
 #include <algorithm>
 #include <cstdio>
@@ -10,7 +11,6 @@
 #include <cstdlib>
 #include <cstdint>
 
-#include <strlcpy.h>
 
 namespace libp {
 

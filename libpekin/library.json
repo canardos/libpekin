@@ -1,0 +1,10 @@
+{
+  "name": "libpekin",
+  "version": "0.2.1",
+  "build": {
+    "flags": [
+      "-I${PROJECT_INCLUDE_DIR}",
+      "-I${PROJECT_SRC_DIR}"
+    ]
+  }
+}

@@ -65,12 +65,14 @@ public:
         // TODO: constants
         constexpr uint16_t integral_max_sum = 25;
         integral_ += ki_ * (error * time_elapsed_ms / 1000);
+
         integral_ = constrain(integral_, 0, integral_max_sum * output_scale);
+
         // TODO: why no negative integral?
 
         float derivative = (error - previous_error_) / time_elapsed_ms * 1000;
 
-        *output_var = constrain(
+        *output_var = constrain<float>(
                 (kp_ * error + integral_ + kd_ * derivative) / output_scale,
                 min_, max_ );
 

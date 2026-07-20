@@ -55,7 +55,7 @@ static_assert(maxStrLen<uint8_t>() == 4, "maxStrLen error");
  *         null terminator). Assumes 1-byte per character.
  */
 template <std::integral T>
-constexpr uint8_t maxStrLen(const T& type_sample) {
+constexpr uint8_t maxStrLen([[maybe_unused]] const T& type_sample) {
 	return maxStrLen<T>();
 }
 // Check that this evaluated at compile time and test
