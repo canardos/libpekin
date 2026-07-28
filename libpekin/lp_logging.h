@@ -16,6 +16,7 @@
 #ifndef LIBPEKIN_LP_LOGGING_H_
 #define LIBPEKIN_LP_LOGGING_H_
 
+#include "libpekin.h" // Must be included before the defines below
 #include <cstdarg>
 #include <cstdint>
 #include <cinttypes>
