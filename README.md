@@ -9,7 +9,7 @@ This repo is the result of attempts to reuse code from [various embedded project
 
 The library consists of a core, platform independent set of helper functions, classes, drivers and "interfaces" (`/libpekin`), and hardware specific implementations (e.g. `/libpekin_stm32`)
 
-Abstractions are a mix of abstract classes (AKA interfaces) and C++20 concepts.
+Abstractions are a mix of abstract classes and C++20 concepts.
 
 ## Build
 
@@ -20,7 +20,7 @@ The library has predominantly been used in embedded projects built using [Platfo
 **Notes:**
 
 - Very limited testing and only with GCC.
-- Makes use of C++2a concepts to define interfaces (`-std=c++2a -fconcepts` required).
+- Makes use of C++20 concepts to define interfaces (`-std=c++20` required).
 - C99 VLAs used in several places - make sure you know your stack requirements.
 
 **Dependencies**
@@ -32,8 +32,10 @@ The library has predominantly been used in embedded projects built using [Platfo
 ```
 libpekin [platform independent]
 |
++--3rd_party  : Third-party code
 +--audio      : Audio related constants/data structures
 +--bus        : Bus and GPIO 'interfaces'
++--devices    : Device abstractions, such as LEDs and button state machines.
 +--display    : Some display drivers
 +--drivers    : MCU independent drivers for various semiconductor devices
               : and displays

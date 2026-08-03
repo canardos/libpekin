@@ -32,15 +32,15 @@ void Error::halt(uint8_t code, const char* message, ...) {
     va_start(argptr, message);
     serial_.printf("(%u) ", code);
     serial_.printf(message, argptr);
-    serial_.printf("\r\n");
+    serial_.print("\r\n");
     va_end(argptr);
     halt(code);
 }
 
-static constexpr uint16_t dot_len_ms = 100;
-static constexpr uint16_t dash_len_ms = 500;
+static constexpr uint16_t dot_len_ms    = 100;
+static constexpr uint16_t dash_len_ms   = 500;
 /// Pause between each 1-bit
-static constexpr uint16_t gap_len_ms = 500;
+static constexpr uint16_t gap_len_ms    = 500;
 /// Pause between each 8-bit output
 static constexpr uint16_t pause_len_ms = 4000;
 

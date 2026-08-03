@@ -19,7 +19,7 @@ struct BtnCfg {
     static constexpr uint16_t default_max_time_between_taps_ms  = 500;
     static constexpr uint16_t default_min_time_for_hold_ms      = 1100;
 
-    uint16_t max_time_between_taps_ms= default_max_time_between_taps_ms;
+    uint16_t max_time_between_taps_ms = default_max_time_between_taps_ms;
     uint16_t min_time_for_hold_ms = default_min_time_for_hold_ms;
 };
 
@@ -155,13 +155,15 @@ public:
             const BtnInstanceCfg& btn_cfg,
             const BtnCfg& btn_cfg_global,
             const BtnEvents<EventType>& btn_evts,
-            const BtnMenuEntry<EventType>* menus, uint8_t num_menus)
+            const BtnMenuEntry<EventType>* menus = nullptr, uint8_t num_menus = 0)
                 : btn_idx_(btn_idx),
                   btn_cfg_(btn_cfg),
                   btn_cfg_global_(btn_cfg_global),
                   btn_evts_(btn_evts),
                   menus_(menus), num_menus_(num_menus)
-    { }
+    {
+        LP_ASSERT(menus != nullptr || num_menus == 0);
+    }
 
     // Prevent accidental copy/move
     BtnStateMachine(const BtnStateMachine&) = delete;

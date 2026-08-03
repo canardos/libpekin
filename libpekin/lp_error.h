@@ -6,7 +6,7 @@
 namespace libp {
 
 /// Output only
-/// May change - do not relay on specific values
+/// May change - do not relay on specific values between builds
 namespace ErrCode {
     inline constexpr uint8_t general = 0x01;
     inline constexpr uint8_t display = 0x02;
