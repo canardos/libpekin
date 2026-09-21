@@ -14,7 +14,7 @@
 
 #ifdef __has_include
     #if __has_include(<libpekin_config.h>)
-        #include <libpekin_config.h>
+        #include "libpekin_config.h"
     #else
         #warning "Application needs to define a 'libpekin_config.h' header. See libpekin.h for details. Defaulting to 'libpekin_config_default.h'"
         #include "libpekin_config_default.h"
@@ -24,14 +24,21 @@
     #include <libpekin_config.h>
 #endif
 
-#include <cstdint>
 
-#ifndef LP_ASSERT
-#pragma message("You probably want to define LP_ASSERT in your 'libpekin_config.h' to defer to your platform-specific assert macro/function. Using assert from 'cassert' header.")
-#include <cassert>
-#define LP_ASSERT(condition) assert(condition)
+#ifdef LP_ASSERT_ENABLE
+    #pragma message("Assertions are enabled.")
+    #ifndef LP_ASSERT
+        #pragma message("You probably want to define LP_ASSERT in your 'libpekin_config.h' to defer to your platform-specific assert macro/function. Using assert from 'cassert' header.")
+        #include <cassert>
+        #define LP_ASSERT(condition) assert(condition)
+    #endif
+#else
+    #pragma message("Assertions are disabled.")
+    #define LP_ASSERT(expr)    ((void)(expr))
 #endif
 
+
+#include <cstdint>
 
 namespace libp {
 

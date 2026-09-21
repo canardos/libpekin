@@ -51,6 +51,13 @@
 #define EN_LOG_ONOFFLED false
 #endif
 
+#ifdef EN_LOG_ZCL_GEN // ZCL general
+#undef EN_LOG_ZCL_GEN // silence compiler warning
+#define EN_LOG_ZCL_GEN true
+#else
+#define EN_LOG_ZCL_GEN false
+#endif
+
 #ifdef EN_LOG_ZCL_SCRIPTS // ZCL scripts
 #undef EN_LOG_ZCL_SCRIPTS // silence compiler warning
 #define EN_LOG_ZCL_SCRIPTS true

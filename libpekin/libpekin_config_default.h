@@ -22,10 +22,14 @@
 
 // === Debugging ===
 
-// The library uses the assert macro LP_ASSERT in various places. IF a
-// definition is not provided, it defaults the `assert` provided by the cassert
-// header.
-// Provide a definition here specific to the platform in use:
+// The library uses the assert macro LP_ASSERT in various places. It is enabled
+// by defining LP_ASSERT_ENABLE here:
+//
+// #define LP_ASSERT_ENABLE
+//
+// If a definition for LP_ASSERT is not provided, it defaults the `assert`
+// provided by the <cassert> header. Provide an LP_ASSERT definition here
+// specific to the platform in use:
 
 // e.g. SiLabs EFR32
 //
@@ -37,7 +41,6 @@
 // #include "stm32_assert.h"
 // #define LP_ASSERT assert_param
 
-
 // === Logging ===
 
 // Enable global logging and logging for individual components.
@@ -45,8 +48,10 @@
 // See `lp_logging.h` for details.
 //
 // #define LP_LOG_ENABLE
+//
 // #define EN_LOG_BSM
 // #define EN_LOG_ONOFFLED
 // #define EN_LOG_ZCL_SCRIPTS
+// #define EN_LOG_ZCL_GEN
 //
 #endif /* LIBPEKIN_LIBPEKIN_CONFIG_DEFAULT_H_ */
