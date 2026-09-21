@@ -16,10 +16,10 @@ namespace libp::btn {
  * Global config data for all buttons
  */
 struct BtnCfg {
-    static constexpr uint16_t default_max_time_between_taps_ms  = 500;
+    static constexpr uint16_t default_max_time_btn_taps_ms  = 500;
     static constexpr uint16_t default_min_time_for_hold_ms      = 1100;
 
-    uint16_t max_time_between_taps_ms = default_max_time_between_taps_ms;
+    uint16_t max_time_btn_taps_ms = default_max_time_btn_taps_ms;
     uint16_t min_time_for_hold_ms = default_min_time_for_hold_ms;
 };
 
@@ -181,7 +181,7 @@ private:
     void startMultitapTimer()
     {
         stop_timer(btn_idx_);
-        start_timer(btn_idx_, btn_cfg_global_.max_time_between_taps_ms);
+        start_timer(btn_idx_, btn_cfg_global_.max_time_btn_taps_ms);
     }
 
 
@@ -226,7 +226,7 @@ private:
             stop_timer(btn_idx_);
 
             if (btn_cfg_.is_moment[tap_count_ - 1]) {
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Max tap moment hold - triggering %d-hold\r\n", tap_count_);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Max tap moment hold - triggering %d-hold", tap_count_);
                 is_max_tap_held_ = true;
                 sendEvent(btn_evts_.hold, tap_count_);
 
@@ -236,7 +236,7 @@ private:
                 startHoldTimer();
             }
             else {
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Max tap down - triggering %d-tap\r\n", tap_count_);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Max tap down - triggering %d-tap", tap_count_);
 #ifdef DO_RAPID_TAP
                 sendEvent(btn_evts_.tap, btn_cfg_.max_taps == 1 ? 1 : tap_count_);
 #else
@@ -253,7 +253,7 @@ private:
                 tap_count_++;
                 // Stop multi-tap timer
                 stop_timer(btn_idx_);
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Down (%d taps)\r\n", tap_count_);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Down (%d taps)", tap_count_);
 
                 // start the hold timer for momentary OR this many taps enters a menu
                 if ( (tap_count_ <= BtnInstanceCfg::max_configurable_btn_taps && btn_cfg_.is_moment[tap_count_ - 1])
@@ -277,7 +277,7 @@ private:
                         is_max_tap_held_ = false;
                     }
                     // Start multi tap timer
-                    LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Up (%d taps) - start multi-tap timer\r\n", tap_count_);
+                    LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Up (%d taps) - start multi-tap timer", tap_count_);
                     startMultitapTimer();
                 }
             }
@@ -312,7 +312,7 @@ public:
      */
     void processBtnEvent(bool down)
     {
-        LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Btn %i %s taps/max = %d/%d\r\n", btn_idx_, down ? "DOWN" : "UP", tap_count_, btn_cfg_.max_taps);
+        LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"Btn %i %s taps/max = %d/%d", btn_idx_, down ? "DOWN" : "UP", tap_count_, btn_cfg_.max_taps);
 
         if (down == is_down_) {
             LP_LOG_WARN_IF(EN_LOG_BSM, DBG_PREFIX"Duplicate processBtnEvent(%s) call for btn %u", down ? "down" : "up", btn_idx_);
@@ -351,7 +351,7 @@ public:
         if (is_down_) {
             // If taps_count == max_taps, the hold event was already sent
             if (tap_count_ < btn_cfg_.max_taps || inMenu()) {
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"hold timer expired - triggering %d-hold\r\n", tap_count_);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX"hold timer expired - triggering %d-hold", tap_count_);
                 sendEvent(btn_evts_.hold, tap_count_);
             }
             is_held_ = true;
@@ -366,7 +366,7 @@ public:
             // otherwise send the event here.
             //
             if (tap_count_ < btn_cfg_.max_taps && !btn_cfg_.is_moment[tap_count_ - 1]) {
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX" - triggering %d-tap\r\n", tap_count_);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX" - triggering %d-tap", tap_count_);
                 sendEvent(btn_evts_.tap, tap_count_);
             }
             tap_count_ = 0;
@@ -384,7 +384,7 @@ private:
     {
         for (uint8_t i = 0; i < num_menus_; i++) {
             if (menus_[i].hold_needed == hold && menus_[i].n_taps_to_activate == n_tap) {
-                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX" - entering menu %u\r\n", i);
+                LP_LOG_DEBUG_IF(EN_LOG_BSM, DBG_PREFIX" - entering menu %u", i);
                 cur_menu_ = &menus_[i].menu;
                 internal::cur_excl_mode_btn_id_ = btn_idx_;
                 menus_[i].menu.onMenuEntry();
