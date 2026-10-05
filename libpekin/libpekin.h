@@ -1,9 +1,9 @@
 /*
- * Your program must contain:
+ * The application must contain:
  *
  * 1) A `libpekin_config.h` file in the include path with optional macro
  *    definitions:
- *    - see `libpekin_config_example.h`
+ *    - see `libpekin_config_default.h`
  *
  * 2) Implementations of the functions declared in this file:
  *    - some may be omitted depending on which lib functions are used.
@@ -21,19 +21,17 @@
     #endif
 #else
     // Application needs to define a 'libpekin_config.h' header
-    #include <libpekin_config.h>
+    #include "libpekin_config.h"
 #endif
 
 
 #ifdef LP_ASSERT_ENABLE
-    #pragma message("Assertions are enabled.")
     #ifndef LP_ASSERT
-        #pragma message("You probably want to define LP_ASSERT in your 'libpekin_config.h' to defer to your platform-specific assert macro/function. Using assert from 'cassert' header.")
         #include <cassert>
         #define LP_ASSERT(condition) assert(condition)
+        #define LP_USING_DEFAULT_CASSERT
     #endif
 #else
-    #pragma message("Assertions are disabled.")
     #define LP_ASSERT(expr)    ((void)(expr))
 #endif
 
