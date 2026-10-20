@@ -43,7 +43,7 @@ struct TimeData {
      */
     static void bin2bcd(libp::rv8803::TimeData& time_data)
     {
-        time_data.day_of_week = 1 << dayOfWeek(time_data.year, time_data.month, time_data.day_of_month);
+        time_data.day_of_week = 1 << libp::time::dayOfWeek(time_data.year, time_data.month, time_data.day_of_month);
         time_data.hundredths = libp::bin2bcd(time_data.hundredths);
         time_data.seconds = libp::bin2bcd(time_data.seconds);
         time_data.minutes = libp::bin2bcd(time_data.minutes);
