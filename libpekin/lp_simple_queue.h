@@ -11,10 +11,10 @@ inline void do_nothing_exit([[maybe_unused]] int data) {}
 
 
 /**
- * Simple send/receive fixed length queue.
+ * Simple fixed length queue.
  *
- * send/receive are not reentrant safe unless critical section guard functions
- * are provided.
+ * push/pop are not reentrant safe unless critical section guard functions are
+ * provided.
  *
  * The function signatures are as follows:
  * - U critical_enter()
@@ -52,7 +52,7 @@ public:
                    (!same_function<critical_enter, do_nothing_enter>() && !same_function<critical_exit, do_nothing_exit>()),
                    "Must provide both critical_enter and critical_exit or neither");
 
-    bool send(const T& element)
+    bool push(const T& element)
     {
         auto state = critical_enter();
         if (buffer.isFull()) {
@@ -64,7 +64,7 @@ public:
         return true;
     }
 
-    bool send(T&& element)
+    bool push(T&& element)
     {
         auto state = critical_enter();
         if (buffer.isFull()) {
@@ -76,7 +76,7 @@ public:
         return true;
     }
 
-    bool receive(T *element)
+    bool pop(T *element)
     {
         auto state = critical_enter();
         if (buffer.isEmpty()) {
