@@ -1,6 +1,7 @@
 #ifndef LIBPEKIN_STRING_H_
 #define LIBPEKIN_STRING_H_
 
+#include <string_view>
 #include <cstring>
 #include <type_traits>
 #include <limits>
@@ -84,10 +85,10 @@ constexpr uint8_t maxStrLen() {
     return std::numeric_limits<T>::digits10 + (std::is_signed_v<T> ? 3 : 2);
 }
 // Confirm that this evaluated at compile time and test
-static_assert(maxStrLen<uint8_t>()  == strlen(        "255") + 1, "maxStrLen error");
-static_assert(maxStrLen<int8_t>()   == strlen(       "-255") + 1, "maxStrLen error");
-static_assert(maxStrLen<uint32_t>() == strlen( "4294967296") + 1, "maxStrLen error");
-static_assert(maxStrLen<int32_t>()  == strlen("-4294967296") + 1, "maxStrLen error");
+static_assert(maxStrLen<uint8_t>()  == std::string_view(        "255").length() + 1, "maxStrLen error");
+static_assert(maxStrLen<int8_t>()   == std::string_view(       "-255").length() + 1, "maxStrLen error");
+static_assert(maxStrLen<uint32_t>() == std::string_view( "4294967296").length() + 1, "maxStrLen error");
+static_assert(maxStrLen<int32_t>()  == std::string_view("-4294967296").length() + 1, "maxStrLen error");
 
 
 /**
@@ -112,10 +113,10 @@ inline constexpr uint8_t uint8 = 0;
 inline constexpr int8_t int8 = 0;
 inline constexpr uint32_t uint32 = 0;
 inline constexpr int32_t int32 = 0;
-static_assert(maxStrLen( uint8) == strlen(        "255") + 1, "maxStrLen error");
-static_assert(maxStrLen(  int8) == strlen(       "-255") + 1, "maxStrLen error");
-static_assert(maxStrLen(uint32) == strlen( "4294967296") + 1, "maxStrLen error");
-static_assert(maxStrLen( int32) == strlen("-4294967296") + 1, "maxStrLen error");
+static_assert(maxStrLen( uint8) == std::string_view(        "255").length() + 1, "maxStrLen error");
+static_assert(maxStrLen(  int8) == std::string_view(       "-255").length() + 1, "maxStrLen error");
+static_assert(maxStrLen(uint32) == std::string_view( "4294967296").length() + 1, "maxStrLen error");
+static_assert(maxStrLen( int32) == std::string_view("-4294967296").length() + 1, "maxStrLen error");
 
 
 /**
