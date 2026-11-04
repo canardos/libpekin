@@ -26,38 +26,36 @@ struct RingBuffer {
     static_assert(isPowerOf2(num_elements), "num_elements must be a power of 2");
     static_assert(num_elements >= 2, "num_elements must be >= 2");
 
+    /**
+     * Oldest item dropped if the buffer is full.
+     */
     void write(const T& element)
     {
-        data[write_idx] = element;
-        write_idx = mask(write_idx + 1);
+        if (isFull()) {
+            read_idx = read_idx + 1;
+        }
+        data[mask(write_idx)] = element;
+        write_idx = write_idx + 1;
     }
+
+    /**
+     * Oldest item dropped if the buffer is full.
+     */
     void write(T&& element)
     {
-        data[write_idx] = std::move(element);
-        write_idx = mask(write_idx + 1);
+        if (isFull()) {
+            read_idx = read_idx + 1;
+        }
+        data[mask(write_idx)] = std::move(element);
+        write_idx = write_idx + 1;
     }
 
     T read()
     {
-        T element = std::move(data[read_idx]);
-        read_idx = mask(read_idx + 1);
+        T element = std::move(data[mask(read_idx)]);
+        read_idx = read_idx + 1;
         return element;
     }
-
-    /**
-     * Return element at position write head - offset.
-     *
-     * Any value of offset is "safe", but data returned will be invalid if
-     * offset >= size()
-
-     * @param offset negative offset from the write head.
-     *
-     * @return element reference
-     */
-    /*T& peek(uint16_t offset)
-    {
-        return data[mask(write_idx - 1 - offset)];
-    }*/
 
     /**
      * Return element at position write head - offset.
@@ -76,12 +74,12 @@ struct RingBuffer {
 
     [[nodiscard]] bool isFull() const
     {
-        return mask(write_idx + 1) == read_idx;
+        return size() == num_elements;
     }
 
     [[nodiscard]] bool isEmpty() const
     {
-        return size() == 0;
+        return write_idx == read_idx;
     }
 
     void clear()
@@ -92,7 +90,7 @@ struct RingBuffer {
 
     [[nodiscard]] uint16_t size() const
     {
-        return mask(write_idx - read_idx);
+        return static_cast<uint16_t>(write_idx - read_idx);
     }
 
 private:
@@ -106,6 +104,6 @@ private:
     }
 };
 
-} // namespace Libp
+} // namespace libp
 
 #endif /* LIBPEKIN_RING_BUFFER_H_ */
