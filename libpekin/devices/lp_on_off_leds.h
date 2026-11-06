@@ -275,6 +275,9 @@ public:
         }
 #endif
         ledOff(led);
+        // TODO: confirm his has no sideeffects
+        stop_timer(led);
+
         state_[led] = State::blinking;
         callback_[led] = callback;
 

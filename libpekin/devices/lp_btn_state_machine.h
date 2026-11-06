@@ -666,11 +666,13 @@ private:
 
     void stopMenuInactivityTimer()
     {
-        stop_timer(inactivity_timer_btn_idx);
+        if (cur_menu_ != nullptr && cur_menu_inactive_timeout_ms_ != 0) {
+            stop_timer(inactivity_timer_btn_idx);
+        }
     }
     void restartMenuInactivityTimer()
     {
-        if (cur_menu_inactive_timeout_ms_ != 0) {
+        if (cur_menu_ != nullptr && cur_menu_inactive_timeout_ms_ != 0) {
             stop_timer(inactivity_timer_btn_idx);
             start_timer(inactivity_timer_btn_idx, cur_menu_inactive_timeout_ms_);
         }
